@@ -1,40 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Profile - Stephen</title>
-  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stephen IssaH — Software Developer</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --teal-primary: #008080;
+      --teal-dark: #006666;
+      --teal-light: #e6f2f2;
+      --cyan-accent: #00b3b3;
+      --text-dark: #333;
+      --text-light: #666;
+      --bg-light: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--teal-primary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--teal-dark);
+    }
+
+    /* Header */
+    header {
+      padding: 3rem 0;
+      text-align: center;
+      background: linear-gradient(135deg, var(--teal-light) 0%, white 100%);
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-weight: 700;
+      color: var(--teal-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links .btn {
+      margin: 0 0.5rem;
+      border-radius: 50px;
+      padding: 0.5rem 1rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 2rem 0;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: var(--teal-primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal-light);
+    }
+
+    /* Project Tabs */
+    .nav-tabs {
+      border-bottom: 2px solid var(--teal-light);
+      margin-bottom: 2rem;
+    }
+
+    .nav-tabs .nav-link {
+      color: var(--text-light);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--teal-primary);
+      background-color: transparent;
+      border-bottom: 3px solid var(--cyan-accent);
+    }
+
+    .nav-tabs .nav-link:hover:not(.active) {
+      color: var(--teal-dark);
+    }
+
+    /* Project Cards */
+    .project-card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 179, 179, 0.15);
+    }
+
+    .project-card .card-body {
+      padding: 1.5rem;
+    }
+
+    .project-card .card-title {
+      color: var(--teal-primary);
+      font-weight: 600;
+    }
+
+    .project-card .card-text {
+      color: var(--text-light);
+    }
+
+    .project-links .btn {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Coming Soon */
+    .coming-soon {
+      text-align: center;
+      padding: 3rem;
+      background-color: var(--teal-light);
+      border-radius: 10px;
+      color: var(--text-light);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 0;
+      background-color: var(--teal-light);
+      color: var(--text-light);
+      text-align: center;
+      border-radius: 20px 20px 0 0;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 2rem 0;
+      }
+
+      /* .profile-pic {
+        width: 120px;
+        height: 120px;
+      } */
+
+      .nav-tabs .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
-    <header>
-      <img src="./assets/img/me.jpg" alt="My Photo" class="profile-pic" />
+    <header class="fade-in">
+      <img src="./assets/img/me.jpg" alt="Stephen IssaH" class="profile-pic">
       <h1>Stephen IssaH</h1>
-      <p class="subtitle">Software Developer | Tech Enthusiast | Lifelong Learner</p>
+      <p class="subtitle">Software Developer · AI/ML Explorer</p>
+      <div class="social-links">
+        <a href="https://github.com/issah1554" target="_blank" class="btn btn-outline-teal">
+          <i class="bi bi-github"></i> GitHub
+        </a>
+        <a href="mailto:novathkatalina@gmail.com" class="btn btn-outline-teal">
+          <i class="bi bi-envelope"></i> Email
+        </a>
+        <a href="https://www.linkedin.com/in/issah-abdul-958775288" target="_blank" class="btn btn-outline-teal">
+          <i class="bi bi-linkedin"></i> LinkedIn
+        </a>
+      </div>
     </header>
 
-    <section>
-      <h2>About Me</h2>
-      <p>
-        Hi! I'm Stephen, a developer who loves building  web and mobile apps, exploring AI/ML, and sharing knowledge. This site is a little home for my projects, notes, and interests.
+    <main>
+      <section id="about" class="fade-in">
+        <h2><i class="bi bi-person"></i> About</h2>
+        <div class="row">
+          <div class="col-lg-10">
+            <p class="lead">
+              I build web and mobile applications with a focus on clean architecture and performance.
+              Currently exploring AI/ML applications in developer tools.
+            </p>
+            <p>
+              I believe in <strong>simple solutions to complex problems</strong> and enjoy mentoring
+              junior developers in my free time. My approach combines technical excellence with
+              thoughtful design to create impactful digital experiences.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="fade-in">
+        <h2><i class="bi bi-code-slash"></i> Projects</h2>
+
+        <!-- Project Tabs -->
+        <ul class="nav nav-tabs" id="projectTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="educational-tab" data-bs-toggle="tab" data-bs-target="#educational"
+              type="button" role="tab" aria-controls="educational" aria-selected="true">
+              <i class="bi bi-book"></i> Educational
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="productivity-tab" data-bs-toggle="tab" data-bs-target="#productivity"
+              type="button" role="tab" aria-controls="productivity" aria-selected="false">
+              <i class="bi bi-check-circle"></i> Productivity
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="opensource-tab" data-bs-toggle="tab" data-bs-target="#opensource" type="button"
+              role="tab" aria-controls="opensource" aria-selected="false">
+              <i class="bi bi-git"></i> Open Source
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="research-tab" data-bs-toggle="tab" data-bs-target="#research" type="button"
+              role="tab" aria-controls="research" aria-selected="false">
+              <i class="bi bi-search"></i> Research
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="projectTabsContent">
+          <!-- Educational Projects -->
+          <div class="tab-pane fade show active" id="educational" role="tabpanel" aria-labelledby="educational-tab">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="project-card card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Interactive Computer Language Classification</h5>
+                    <p class="card-text">
+                      A visualization tool that classifies programming languages based on paradigms,
+                      performance, and use cases with interactive filtering capabilities.
+                    </p>
+                    <div class="project-links">
+                      <a href="https://issah1554.github.io/project5/" target="_blank"
+                        class="btn btn-sm btn-outline-teal">
+                        <i class="bi bi-eye"></i> Live Demo
+                      </a>
+                      <a href="https://github.com/issah1554/project5" target="_blank"
+                        class="btn btn-sm btn-outline-teal">
+                        <i class="bi bi-code-square"></i> Source Code
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add more educational projects here -->
+            </div>
+          </div>
+
+          <!-- Productivity Projects -->
+          <div class="tab-pane fade" id="productivity" role="tabpanel" aria-labelledby="productivity-tab">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="project-card card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Kumbuka App</h5>
+                    <p class="card-text">
+                      A memory-enhancement mobile app using spaced repetition techniques with
+                      customizable learning schedules and progress tracking.
+                    </p>
+                    <div class="project-links">
+                      <a href="#" target="_blank" class="btn btn-sm btn-outline-teal">
+                        <i class="bi bi-file-text"></i> Case Study
+                      </a>
+                      <a href="https://github.com/issah1554/kumbuka" target="_blank"
+                        class="btn btn-sm btn-outline-teal">
+                        <i class="bi bi-code-square"></i> Source Code
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add more productivity projects here -->
+            </div>
+          </div>
+
+          <!-- Open Source Projects -->
+          <div class="tab-pane fade" id="opensource" role="tabpanel" aria-labelledby="opensource-tab">
+            <div class="coming-soon">
+              <i class="bi bi-hourglass-split" style="font-size: 2rem; color: var(--teal-primary);"></i>
+              <h4>Open Source Contributions Coming Soon</h4>
+              <p>I'm actively working on open source contributions and will update this section soon.</p>
+            </div>
+          </div>
+
+          <!-- Research Projects -->
+          <div class="tab-pane fade" id="research" role="tabpanel" aria-labelledby="research-tab">
+            <div class="coming-soon">
+              <i class="bi bi-flask" style="font-size: 2rem; color: var(--teal-primary);"></i>
+              <h4>Research Projects Coming Soon</h4>
+              <p>Exciting research projects are in progress. Check back later for updates!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="fade-in">
+        <h2><i class="bi bi-envelope"></i> Contact</h2>
+        <div class="row">
+          <div class="col-lg-8">
+            <p class="lead">
+              Interested in collaborating or just want to chat about technology and software development?
+            </p>
+            <a href="mailto:novathkatalina@gmail.com" class="btn btn-outline-teal">
+              <i class="bi bi-envelope"></i> Send me an email
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="fade-in">
+      <p>© <span id="year"></span> Stephen IssaH. All rights reserved.</p>
+      <p class="text-muted small mt-2">
+        Built with <i class="bi bi-heart-fill" style="color: var(--cyan-accent);"></i> and Bootstrap
       </p>
-    </section>
-
-    <section>
-      <h2>Projects</h2>
-      <ul>
-        <li><a href="https://issah1554.github.io/project5/" target="_blank">Interactive Computer Language Classification</a></li>
-        <li><a href="https://github.com/yourusername/project2" target="_blank">📁 Project 2</a></li>
-        <li><a href="https://github.com/yourusername/kumbuka" target="_blank">📁 Kumbuka App</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:novathkatalina@gmail.com">novathkatalina@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/issah1554" target="_blank">github.com/issah1554</a></p>
-    </section>
+    </footer>
   </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Auto-update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Add active class to clicked nav items
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function () {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Custom teal button color
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .btn-teal, .btn-outline-teal {
+        --bs-btn-color: #fff;
+        --bs-btn-border-color: var(--teal-primary);
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: var(--teal-dark);
+        --bs-btn-hover-border-color: var(--teal-dark);
+        --bs-btn-focus-shadow-rgb: 0, 179, 179;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: var(--teal-dark);
+        --bs-btn-active-border-color: var(--teal-dark);
+      }
+      
+      .btn-outline-teal {
+        --bs-btn-color: var(--teal-primary);
+        --bs-btn-border-color: var(--teal-primary);
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: var(--teal-primary);
+        --bs-btn-hover-border-color: var(--teal-primary);
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
+
 </html>
