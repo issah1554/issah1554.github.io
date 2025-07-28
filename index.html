@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intaractive Language Classification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f7fa;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    .grid-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .grid-column {
+      flex: 1;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .column-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eee;
+      text-align: center;
+    }
+
+    .grid-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    /* Different colors for each classification */
+    .classification.purpose {
+      background: #4e79a7;
+    }
+
+    .classification.abstraction {
+      background: #59a14f;
+    }
+
+    .classification.paradigm {
+      background: #e15759;
+    }
+
+    .classification.runtime {
+      background: #edc948;
+      color: #333;
+    }
+
+    .classification {
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    /* Category colors match their parent classification */
+    .category[data-parent="purpose"] {
+      background: #4e79a7;
+    }
+
+    .category[data-parent="abstraction"] {
+      background: #59a14f;
+    }
+
+    .category[data-parent="paradigm"] {
+      background: #e15759;
+    }
+
+    .category[data-parent="runtime"] {
+      background: #edc948;
+      color: #333;
+    }
+
+    .category {
+      color: white;
+      padding: 8px;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+    }
+
+    /* Languages in neutral color */
+    .language {
+      background: #79706e;
+      color: white;
+      padding: 8px;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 13px;
+    }
+
+    .highlight {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      opacity: 1 !important;
+    }
+
+    .dim {
+      opacity: 0.2;
+      background: #ccc !important;
+      color: #666 !important;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 5px;
+    }
+
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      border-radius: 3px;
+    }
+
+    .description-panel {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 800px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      display: none;
+    }
+
+    .description-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .description-content {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Interactive Computer Language Classification</h1>
+  <p class="subtitle">Click any item to see details and relationships</p>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #4e79a7;"></div>
+      <span>Purpose</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #59a14f;"></div>
+      <span>Abstraction</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #e15759;"></div>
+      <span>Paradigm</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #edc948;"></div>
+      <span>Runtime</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #79706e;"></div>
+      <span>Languages</span>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="grid-column" id="classifications-column">
+      <div class="column-title">Classifications</div>
+      <div class="grid-items" id="classifications-grid"></div>
+    </div>
+
+    <div class="grid-column" id="categories-column">
+      <div class="column-title">Categories</div>
+      <div class="grid-items" id="categories-grid"></div>
+    </div>
+
+    <div class="grid-column" id="languages-column">
+      <div class="column-title">Languages</div>
+      <div class="grid-items" id="languages-grid"></div>
+    </div>
+  </div>
+
+  <div class="description-panel" id="description-panel">
+    <button class="close-btn" id="close-btn">×</button>
+    <div class="description-title" id="description-title"></div>
+    <div class="description-content" id="description-content"></div>
+  </div>
+
+  <script>
+    // Enhanced data structure with descriptions
+  const data = {
+    classifications: [
+      {
+        id: "purpose",
+        name: "By Purpose",
+        description: "Classifies languages based on their primary intended use or application domain."
+      },
+      {
+        id: "abstraction",
+        name: "By Abstraction",
+        description: "Groups languages by their level of abstraction from machine code and hardware."
+      },
+      {
+        id: "paradigm",
+        name: "By Paradigm",
+        description: "Organizes languages according to their programming paradigm or style."
+      },
+      {
+        id: "runtime",
+        name: "By Runtime",
+        description: "Categorizes languages based on where and how they are typically executed."
+      }
+    ],
+
+    categories: [
+      {
+        id: "programming",
+        name: "Programming",
+        parent: "purpose",
+        description: "General-purpose programming languages designed for building software applications."
+      },
+      {
+        id: "scripting",
+        name: "Scripting",
+        parent: "purpose",
+        description: "Languages typically interpreted and used to automate tasks, connect components, or manipulate data quickly."
+      },
+      {
+        id: "markup",
+        name: "Markup",
+        parent: "purpose",
+        description: "Languages for annotating documents with tags that define structure and presentation."
+      },
+      {
+        id: "query",
+        name: "Query",
+        parent: "purpose",
+        description: "Specialized languages for retrieving, filtering, or manipulating data from structured sources like databases."
+      },
+      {
+        id: "hardware",
+        name: "Hardware",
+        parent: "purpose",
+        description: "Languages used for hardware description, low-level device interaction, and circuit design."
+      },
+      {
+        id: "low",
+        name: "Low-Level",
+        parent: "abstraction",
+        description: "Languages with minimal abstraction from machine hardware, close to binary or assembly instructions."
+      },
+      {
+        id: "middle",
+        name: "Middle-Level",
+        parent: "abstraction",
+        description: "Languages that allow both hardware-level access and higher-level abstractions for broader use."
+      },
+      {
+        id: "high",
+        name: "High-Level",
+        parent: "abstraction",
+        description: "Languages that abstract away memory management, hardware operations, and system-level concerns."
+      },
+      {
+        id: "vhigh",
+        name: "Very High",
+        parent: "abstraction",
+        description: "Languages offering extreme abstraction, often for domain-specific or visual programming."
+      },
+      {
+        id: "procedural",
+        name: "Procedural",
+        parent: "paradigm",
+        description: "Languages that use procedures, routines, or subroutines to structure code."
+      },
+      {
+        id: "oop",
+        name: "OOP",
+        parent: "paradigm",
+        description: "Object-oriented languages that model programs using objects and classes."
+      },
+      {
+        id: "functional",
+        name: "Functional",
+        parent: "paradigm",
+        description: "Languages that focus on functions, immutability, and expressions over statements."
+      },
+      {
+        id: "declarative",
+        name: "Declarative",
+        parent: "paradigm",
+        description: "Languages that focus on describing what the program should accomplish rather than how."
+      },
+      {
+        id: "client",
+        name: "Client-Side",
+        parent: "runtime",
+        description: "Languages designed to run in browsers or directly on end-user devices."
+      },
+      {
+        id: "server",
+        name: "Server-Side",
+        parent: "runtime",
+        description: "Languages executed on back-end systems or web servers, often powering business logic and APIs."
+      },
+      {
+        id: "embedded",
+        name: "Embedded",
+        parent: "runtime",
+        description: "Languages optimized for use in devices with hardware constraints such as sensors, controllers, or IoT systems."
+      },
+      {
+        id: "scientific",
+        name: "Scientific",
+        parent: "runtime",
+        description: "Languages used in high-performance computing, simulations, and mathematical modeling."
+      }
+    ],
+
+    languages: [
+      { id: "c", name: "C", parents: ["programming", "middle", "procedural", "embedded"], description: "A general-purpose, procedural language widely used for system and embedded programming." },
+      { id: "cpp", name: "C++", parents: ["programming", "middle", "oop", "embedded"], description: "Extension of C adding object-oriented and generic programming features for performance-critical systems." },
+      { id: "java", name: "Java", parents: ["programming", "high", "oop", "server"], description: "Object-oriented language designed for portability via the JVM, used extensively in enterprise and Android development." },
+      { id: "python", name: "Python", parents: ["programming", "high", "oop", "server", "scientific"], description: "High-level interpreted language known for readability and versatility across web, automation, and data science." },
+      { id: "js", name: "JavaScript", parents: ["scripting", "high", "oop", "client"], description: "Scripting language of the web used for dynamic content and now also on servers (Node.js)." },
+      { id: "typescript", name: "TypeScript", parents: ["programming", "high", "oop", "client"], description: "Typed superset of JavaScript that compiles to plain JS, improving safety and scalability in frontend development." },
+      { id: "bash", name: "Bash", parents: ["scripting", "high", "procedural", "server"], description: "Unix shell and command language used for scripting, automation, and administrative tasks." },
+      { id: "shell", name: "Shell", parents: ["scripting", "high", "procedural", "server"], description: "Generic term for Unix-style shells (sh, zsh, dash) used in scripting and CLI-based automation." },
+      { id: "html", name: "HTML", parents: ["markup", "declarative", "vhigh", "client"], description: "Standard markup language used to structure and display web content in browsers." },
+      { id: "sql", name: "SQL", parents: ["query", "vhigh", "declarative", "server"], description: "Language for querying, updating, and managing data in relational databases." },
+      { id: "php", name: "PHP", parents: ["scripting", "high", "oop", "server"], description: "Server-side scripting language designed for building dynamic web content and applications." },
+      { id: "go", name: "Go", parents: ["programming", "high", "procedural", "server"], description: "Compiled language with strong concurrency support, created at Google for scalable back-end systems." },
+      { id: "swift", name: "Swift", parents: ["programming", "high", "oop", "client"], description: "Apple’s modern, type-safe programming language used for building iOS and macOS applications." },
+      { id: "kotlin", name: "Kotlin", parents: ["programming", "high", "oop", "client", "server"], description: "Modern language for Android and backend development, interoperable with Java." },
+      { id: "dart", name: "Dart", parents: ["programming", "high", "oop", "client"], description: "Language optimized for UI building, primarily used with Flutter for mobile and web apps." },
+      { id: "haskell", name: "Haskell", parents: ["functional", "high", "programming", "server"], description: "Pure functional language emphasizing lazy evaluation and type safety." },
+      { id: "lisp", name: "Lisp", parents: ["functional", "high", "programming"], description: "Family of symbolic processing languages with a strong foundation in recursion and list processing." },
+      { id: "scheme", name: "Scheme", parents: ["functional", "high", "programming"], description: "Minimalist Lisp dialect used for teaching and symbolic computation." },
+      { id: "prolog", name: "Prolog", parents: ["declarative", "high", "programming"], description: "Logic programming language used in AI and rule-based systems." },
+      { id: "rust", name: "Rust", parents: ["programming", "middle", "oop", "embedded"], description: "Systems language focusing on memory safety, concurrency, and zero-cost abstractions." },
+      { id: "vhdl", name: "VHDL", parents: ["hardware", "low"], description: "Hardware description language used to model digital systems and circuits." },
+      { id: "assembly", name: "Assembly", parents: ["hardware", "low", "procedural", "embedded"], description: "Low-level language using mnemonic codes to represent machine instructions specific to CPU architecture." },
+      { id: "fortran", name: "Fortran", parents: ["scientific", "low", "procedural"], description: "One of the oldest high-level languages, still used in scientific and high-performance computing." },
+      { id: "matlab", name: "MATLAB", parents: ["scientific", "vhigh", "procedural"], description: "Environment and language for numerical analysis, simulation, and data visualization." },
+      { id: "r", name: "R", parents: ["scientific", "vhigh", "declarative", "server"], description: "Language for statistical analysis and graphics, widely used in academia and data science." },
+      { id: "cobol", name: "COBOL", parents: ["programming", "high", "procedural", "server"], description: "Legacy business-oriented language still widely used in banking and government systems." },
+      { id: "julia", name: "Julia", parents: ["scientific", "high", "functional", "server"], description: "High-level, high-performance dynamic language designed for technical computing and machine learning." },
+      { id: "scratch", name: "Scratch", parents: ["programming", "vhigh", "oop", "client"], description: "Block-based visual language for teaching programming concepts to children and beginners." },
+      { id: "perl", name: "Perl", parents: ["scripting", "high", "procedural", "server"], description: "Text-processing and automation language popular in bioinformatics and legacy web systems." },
+      { id: "lua", name: "Lua", parents: ["scripting", "high", "procedural", "embedded"], description: "Lightweight embeddable scripting language used in games, robotics, and embedded systems." },
+      { id: "elm", name: "Elm", parents: ["functional", "high", "client"], description: "Functional language for front-end web development with a strong type system and no runtime exceptions." }
+    ]
+  };
+
+    // Initialize the grid
+    function initializeGrid() {
+      const classificationsGrid = document.getElementById('classifications-grid');
+      const categoriesGrid = document.getElementById('categories-grid');
+      const languagesGrid = document.getElementById('languages-grid');
+      const closeBtn = document.getElementById('close-btn');
+
+      // Close description panel when X is clicked
+      closeBtn.addEventListener('click', () => {
+        document.getElementById('description-panel').style.display = 'none';
+      });
+
+      // Render classifications
+      data.classifications.forEach(item => {
+        const el = document.createElement('div');
+        el.className = `classification ${item.id}`;
+        el.textContent = item.name;
+        el.dataset.id = item.id;
+        el.dataset.description = item.description;
+        el.addEventListener('click', handleItemClick);
+        classificationsGrid.appendChild(el);
+      });
+
+      // Render categories
+      data.categories.forEach(item => {
+        const el = document.createElement('div');
+        el.className = 'category';
+        el.textContent = item.name;
+        el.dataset.id = item.id;
+        el.dataset.parent = item.parent;
+        el.dataset.description = item.description;
+        el.addEventListener('click', handleItemClick);
+        categoriesGrid.appendChild(el);
+      });
+
+      // Render languages in neutral color
+      data.languages.forEach(item => {
+        const el = document.createElement('div');
+        el.className = 'language';
+        el.textContent = item.name;
+        el.dataset.id = item.id;
+        el.dataset.parents = item.parents.join(',');
+        el.dataset.description = item.description;
+        el.addEventListener('click', handleItemClick);
+        languagesGrid.appendChild(el);
+      });
+    }
+
+    // Handle item clicks
+    function handleItemClick(event) {
+      const item = event.currentTarget;
+      const itemId = item.dataset.id;
+      const description = item.dataset.description;
+
+      // Show description
+      const descriptionPanel = document.getElementById('description-panel');
+      document.getElementById('description-title').textContent = item.textContent;
+      document.getElementById('description-content').textContent = description;
+      descriptionPanel.style.display = 'block';
+
+      if (item.classList.contains('highlight')) {
+        resetHighlights();
+        return;
+      }
+
+      resetHighlights();
+      item.classList.add('highlight');
+
+      // Find related items
+      let relatedIds = [itemId]; // Include clicked item
+
+      // Check if it's a classification
+      if (item.classList.contains('classification')) {
+        // Get all categories under this classification
+        const categories = data.categories.filter(cat => cat.parent === itemId);
+        relatedIds.push(...categories.map(cat => cat.id));
+
+        // Get all languages under these categories
+        categories.forEach(cat => {
+          const langs = data.languages.filter(lang => lang.parents.includes(cat.id));
+          relatedIds.push(...langs.map(lang => lang.id));
+        });
+      }
+      // Check if it's a category
+      else if (item.classList.contains('category')) {
+        // Get parent classification
+        const category = data.categories.find(cat => cat.id === itemId);
+        relatedIds.push(category.parent);
+
+        // Get all languages under this category
+        const langs = data.languages.filter(lang => lang.parents.includes(itemId));
+        relatedIds.push(...langs.map(lang => lang.id));
+      }
+      // Check if it's a language
+      else if (item.classList.contains('language')) {
+        // Get all parent categories
+        const language = data.languages.find(lang => lang.id === itemId);
+        relatedIds.push(...language.parents);
+
+        // Get all classifications of these categories
+        language.parents.forEach(parentId => {
+          const cat = data.categories.find(cat => cat.id === parentId);
+          if (cat) {
+            relatedIds.push(cat.parent);
+          }
+        });
+      }
+
+      // Highlight related items and dim others
+      document.querySelectorAll('.classification, .category, .language').forEach(el => {
+        if (relatedIds.includes(el.dataset.id)) {
+          el.classList.add('highlight');
+        } else {
+          el.classList.add('dim');
+        }
+      });
+    }
+
+    // Reset all highlights
+    function resetHighlights() {
+      document.querySelectorAll('.classification, .category, .language').forEach(el => {
+        el.classList.remove('highlight');
+        el.classList.remove('dim');
+      });
+    }
+
+    // Initialize the application
+    window.onload = initializeGrid;
+  </script>
+</body>
+
+</html>
