@@ -4,7 +4,7 @@ class MyButton extends HTMLElement {
     const variant = this.getAttribute("variant") || "primary";
 
     const styles = {
-      primary: "bg-blue-600 text-white border-none",
+      primary: "bg-primary-600 text-white border-none",
       secondary: "bg-gray-200 text-gray-900 border-none",
       info: "bg-cyan-500 text-white border-none",
       success: "bg-green-600 text-white border-none",
