@@ -81,6 +81,7 @@ export class AppLayout extends HTMLElement {
             <app-footer></app-footer>
           </slot>
         </section>
+        <app-right-drawer></app-right-drawer>
       </div>
     `;
   }
