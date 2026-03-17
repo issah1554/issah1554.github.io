@@ -9,27 +9,23 @@
 
 <body>
     <app-layout>
-        <app-navbar slot="sidebar" title="Signal HQ"></app-navbar>
-        <app-topbar slot="topbar" title="Mission Control" subtitle="Track priority workstreams in one place."></app-topbar>
-
-        <app-button label="Save" rounded="none" ></app-button>
+        <app-button label="Save" rounded="none"></app-button>
         <app-button label="Delete" color="error" variant="solid" size="md" rounded="none"></app-button>
         <app-button label="Info" color="info" variant="outline" size="sm" rounded="full"></app-button>
-        <app-button label="Accent" color="info" variant="solid" ></app-button>
+        <app-button label="Accent" color="info" variant="solid"></app-button>
 
-        <app-footer slot="footer" label="All systems operational"></app-footer>
+        <br>
+        <user-avatar src="" alt="Stephen IssaH" size="60" status="online" rounded="full"></user-avatar>
+        <user-avatar alt="Stephen IssaH" initials="SI" size="70" status="pending"></user-avatar>
+        <user-avatar alt="Stephen IssaH" size="80" status="online" show-edit-button="true"></user-avatar>
     </app-layout>
 
-    <!-- <user-avatar src="" alt="Stephen IssaH" size="60" status="online" rounded="full"></user-avatar>
-    <user-avatar alt="Stephen IssaH" initials="SI" size="70" status="pending"></user-avatar>
-    <user-avatar alt="Stephen IssaH" size="80" status="online" show-edit-button="true"></user-avatar> -->
-
     <script src="./elements/ui/app-button.js"></script>
-    <!-- <script src="./elements/ui/user-avatar.js"></script> -->
-     <script type="module" src="./elements/layout/admin-dash-0/app-navbar.js"></script>
-     <script type="module" src="./elements/layout/admin-dash-0/app-topbar.js"></script>
-     <script type="module" src="./elements/layout/admin-dash-0/footer.js"></script>
-     <script type="module" src="./elements/layout/admin-dash-0/layout.js"></script>
+    <script src="./elements/ui/user-avatar.js"></script>
+    <script type="module" src="./elements/layout/admin-dash-0/app-navbar.js"></script>
+    <script type="module" src="./elements/layout/admin-dash-0/app-topbar.js"></script>
+    <script type="module" src="./elements/layout/admin-dash-0/footer.js"></script>
+    <script type="module" src="./elements/layout/admin-dash-0/layout.js"></script>
 </body>
 
 </html>

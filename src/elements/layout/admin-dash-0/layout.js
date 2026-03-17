@@ -16,6 +16,10 @@ export class AppLayout extends HTMLElement {
         .sidebar {
           width: 260px;
           border-right: 1px solid var(--main-800);
+          background: var(--main-950);
+          position: relative;
+          z-index: 2;
+          box-sizing: border-box;
         }
 
         .content {
@@ -24,12 +28,26 @@ export class AppLayout extends HTMLElement {
           flex-direction: column;
           background: var(--main-100);
           color: var(--main-900);
+          position: relative;
+          z-index: 1;
         }
 
         .main {
           flex: 1;
           padding: 28px 26px;
           background: var(--main-100);
+        }
+
+        app-navbar {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        ::slotted(app-navbar) {
+          display: block;
+          width: 100%;
+          height: 100%;
         }
 
         @media (max-width: 900px) {
@@ -47,15 +65,21 @@ export class AppLayout extends HTMLElement {
 
       <div class="layout">
         <aside class="sidebar">
-          <slot name="sidebar"></slot>
+          <slot name="sidebar">
+            <app-navbar></app-navbar>
+          </slot>
         </aside>
 
         <section class="content">
-          <slot name="topbar"></slot>
+          <slot name="topbar">
+            <app-topbar></app-topbar>
+          </slot>
           <main class="main">
             <slot></slot>
           </main>
-          <slot name="footer"></slot>
+          <slot name="footer">
+            <app-footer></app-footer>
+          </slot>
         </section>
       </div>
     `;

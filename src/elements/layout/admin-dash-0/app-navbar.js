@@ -8,10 +8,11 @@ export class AppNavbar extends HTMLElement {
           background: transparent;
           color: var(--main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
+          width: 100%;
         }
 
         .sidenav {
-          width: 260px;
+          width: 100%;
           min-height: 100vh;
           display: flex;
           flex-direction: column;
@@ -19,6 +20,7 @@ export class AppNavbar extends HTMLElement {
           gap: 20px;
           background: var(--main-950);
           border-right: 1px solid var(--main-800);
+          box-sizing: border-box;
         }
 
         .brand .eyebrow {
