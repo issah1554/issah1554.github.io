@@ -70,6 +70,11 @@ export class AppRightDrawer extends HTMLElement {
           width: 18px;
           height: 18px;
           display: block;
+          transition: transform 0.2s ease;
+        }
+
+        .trigger.open svg {
+          transform: rotate(180deg);
         }
       </style>
 
@@ -81,6 +86,7 @@ export class AppRightDrawer extends HTMLElement {
           />
         </svg>
       </button>
+      
       <aside class="drawer" aria-hidden="true">
         <div class="drawer-header">
           <h3>Quick Panel</h3>
@@ -100,6 +106,7 @@ export class AppRightDrawer extends HTMLElement {
       const isOpen = drawer.classList.toggle("open");
       trigger.setAttribute("aria-expanded", String(isOpen));
       drawer.setAttribute("aria-hidden", String(!isOpen));
+      trigger.classList.toggle("open", isOpen);
     });
 
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
