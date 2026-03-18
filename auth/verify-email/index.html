@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>Verify Email</title>
     <link rel="stylesheet" href="../../assets/css/tailwind.css">
 </head>
 
@@ -12,8 +12,8 @@
     <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg border border-main-200">
         <div class="flex flex-col items-center">
             <img src="../../assets/img/logo.png" class="w-36 mb-4" alt="Logo">
-            <h1 class="text-3xl font-bold mb-2 text-center text-gray-800">Forgot Password</h1>
-            <p class="text-center text-gray-600 text-sm mb-6">Enter your email to receive a reset code.</p>
+            <h1 class="text-3xl font-bold mb-2 text-center text-gray-800">Verify Your Email</h1>
+            <p class="text-center text-gray-600 text-sm mb-6">We will send a 6-digit code to your inbox.</p>
         </div>
 
         <div class="flex flex-col gap-4">
@@ -22,13 +22,13 @@
         </div>
 
         <div class="mt-6">
-            <app-button label="Send Code" color="primary" variant="solid" size="md" rounded="md"
+            <app-button label="Send OTP" color="primary" variant="solid" size="md" rounded="md"
                 class="w-full"></app-button>
         </div>
 
         <div class="mt-4 flex items-center justify-between text-sm text-gray-600">
-            <a href="/auth/verify-email" class="hover:underline text-primary-500">Continue to Verify Email</a>
-            <a href="/auth/login" class="hover:underline text-primary-500">Back to Login</a>
+            <a href="/auth/otp" class="hover:underline text-primary-500">Enter OTP</a>
+            <a href="/auth/forget-password" class="hover:underline text-primary-500">Back</a>
         </div>
     </div>
 

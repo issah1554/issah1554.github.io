@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter OTP</title>
+    <link rel="stylesheet" href="../../assets/css/tailwind.css">
+</head>
+
+<body class="min-h-screen bg-primary-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg border border-main-200">
+        <div class="flex flex-col items-center">
+            <img src="../../assets/img/logo.png" class="w-36 mb-4" alt="Logo">
+            <h1 class="text-3xl font-bold mb-2 text-center text-gray-800">Enter OTP</h1>
+            <p class="text-center text-gray-600 text-sm mb-6">Enter the 6-digit code sent to your email.</p>
+        </div>
+
+        <div class="flex items-center justify-between gap-2">
+            <input type="text" maxlength="1"
+                class="h-12 w-12 rounded-md border border-main-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary-400">
+            <input type="text" maxlength="1"
+                class="h-12 w-12 rounded-md border border-main-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary-400">
+            <input type="text" maxlength="1"
+                class="h-12 w-12 rounded-md border border-main-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary-400">
+            <input type="text" maxlength="1"
+                class="h-12 w-12 rounded-md border border-main-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary-400">
+            <input type="text" maxlength="1"
+                class="h-12 w-12 rounded-md border border-main-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary-400">
+            <input type="text" maxlength="1"
+                class="h-12 w-12 rounded-md border border-main-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary-400">
+        </div>
+
+        <div class="mt-6">
+            <app-button label="Verify Code" color="primary" variant="solid" size="md" rounded="md"
+                class="w-full"></app-button>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between text-sm text-gray-600">
+            <a href="/auth/verify-email" class="hover:underline text-primary-500">Resend OTP</a>
+            <a href="/auth/login" class="hover:underline text-primary-500">Back to Login</a>
+        </div>
+    </div>
+
+    <script src="../../src/elements/ui/app-button.js"></script>
+</body>
+
+</html>
