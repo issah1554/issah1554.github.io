@@ -169,6 +169,7 @@
     --color-main-50: var(--main-50);
     --color-main-100: var(--main-100);
     --color-main-200: var(--main-200);
+    --color-main-300: var(--main-300);
     --color-main-900: var(--main-900);
     --color-primary-50: var(--primary-50);
     --color-primary-100: var(--primary-100);
@@ -176,6 +177,7 @@
     --color-primary-400: var(--primary-400);
     --color-primary-500: var(--primary-500);
     --color-primary-600: var(--primary-600);
+    --color-primary-900: var(--primary-900);
     --color-secondary-400: var(--color-gray-400);
     --color-secondary-600: var(--color-gray-600);
     --color-accent-200: var(--accent-200);
@@ -790,6 +792,10 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-0 {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+  }
   .border-2 {
     border-style: var(--tw-border-style);
     border-width: 2px;
@@ -848,11 +854,23 @@
   .border-main-200 {
     border-color: var(--color-main-200);
   }
+  .border-main-300 {
+    border-color: var(--color-main-300);
+  }
   .border-neutral-600 {
     border-color: var(--color-neutral-600);
   }
+  .border-primary-300 {
+    border-color: var(--color-primary-300);
+  }
+  .border-primary-400 {
+    border-color: var(--color-primary-400);
+  }
   .border-primary-600 {
     border-color: var(--color-primary-600);
+  }
+  .border-primary-900 {
+    border-color: var(--color-primary-900);
   }
   .border-secondary-600 {
     border-color: var(--color-secondary-600);
@@ -934,6 +952,9 @@
   }
   .bg-primary-100 {
     background-color: var(--color-primary-100);
+  }
+  .bg-primary-500 {
+    background-color: var(--color-primary-500);
   }
   .bg-primary-600 {
     background-color: var(--color-primary-600);
@@ -1218,6 +1239,9 @@
   .underline {
     text-decoration-line: underline;
   }
+  .accent-primary-500 {
+    accent-color: var(--color-primary-500);
+  }
   .opacity-0 {
     opacity: 0%;
   }
@@ -1482,6 +1506,12 @@
         --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
         box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
       }
+    }
+  }
+  .focus\:border-0 {
+    &:focus {
+      border-style: var(--tw-border-style);
+      border-width: 0px;
     }
   }
   .focus\:ring-2 {

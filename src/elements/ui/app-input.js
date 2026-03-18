@@ -75,15 +75,15 @@ class AppInput extends HTMLElement {
     };
 
     const focusRingMap = {
-      primary: "focus:ring-primary-400",
-      secondary: "focus:ring-secondary-400",
-      neutral: "focus:ring-neutral-400",
-      success: "focus:ring-success-400",
-      warning: "focus:ring-warning-400",
-      error: "focus:ring-danger-400",
-      info: "focus:ring-info-400",
-      light: "focus:ring-gray-300",
-      dark: "focus:ring-gray-900"
+      primary: "focus:ring-primary-400 focus:border-0",
+      secondary: "focus:ring-secondary-400 focus:border-0",
+      neutral: "focus:ring-neutral-400 focus:border-0",
+      success: "focus:ring-success-400 focus:border-0",
+      warning: "focus:ring-warning-400 focus:border-0",
+      error: "focus:ring-danger-400 focus:border-0",
+      info: "focus:ring-info-400 focus:border-0",
+      light: "focus:ring-gray-300 focus:border-0",
+      dark: "focus:ring-gray-900 focus:border-0"
     };
 
     const selectedSize = sizes[size] || sizes.md;
