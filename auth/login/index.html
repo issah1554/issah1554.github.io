@@ -5,22 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/tailwind.css">
 </head>
 
-<body class=" min-h-screen bg-accent-400 flex items-center justify-center px-4">
-    <div class="w-full max-w-md rounded-2xl bg-primary-300 p-8 shadow-lg">
-        <h1 class="mb-6 text-center text-2xl font-bold">Login</h1>
+<body class="min-h-screen bg-primary-50 flex items-center justify-center px-4">
+    <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg border border-main-200">
+        <div class="flex flex-col items-center">
+            <img src="../../assets/img/logo.png" class="w-36 mb-4" alt="Logo">
+            <h1 class="text-3xl font-bold mb-2 text-center text-gray-800">Welcome Back</h1>
+            <p class="text-center text-gray-600 text-sm mb-6">Please enter your credentials to access your account.</p>
+        </div>
+
         <div class="flex flex-col gap-4">
-            <app-input type="text" placeholder="Username" size="md" color="primary" variant="outline" rounded="md"></app-input>
-            <app-input type="password" placeholder="Password" size="md" color="primary" variant="outline" rounded="md"></app-input>
-            <app-button label="Login" color="accent" variant="solid" size="md" rounded="md" class="w-full"></app-button>
+            <app-input type="text" placeholder="Username" size="md" color="primary" variant="outline" rounded="md"
+                class="w-full"></app-input>
+            <app-input type="password" placeholder="Password" size="md" color="primary" variant="outline" rounded="md"
+                class="w-full"></app-input>
         </div>
-        <div class="mt-4 flex justify-between text-sm text-gray-600">
-            <a href="#" class="hover:underline">Forgot Password?</a>
-            <a href="#" class="hover:underline">Sign Up</a>
+
+        <div class="flex items-center justify-between mt-4 text-sm text-gray-600">
+            <label class="flex items-center gap-2">
+                <input type="checkbox" class="h-4 w-4 text-primary-500 border-gray-300 rounded">
+                Remember Me
+            </label>
+            <a href="#" class="hover:underline text-primary-500">Forgot Password?</a>
         </div>
+
+        <div class="mt-6">
+            <app-button label="Login" color="primary" variant="solid" size="md" rounded="md"
+                class="w-full"></app-button>
+        </div>
+
+        <p class="text-center text-gray-600 text-sm mt-6">
+            Don't have an account? <a href="#" class="hover:underline text-primary-500 font-medium">Sign Up</a>
+        </p>
     </div>
 
     <script src="../../src/elements/ui/app-button.js"></script>

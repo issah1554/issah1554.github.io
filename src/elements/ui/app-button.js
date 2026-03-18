@@ -5,6 +5,7 @@ class AppButton extends HTMLElement {
     const size = this.getAttribute("size") || "md";
     const variant = this.getAttribute("variant") || "solid";
     const rounded = this.getAttribute("rounded") || "md";
+    const hostClass = this.getAttribute("class") || "";
 
     const sizes = {
       xs: "px-2 py-1 text-xs",
@@ -84,7 +85,7 @@ class AppButton extends HTMLElement {
 
     this.innerHTML = `
       <button
-        class="${selectedSize} ${selectedRounded} ${selectedVariant} cursor-pointer transition hover:opacity-90"
+        class="${selectedSize} ${selectedRounded} ${selectedVariant} ${hostClass} cursor-pointer transition hover:opacity-90"
       >
         ${label}
       </button>

@@ -6,6 +6,7 @@ class AppInput extends HTMLElement {
     const size = this.getAttribute("size") || "md";
     const rounded = this.getAttribute("rounded") || "md";
     const variant = this.getAttribute("variant") || "solid";
+    const hostClass = this.getAttribute("class") || "";
 
     const sizes = {
       xs: "px-2 py-1 text-xs",
@@ -73,16 +74,29 @@ class AppInput extends HTMLElement {
       }
     };
 
+    const focusRingMap = {
+      primary: "focus:ring-primary-400",
+      secondary: "focus:ring-secondary-400",
+      neutral: "focus:ring-neutral-400",
+      success: "focus:ring-success-400",
+      warning: "focus:ring-warning-400",
+      error: "focus:ring-danger-400",
+      info: "focus:ring-info-400",
+      light: "focus:ring-gray-300",
+      dark: "focus:ring-gray-900"
+    };
+
     const selectedSize = sizes[size] || sizes.md;
     const selectedRounded = roundedMap[rounded] || roundedMap.md;
     const selectedColor = colorVariants[color] || colorVariants.primary;
     const selectedVariant = selectedColor[variant] || selectedColor.solid;
+    const selectedRing = focusRingMap[color] || focusRingMap.primary;
 
     this.innerHTML = `
       <input 
         type="${type}" 
         placeholder="${placeholder}" 
-        class="${selectedSize} ${selectedRounded} ${selectedVariant} focus:outline-none focus:ring-2 focus:ring-${color}-400 transition"
+        class="${selectedSize} ${selectedRounded} ${selectedVariant} ${selectedRing} ${hostClass} focus:outline-none focus:ring-2 transition"
       />
     `;
 
