@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTML Custom Elements</title>
+    <link rel="stylesheet" href="./src/index.css">
+    <link rel="stylesheet" href="./src/tailwind.css">
+</head>
+
+<body>
+    <app-layout>
+        <app-button label="Save" rounded="none"></app-button>
+        <app-button label="Delete" color="error" variant="solid" size="md" rounded="none"></app-button>
+        <app-button label="Info" color="info" variant="outline" size="sm" rounded="full"></app-button>
+        <app-button label="Accent" color="info" variant="solid"></app-button>
+
+        <br>
+        <user-avatar src="" alt="Stephen IssaH" size="60" status="online" rounded="full"></user-avatar>
+        <user-avatar alt="Stephen IssaH" initials="SI" size="70" status="pending"></user-avatar>
+        <user-avatar alt="Stephen IssaH" size="80" status="online" show-edit-button="true"></user-avatar>
+    </app-layout>
+
+    <script src="./src/elements/ui/app-button.js"></script>
+    <script src="./src/elements/ui/user-avatar.js"></script>
+    <script type="module" src="./src/elements/layout/admin-dash-0/app-navbar.js"></script>
+    <script type="module" src="./src/elements/layout/admin-dash-0/app-topbar.js"></script>
+    <script type="module" src="./src/elements/layout/admin-dash-0/footer.js"></script>
+    <script type="module" src="./src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="./src/elements/layout/admin-dash-0/app-right-drawer.js"></script>
+</body>
+
+</html>

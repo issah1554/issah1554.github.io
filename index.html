@@ -1,32 +1,967 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>HTML Custom Elements</title>
-    <link rel="stylesheet" href="./src/index.css">
-    <link rel="stylesheet" href="./src/tailwind.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal | Team Locations in Tanzania</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <app-layout>
-        <app-button label="Save" rounded="none"></app-button>
-        <app-button label="Delete" color="error" variant="solid" size="md" rounded="none"></app-button>
-        <app-button label="Info" color="info" variant="outline" size="sm" rounded="full"></app-button>
-        <app-button label="Accent" color="info" variant="solid"></app-button>
-
-        <br>
-        <user-avatar src="" alt="Stephen IssaH" size="60" status="online" rounded="full"></user-avatar>
-        <user-avatar alt="Stephen IssaH" initials="SI" size="70" status="pending"></user-avatar>
-        <user-avatar alt="Stephen IssaH" size="80" status="online" show-edit-button="true"></user-avatar>
-    </app-layout>
-
-    <script src="./src/elements/ui/app-button.js"></script>
-    <script src="./src/elements/ui/user-avatar.js"></script>
-     <script type="module" src="./src/elements/layout/admin-dash-0/app-navbar.js"></script>
-     <script type="module" src="./src/elements/layout/admin-dash-0/app-topbar.js"></script>
-     <script type="module" src="./src/elements/layout/admin-dash-0/footer.js"></script>
-     <script type="module" src="./src/elements/layout/admin-dash-0/layout.js"></script>
-     <script type="module" src="./src/elements/layout/admin-dash-0/app-right-drawer.js"></script>
+<body class="font-[Inter] text-[#1a1a2e] bg-white leading-relaxed overflow-x-hidden">
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 py-5">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="header-content flex items-center justify-between gap-4">
+                <div class="mobile-toggle md:hidden text-2xl cursor-pointer" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="#" class="logo flex items-center h-10">
+                    <!-- <i class="fas fa-project-diagram"></i> --> <!-- Optional: Remove or keep the icon -->
+                    <!-- ProjectFlow --> <!-- Removed the text -->
+                    <img class="h-full w-auto brightness-0" src="/assets/image/logo2.png"
+                        alt="Your Company Logo">
+                </a>
+                <!-- Move Log In button here, before nav-links -->
+                <a href="/auth/login"
+                    class="btn btn-secondary mobile-login md:hidden inline-flex items-center rounded-full border-2 border-[#0033ac] px-4 py-2 text-sm font-semibold text-[#0033ac] transition hover:bg-[#0033ac]/10">Log
+                    In</a>
+                <ul class="nav-links hidden md:flex items-center gap-6 text-sm font-medium text-[#1a1a2e] md:static absolute top-20 left-0 w-full flex-col bg-white p-5 shadow-lg md:w-auto md:flex-row md:p-0 md:shadow-none"
+                    id="navLinks">
+                    <li><a class="transition hover:text-[#0033ac]" href="#process">How</a></li>
+                    <li><a class="transition hover:text-[#0033ac]" href="#features">Features</a></li>
+                    <li><a class="transition hover:text-[#0033ac]" href="#locations">Team Locations</a></li>
+                    <li><a class="transition hover:text-[#0033ac]" href="#testimonials">Testimonials</a></li>
+                    <li><a class="transition hover:text-[#0033ac]" href="#faq">FAQ</a></li>
+                </ul>
+                <div class="header-buttons hidden md:flex items-center gap-4">
+                    <a href="/auth/login"
+                        class="btn btn-secondary inline-flex items-center rounded-full border-2 border-[#0033ac] px-6 py-3 text-sm font-semibold text-[#0033ac] transition hover:bg-[#0033ac]/10">Log
+                        In</a>
+                    <a href="#cta"
+                        class="btn btn-primary inline-flex items-center rounded-full bg-[#0033ac] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#0033ac]/30 transition hover:-translate-y-0.5 hover:bg-[#002781]">Get
+                        Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero bg-gradient-to-br from-[#f0f4ff] to-[#e6f7ff] pt-44 pb-24">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="hero-content flex flex-col items-center gap-12 text-center lg:flex-row lg:text-left">
+                <div class="hero-text flex-1">
+                    <h1 class="mb-5 text-4xl font-[Poppins] font-bold leading-tight md:text-5xl">Streamline Your
+                        <span class="text-[#0033ac]">Project Management</span> Workflow
+                    </h1>
+                    <p class="mb-7 max-w-xl text-lg text-[#6c757d] mx-auto lg:mx-0">The complete solution that connects
+                        clients, managers, collaborators, and quality control in one seamless platform. Get your
+                        projects delivered perfectly, every time.</p>
+                    <div class="hero-buttons flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                        <a href="#process"
+                            class="btn btn-secondary inline-flex items-center justify-center rounded-full border-2 border-[#0033ac] px-8 py-3 text-base font-semibold text-[#0033ac] transition hover:bg-[#0033ac]/10">See
+                            How It Works</a>
+                    </div>
+                    <div class="value-props mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                        <div class="value-prop flex items-start gap-3">
+                            <i class="fas fa-bolt mt-1 text-2xl text-[#0033ac]"></i>
+                            <div>
+                                <h4 class="font-[Poppins] font-semibold">40% Faster Delivery</h4>
+                                <p class="text-sm text-[#6c757d]">Optimized workflows for rapid execution</p>
+                            </div>
+                        </div>
+                        <div class="value-prop flex items-start gap-3">
+                            <i class="fas fa-shield-alt mt-1 text-2xl text-[#0033ac]"></i>
+                            <div>
+                                <h4 class="font-[Poppins] font-semibold">Quality Guaranteed</h4>
+                                <p class="text-sm text-[#6c757d]">Dual review process ensures excellence</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="trust-badges mt-6 flex flex-wrap justify-center gap-4 text-sm font-medium text-[#6c757d] lg:justify-start">
+                        <div class="trust-badge flex items-center gap-2">
+                            <i class="fas fa-check-circle text-[#0033ac]"></i>
+                            <span>Free Forever Tier</span>
+                        </div>
+                        <div class="trust-badge flex items-center gap-2">
+                            <i class="fas fa-check-circle text-[#0033ac]"></i>
+                            <span>No Credit Card Required</span>
+                        </div>
+                        <div class="trust-badge flex items-center gap-2">
+                            <i class="fas fa-check-circle text-[#0033ac]"></i>
+                            <span>1000+ Happy Clients</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image hidden flex-1 justify-center lg:flex">
+                    <img class="max-w-full rounded-2xl shadow-2xl"
+                        src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'%3e%3crect fill='%230033ac' width='500' height='400' rx='20'/%3e%3ccircle fill='%23ffffff' cx='250' cy='200' r='80'/%3e%3cpath fill='%23ffffff' d='M150,100 L350,100 L350,300 L150,300 Z'/%3e%3c/svg%3e"
+                        alt="ProjectFlow Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team Locations Section -->
+    <section id="locations" class="team-locations bg-gradient-to-br from-[#f0f4ff] to-[#e6f7ff] py-24">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="section-title mb-14 text-center">
+                <h2
+                    class="relative inline-block pb-3 text-3xl font-[Poppins] font-bold md:text-4xl after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-20 after:-translate-x-1/2 after:rounded after:bg-[#0033ac] after:content-['']">
+                    Our Team Locations in Tanzania</h2>
+                <p class="mx-auto mt-4 max-w-2xl text-base text-[#6c757d] md:text-lg">Discover where our talented
+                    professionals are located across Tanzania</p>
+            </div>
+            <div class="locations-content flex flex-wrap gap-6">
+                <div class="map-container flex min-w-[300px] flex-1 flex-col rounded-2xl bg-white p-5 shadow-lg">
+                    <div class="map-header mb-5 flex items-center justify-between">
+                        <h2 class="map-title text-2xl font-semibold">Tanzania Map</h2>
+                        <div class="controls flex gap-2">
+                            <button class="map-control-btn inline-flex items-center justify-center rounded-full border border-[#0033ac]/20 bg-[#0033ac]/10 px-4 py-2 text-sm font-medium text-[#0033ac] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#0033ac]/20"
+                                id="locateUserBtn"><i class="fas fa-crosshairs"></i></button>
+                            <button
+                                class="map-control-btn inline-flex items-center justify-center rounded-full border border-[#0033ac]/20 bg-[#0033ac]/10 px-4 py-2 text-sm font-medium text-[#0033ac] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#0033ac]/20"><i
+                                    class="fas fa-sync-alt"></i></button>
+                        </div>
+                    </div>
+                    <div id="map" class="mb-5 h-[400px] flex-1 rounded-xl shadow-sm md:h-[500px]"></div>
+                    <!-- Location Info moved here to the bottom of the map container -->
+                    <div class="location-info flex items-center gap-3 rounded-lg bg-[#e8f4ff] p-4">
+                        <i class="fas fa-map-marker-alt text-2xl text-[#0033ac]"></i>
+                        <div class="location-info-content">
+                            <h4 class="font-[Poppins] font-semibold">All Teams</h4>
+                            <p class="text-sm text-[#6c757d]">Click "Locate Me" to find teams in your region</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Optional: You could remove this div entirely if not needed elsewhere -->
+                <!--
+                <div class="team-info">
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+    <!-- Process Section (Linear Flow) -->
+    <!-- Process Section (Modern Central Timeline) -->
+    <section id="process" class="process bg-white py-24">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="section-title mb-14 text-center">
+                <h2
+                    class="relative inline-block pb-3 text-3xl font-[Poppins] font-bold md:text-4xl after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-20 after:-translate-x-1/2 after:rounded after:bg-[#0033ac] after:content-['']">
+                    How Portal Works</h2>
+                <p class="mx-auto mt-4 max-w-2xl text-base text-[#6c757d] md:text-lg">Our streamlined workflow ensures
+                    every project moves smoothly from concept to completion</p>
+            </div>
+            <div class="process-steps0 relative mx-auto flex max-w-4xl flex-col gap-8">
+                <div
+                    class="pointer-events-none absolute left-6 top-0 hidden h-full w-0.5 bg-gradient-to-b from-[#0033ac] to-[#0d6efd] md:left-1/2 md:block md:-translate-x-1/2">
+                </div>
+                <!-- Step 1 -->
+                <div class="step-container relative flex">
+                    <div
+                        class="step-number absolute left-6 -top-4 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-[#0033ac] text-base font-bold text-white shadow-md md:left-1/2">
+                        01</div>
+                    <div
+                        class="step-card ml-12 w-full rounded-xl border border-black/5 bg-white p-5 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg md:ml-0 md:w-[calc(50%-24px)] md:ml-auto">
+                        <h3 class="mb-2 text-xl font-semibold">Create Project</h3>
+                        <div class="step-icon mb-2 text-3xl text-[#0033ac]">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <p class="text-sm text-[#6c757d]">Submit your project requirements and specifications in minutes
+                            and relax.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-container relative flex">
+                    <div
+                        class="step-number absolute left-6 -top-4 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-[#0033ac] text-base font-bold text-white shadow-md md:left-1/2">
+                        02</div>
+                    <div
+                        class="step-card ml-12 w-full rounded-xl border border-black/5 bg-white p-5 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg md:ml-0 md:w-[calc(50%-24px)] md:mr-auto">
+                        <h3 class="mb-2 text-xl font-semibold">Our team Works on poject</h3>
+                        <div class="step-icon mb-2 text-3xl text-[#0033ac]">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <p class="text-sm text-[#6c757d]">We match your project with the perfect manager for your needs.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-container relative flex">
+                    <div
+                        class="step-number absolute left-6 -top-4 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-[#0033ac] text-base font-bold text-white shadow-md md:left-1/2">
+                        03</div>
+                    <div
+                        class="step-card ml-12 w-full rounded-xl border border-black/5 bg-white p-5 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg md:ml-0 md:w-[calc(50%-24px)] md:ml-auto">
+                        <h3 class="mb-2 text-xl font-semibold">Quality checks and Review</h3>
+                        <div class="step-icon mb-2 text-3xl text-[#0033ac]">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <p class="text-sm text-[#6c757d]">Eliminate errors, inhance compliance and accuracy</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="step-container relative flex">
+                    <div
+                        class="step-number absolute left-6 -top-4 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-[#0033ac] text-base font-bold text-white shadow-md md:left-1/2">
+                        04</div>
+                    <div
+                        class="step-card ml-12 w-full rounded-xl border border-black/5 bg-white p-5 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg md:ml-0 md:w-[calc(50%-24px)] md:mr-auto">
+                        <h3 class="mb-2 text-xl font-semibold">Download your project.</h3>
+                        <div class="step-icon mb-2 text-3xl text-[#0033ac]">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <p class="text-sm text-[#6c757d]">Get the already checked file for next Step.</p>
+                    </div>
+                </div>
+                <!-- Step 5 
+            <div class="step-container">
+                <div class="step-number">05</div>
+                <div class="step-card">
+                    <h3>Quality Control Review</h3>
+                    <div class="step-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <p>Download your project.</p>
+                </div>
+            </div>
+            <!-- Step 6 ->
+            <div class="step-container">
+                <div class="step-number">06</div>
+                <div class="step-card">
+                    <h3>Manager Final Approval</h3>
+                    <div class="step-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <p>As simple as ABC.</p>
+                </div>
+            </div>
+            <!-- Step 7 
+            <div class="step-container">
+                <div class="step-number">07</div>
+                <div class="step-card">
+                    <h3>Client Receives Work</h3>
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <p>Get exactly what you asked for, on time and on budget.</p>
+                </div>
+            </div> -->
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section id="features" class="features bg-gradient-to-br from-[#f0f4ff] to-[#e6f7ff] py-24">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="section-title mb-14 text-center">
+                <h2
+                    class="relative inline-block pb-3 text-3xl font-[Poppins] font-bold md:text-4xl after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-20 after:-translate-x-1/2 after:rounded after:bg-[#0033ac] after:content-['']">
+                    Why Teams Love Portal</h2>
+                <p class="mx-auto mt-4 max-w-2xl text-base text-[#6c757d] md:text-lg">Powerful features designed to make
+                    project management effortless</p>
+            </div>
+            <div class="features-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div class="feature-card rounded-2xl bg-white p-8 text-center shadow-lg opacity-0 translate-y-4 transition duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div
+                        class="feature-icon mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-2xl text-white">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="mb-3 text-xl font-semibold">End-to-End Workflow</h3>
+                    <p class="text-[#6c757d]">From concept to delivery, we've got you covered with our comprehensive
+                        process</p>
+                    <div class="feature-stats mt-3 font-semibold text-[#0033ac]">99% Satisfaction Rate</div>
+                </div>
+                <div class="feature-card rounded-2xl bg-white p-8 text-center shadow-lg opacity-0 translate-y-4 transition duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div
+                        class="feature-icon mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-2xl text-white">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="mb-3 text-xl font-semibold">Quality Assured</h3>
+                    <p class="text-[#6c757d]">Dual review process ensures excellence in every deliverable</p>
+                    <div class="feature-stats mt-3 font-semibold text-[#0033ac]">40% Less Revisions</div>
+                </div>
+                <div class="feature-card rounded-2xl bg-white p-8 text-center shadow-lg opacity-0 translate-y-4 transition duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div
+                        class="feature-icon mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-2xl text-white">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="mb-3 text-xl font-semibold">Transparent Process</h3>
+                    <p class="text-[#6c757d]">Track progress at every stage with real-time updates</p>
+                    <div class="feature-stats mt-3 font-semibold text-[#0033ac]">Real-time Updates</div>
+                </div>
+                <div class="feature-card rounded-2xl bg-white p-8 text-center shadow-lg opacity-0 translate-y-4 transition duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div
+                        class="feature-icon mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-2xl text-white">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3 class="mb-3 text-xl font-semibold">Expert Management</h3>
+                    <p class="text-[#6c757d]">Professional managers handle your projects with precision</p>
+                    <div class="feature-stats mt-3 font-semibold text-[#0033ac]">500+ Managers</div>
+                </div>
+                <div class="feature-card rounded-2xl bg-white p-8 text-center shadow-lg opacity-0 translate-y-4 transition duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div
+                        class="feature-icon mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-2xl text-white">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 class="mb-3 text-xl font-semibold">Skilled Collaborators</h3>
+                    <p class="text-[#6c757d]">Vetted professionals for every task and requirement</p>
+                    <div class="feature-stats mt-3 font-semibold text-[#0033ac]">2000+ Experts</div>
+                </div>
+                <div class="feature-card rounded-2xl bg-white p-8 text-center shadow-lg opacity-0 translate-y-4 transition duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div
+                        class="feature-icon mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-2xl text-white">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="mb-3 text-xl font-semibold">Lightning Fast</h3>
+                    <p class="text-[#6c757d]">Optimized processes that deliver results in record time</p>
+                    <div class="feature-stats mt-3 font-semibold text-[#0033ac]">40% Faster Delivery</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials relative overflow-hidden py-24">
+        <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(67,97,238,0.05),transparent)]"></div>
+        <div class="mx-auto w-full max-w-6xl px-5 relative">
+            <div class="section-title mb-14 text-center">
+                <h2
+                    class="relative inline-block pb-3 text-3xl font-[Poppins] font-bold md:text-4xl after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-20 after:-translate-x-1/2 after:rounded after:bg-[#0033ac] after:content-['']">
+                    What Our Clients Say</h2>
+                <p class="mx-auto mt-4 max-w-2xl text-base text-[#6c757d] md:text-lg">Join thousands of satisfied users
+                    who transformed their workflow</p>
+            </div>
+            <div class="testimonial-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Card 1 -->
+                <div class="testimonial-card relative rounded-2xl bg-white p-8 shadow-lg opacity-0 translate-y-5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute left-6 top-4 text-6xl font-[Poppins] text-[#0033ac]/10">"</div>
+                    <div class="testimonial-highlight mb-2 font-semibold text-[#0033ac]">Reduced Revision Time by 40%
+                    </div>
+                    <p class="testimonial-text mb-6 italic text-[#1a1a2e]">Portal eliminated all the back-and-forth we
+                        used to have. The quality control process alone saved us 40% in revision time.</p>
+                    <div class="testimonial-author flex items-center">
+                        <div
+                            class="author-avatar mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-sm font-bold text-white shadow">
+                            SM</div>
+                        <div class="author-info">
+                            <h4 class="font-semibold">Sarah Mitchell</h4>
+                            <p class="text-sm text-[#6c757d]">Marketing Director</p>
+                        </div>
+                    </div>
+                    <div class="rating mt-3 text-sm text-[#ffc107]">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="testimonial-card relative rounded-2xl bg-white p-8 shadow-lg opacity-0 translate-y-5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute left-6 top-4 text-6xl font-[Poppins] text-[#0033ac]/10">"</div>
+                    <div class="testimonial-highlight mb-2 font-semibold text-[#0033ac]">Faster, Higher Quality
+                        Deliverables</div>
+                    <p class="testimonial-text mb-6 italic text-[#1a1a2e]">Finally, a platform that actually delivers
+                        what it promises. My projects are completed faster and with better quality than ever before.</p>
+                    <div class="testimonial-author flex items-center">
+                        <div
+                            class="author-avatar mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-sm font-bold text-white shadow">
+                            JT</div>
+                        <div class="author-info">
+                            <h4 class="font-semibold">James Thompson</h4>
+                            <p class="text-sm text-[#6c757d]">Startup Founder</p>
+                        </div>
+                    </div>
+                    <div class="rating mt-3 text-sm text-[#ffc107]">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="testimonial-card relative rounded-2xl bg-white p-8 shadow-lg opacity-0 translate-y-5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute left-6 top-4 text-6xl font-[Poppins] text-[#0033ac]/10">"</div>
+                    <div class="testimonial-highlight mb-2 font-semibold text-[#0033ac]">Boosted Client Satisfaction
+                    </div>
+                    <p class="testimonial-text mb-6 italic text-[#1a1a2e]">The transparency and quality assurance
+                        features have completely changed how we manage client projects. Our satisfaction scores are at
+                        an all-time high.</p>
+                    <div class="testimonial-author flex items-center">
+                        <div
+                            class="author-avatar mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#0033ac] to-[#0d6efd] text-sm font-bold text-white shadow">
+                            RD</div>
+                        <div class="author-info">
+                            <h4 class="font-semibold">Rebecca Davis</h4>
+                            <p class="text-sm text-[#6c757d]">Project Manager</p>
+                        </div>
+                    </div>
+                    <div class="rating mt-3 text-sm text-[#ffc107]">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+    <section id="cta" class="cta mx-auto my-12 max-w-6xl rounded-3xl border border-black/5 bg-gradient-to-br from-white to-[#f8f9ff] px-5 py-16 text-center shadow-xl md:py-20">
+        <div class="mx-auto w-full max-w-5xl">
+            <h2 class="mb-4 text-3xl font-[Poppins] font-bold md:text-4xl">Ready to Transform Your Project Management?
+            </h2>
+            <p class="mx-auto mb-8 max-w-2xl text-lg text-[#6c757d]">Join thousands of clients who get their projects
+                delivered perfectly, every time.</p>
+            <div class="cta-stats mb-8 flex flex-wrap justify-center gap-6">
+                <div class="stat-item text-center">
+                    <div class="stat-number text-3xl font-bold text-[#0033ac]">1000+</div>
+                    <div class="stat-label text-[#6c757d]">Happy Clients</div>
+                </div>
+                <div class="stat-item text-center">
+                    <div class="stat-number text-3xl font-bold text-[#0033ac]">5000+</div>
+                    <div class="stat-label text-[#6c757d]">Projects Completed</div>
+                </div>
+                <div class="stat-item text-center">
+                    <div class="stat-number text-3xl font-bold text-[#0033ac]">40%</div>
+                    <div class="stat-label text-[#6c757d]">Time Saved</div>
+                </div>
+            </div>
+            <a href="#"
+                class="btn btn-primary inline-flex items-center rounded-full bg-[#0033ac] px-8 py-3 text-base font-semibold text-white shadow-lg shadow-[#0033ac]/30 transition hover:-translate-y-0.5 hover:bg-[#002781]">Start
+                Your First Project Now</a>
+            <p class="cta-subtext mt-4 text-sm text-[#6c757d]">No credit card required • Free forever tier available</p>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section id="faq" class="faq bg-white py-24">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="section-title mb-14 text-center">
+                <h2
+                    class="relative inline-block pb-3 text-3xl font-[Poppins] font-bold md:text-4xl after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-20 after:-translate-x-1/2 after:rounded after:bg-[#0033ac] after:content-['']">
+                    Frequently Asked Questions</h2>
+                <p class="mx-auto mt-4 max-w-2xl text-base text-[#6c757d] md:text-lg">Everything you need to know about
+                    Portal</p>
+            </div>
+            <div class="faq-container mx-auto max-w-3xl space-y-4">
+                <div class="faq-item overflow-hidden rounded-2xl bg-white shadow-md">
+                    <div class="faq-question flex cursor-pointer items-center justify-between bg-[#f8f9ff] px-6 py-5 text-base font-semibold transition hover:bg-[#edf1ff]">
+                        How long does it take to get started?
+                        <i class="fas fa-chevron-down transition"></i>
+                    </div>
+                    <div class="faq-answer max-h-0 overflow-hidden px-6 py-0 text-sm text-[#6c757d] transition-all duration-300">
+                        <p class="pb-5">Create your first project in under 5 minutes. Our intuitive interface makes
+                            setup quick and easy, so you can start managing your projects immediately.</p>
+                    </div>
+                </div>
+                <div class="faq-item overflow-hidden rounded-2xl bg-white shadow-md">
+                    <div class="faq-question flex cursor-pointer items-center justify-between bg-[#f8f9ff] px-6 py-5 text-base font-semibold transition hover:bg-[#edf1ff]">
+                        Who are the collaborators?
+                        <i class="fas fa-chevron-down transition"></i>
+                    </div>
+                    <div class="faq-answer max-h-0 overflow-hidden px-6 py-0 text-sm text-[#6c757d] transition-all duration-300">
+                        <p class="pb-5">Our collaborators are skilled professionals vetted by our quality team. We have
+                            experts in design, development, content creation, marketing, and more ready to work on your
+                            projects.</p>
+                    </div>
+                </div>
+                <div class="faq-item overflow-hidden rounded-2xl bg-white shadow-md">
+                    <div class="faq-question flex cursor-pointer items-center justify-between bg-[#f8f9ff] px-6 py-5 text-base font-semibold transition hover:bg-[#edf1ff]">
+                        What types of projects work best?
+                        <i class="fas fa-chevron-down transition"></i>
+                    </div>
+                    <div class="faq-answer max-h-0 overflow-hidden px-6 py-0 text-sm text-[#6c757d] transition-all duration-300">
+                        <p class="pb-5">Portal is perfect for creative work, development, design, content creation,
+                            marketing campaigns, research projects, and any collaborative effort that benefits from our
+                            structured workflow.</p>
+                    </div>
+                </div>
+                <div class="faq-item overflow-hidden rounded-2xl bg-white shadow-md">
+                    <div class="faq-question flex cursor-pointer items-center justify-between bg-[#f8f9ff] px-6 py-5 text-base font-semibold transition hover:bg-[#edf1ff]">
+                        How does the quality control process work?
+                        <i class="fas fa-chevron-down transition"></i>
+                    </div>
+                    <div class="faq-answer max-h-0 overflow-hidden px-6 py-0 text-sm text-[#6c757d] transition-all duration-300">
+                        <p class="pb-5">Every deliverable goes through a two-stage review process. First, our quality
+                            control team reviews for technical accuracy and completeness. Then, your project manager
+                            does a final review to ensure all requirements are met.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-[#1a1a2e] py-16 text-white">
+        <div class="mx-auto w-full max-w-6xl px-5">
+            <div class="footer-content grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="footer-column sm:col-span-2 lg:col-span-1">
+                    <h3 class="mb-4 text-xl font-semibold">Portal</h3>
+                    <p class="text-sm text-[#a0aec0]">Streamlining project management workflows for teams of all sizes.
+                        Get your projects delivered perfectly, every time.</p>
+                    <div class="social-links mt-4 flex gap-3">
+                        <a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-[#0033ac]"
+                            href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-[#0033ac]"
+                            href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-[#0033ac]"
+                            href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-[#0033ac]"
+                            href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 class="mb-4 text-xl font-semibold">Product</h3>
+                    <ul class="footer-links space-y-2 text-sm text-[#a0aec0]">
+                        <li><a class="transition hover:text-white" href="#">Features</a></li>
+                        <li><a class="transition hover:text-white" href="#">Solutions</a></li>
+                        <li><a class="transition hover:text-white" href="#">Pricing</a></li>
+                        <li><a class="transition hover:text-white" href="#">Tutorials</a></li>
+                        <li><a class="transition hover:text-white" href="#">Releases</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="mb-4 text-xl font-semibold">Resources</h3>
+                    <ul class="footer-links space-y-2 text-sm text-[#a0aec0]">
+                        <li><a class="transition hover:text-white" href="#">Blog</a></li>
+                        <li><a class="transition hover:text-white" href="#">Help Center</a></li>
+                        <li><a class="transition hover:text-white" href="#">Community</a></li>
+                        <li><a class="transition hover:text-white" href="#">Events</a></li>
+                        <li><a class="transition hover:text-white" href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="mb-4 text-xl font-semibold">Company</h3>
+                    <ul class="footer-links space-y-2 text-sm text-[#a0aec0]">
+                        <li><a class="transition hover:text-white" href="#">About Us</a></li>
+                        <li><a class="transition hover:text-white" href="#">Careers</a></li>
+                        <li><a class="transition hover:text-white" href="#">Contact Us</a></li>
+                        <li><a class="transition hover:text-white" href="#">Legal</a></li>
+                        <li><a class="transition hover:text-white" href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright mt-10 border-t border-white/10 pt-6 text-center text-sm text-[#a0aec0]">
+                <p>&copy; 2024 databenki. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Chat FAB -->
+    <button
+        class="chat-fab animate-pulse fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#0033ac] text-xl text-white shadow-lg shadow-[#0033ac]/40 transition hover:-translate-y-1 hover:scale-105 hover:bg-[#002781] md:h-16 md:w-16"
+        id="chatFab">
+        <i class="fas fa-comments"></i>
+        <div
+            class="notification-badge absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff4757] text-xs font-bold text-white">
+            3</div>
+    </button>
+    <!-- Chat Popup -->
+    <div class="chat-popup pointer-events-none fixed bottom-24 right-6 z-50 flex w-[320px] flex-col overflow-hidden rounded-2xl bg-white opacity-0 translate-y-4 shadow-xl transition-all duration-300 md:w-[350px]"
+        id="chatPopup">
+        <div class="chat-header flex items-center justify-between bg-[#0033ac] px-5 py-4 text-white">
+            <h3 class="text-lg font-semibold">Chat with us</h3>
+            <button class="close-chat flex h-8 w-8 items-center justify-center rounded-full text-white transition hover:bg-white/20"
+                id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-body max-h-[300px] flex-1 space-y-3 overflow-y-auto p-5 text-sm" id="chatBody">
+            <div class="chat-message received max-w-[80%] rounded-2xl rounded-bl-md bg-[#f1f2f6] px-4 py-3">
+                Hi there! 👋 How can we help you today?
+            </div>
+            <div
+                class="chat-message sent ml-auto max-w-[80%] rounded-2xl rounded-br-md bg-[#0033ac] px-4 py-3 text-white">
+                I'd like to know more about your pricing plans.
+            </div>
+            <div class="chat-message received max-w-[80%] rounded-2xl rounded-bl-md bg-[#f1f2f6] px-4 py-3">
+                Sure! We offer a free forever tier and paid plans starting at $9/month. Would you like me to send you
+                more details?
+            </div>
+        </div>
+        <div class="chat-input flex items-center gap-3 border-t border-black/5 bg-[#f8f9fa] p-4">
+            <input class="flex-1 rounded-full border border-[#ddd] px-4 py-2 text-sm outline-none" type="text"
+                placeholder="Type your message..." id="chatInput">
+            <button class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0033ac] text-white transition hover:scale-105 hover:bg-[#002781]"
+                id="sendChat">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function () {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('py-4', 'shadow-lg');
+                header.classList.remove('py-5', 'shadow-sm');
+            } else {
+                header.classList.add('py-5', 'shadow-sm');
+                header.classList.remove('py-4', 'shadow-lg');
+            }
+        });
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-question i');
+            question.addEventListener('click', () => {
+                const isOpen = answer.classList.contains('max-h-96');
+                answer.classList.toggle('max-h-96', !isOpen);
+                answer.classList.toggle('py-5', !isOpen);
+                answer.classList.toggle('max-h-0', isOpen);
+                answer.classList.toggle('py-0', isOpen);
+                question.classList.toggle('bg-[#0033ac]', !isOpen);
+                question.classList.toggle('text-white', !isOpen);
+                icon.classList.toggle('rotate-180', !isOpen);
+            });
+        });
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        // Animation on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4', 'translate-y-5');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.feature-card, .testimonial-card').forEach(card => {
+            observer.observe(card);
+        });
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            const icon = mobileToggle.querySelector('i');
+            if (!navLinks.classList.contains('hidden')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.add('hidden');
+                navLinks.classList.remove('flex');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        // Chat FAB functionality
+        const chatFab = document.getElementById('chatFab');
+        const chatPopup = document.getElementById('chatPopup');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendChat = document.getElementById('sendChat');
+        const chatBody = document.getElementById('chatBody');
+        // Toggle chat popup
+        chatFab.addEventListener('click', () => {
+            const isOpen = chatPopup.classList.contains('opacity-100');
+            chatPopup.classList.toggle('opacity-100', !isOpen);
+            chatPopup.classList.toggle('translate-y-0', !isOpen);
+            chatPopup.classList.toggle('pointer-events-auto', !isOpen);
+            chatPopup.classList.toggle('opacity-0', isOpen);
+            chatPopup.classList.toggle('translate-y-4', isOpen);
+            chatPopup.classList.toggle('pointer-events-none', isOpen);
+            chatFab.classList.remove('animate-pulse');
+        });
+        // Close chat popup
+        closeChat.addEventListener('click', () => {
+            chatPopup.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            chatPopup.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        });
+        // Send message
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'chat-message sent ml-auto max-w-[80%] rounded-2xl rounded-br-md bg-[#0033ac] px-4 py-3 text-white';
+                userMessage.textContent = message;
+                chatBody.appendChild(userMessage);
+                // Clear input
+                chatInput.value = '';
+                // Scroll to bottom
+                chatBody.scrollTop = chatBody.scrollHeight;
+                // Simulate bot response after delay
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'chat-message received max-w-[80%] rounded-2xl rounded-bl-md bg-[#f1f2f6] px-4 py-3';
+                    botMessage.textContent = "Thanks for your message! Our team will get back to you shortly.";
+                    chatBody.appendChild(botMessage);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            }
+        }
+        sendChat.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        // Close chat when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!chatPopup.contains(e.target) &&
+                e.target !== chatFab &&
+                !chatFab.contains(e.target)) {
+                chatPopup.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                chatPopup.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            }
+        });
+        // Team Locations Map
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize the map centered on Tanzania
+            const map = L.map('map').setView([-6.3690, 34.8888], 6);
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            // Team data for Tanzania locations (Updated with 3 new teams in Dar es Salaam)
+            const teams = [
+                {
+                    id: 1,
+                    name: "Dar es Salaam Team A",
+                    location: "Dar es Salaam",
+                    lat: -6.7924,
+                    lng: 39.2083,
+                    color: "#ff6b6b",
+                    specialization: "Enterprise Solutions"
+                },
+                {
+                    id: 2,
+                    name: "Dar es Salaam Team B",
+                    location: "Dar es Salaam",
+                    lat: -6.8200, // Slightly different coordinates
+                    lng: 39.2500, // Slightly different coordinates
+                    color: "#4ecdc4",
+                    specialization: "Mobile Applications"
+                },
+                // --- New Teams Added ---
+                {
+                    id: 3, // Updated ID
+                    name: "Dar es Salaam Team C",
+                    location: "Dar es Salaam",
+                    lat: -6.7500, // New coordinate
+                    lng: 39.1800, // New coordinate
+                    color: "#1a936f", // New color
+                    specialization: "Data Analytics"
+                },
+                {
+                    id: 4, // Updated ID
+                    name: "Dar es Salaam Team D",
+                    location: "Dar es Salaam",
+                    lat: -6.8500, // New coordinate
+                    lng: 39.2200, // New coordinate
+                    color: "#6a0572", // New color
+                    specialization: "UI/UX Design"
+                },
+                {
+                    id: 5, // Updated ID
+                    name: "Dar es Salaam Team E",
+                    location: "Dar es Salaam",
+                    lat: -6.7800, // New coordinate
+                    lng: 39.2800, // New coordinate
+                    color: "#ffd166", // New color
+                    specialization: "Cybersecurity"
+                },
+                // --- End of New Teams ---
+                {
+                    id: 6, // Updated ID
+                    name: "Arusha Team",
+                    location: "Arusha",
+                    lat: -3.3869,
+                    lng: 36.6828,
+                    color: "#ffd166", // Consider changing if color clash is an issue
+                    specialization: "Field Technology"
+                },
+                {
+                    id: 7, // Updated ID
+                    name: "Mwanza Team",
+                    location: "Mwanza",
+                    lat: -3.3869,
+                    lng: 33.4468,
+                    color: "#6a0572", // Consider changing if color clash is an issue
+                    specialization: "Infrastructure Tech"
+                },
+                {
+                    id: 8, // Updated ID
+                    name: "Zanzibar Team",
+                    location: "Zanzibar",
+                    lat: -6.1660,
+                    lng: 39.2018,
+                    color: "#1a936f", // Consider changing if color clash is an issue
+                    specialization: "Tourism Tech"
+                }
+            ];
+            // Create markers for each team
+            const markers = [];
+            teams.forEach(team => {
+                const marker = L.marker([team.lat, team.lng], {
+                    title: team.name,
+                    alt: team.name
+                }).addTo(map);
+                // Customize marker icon
+                const customIcon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background: ${team.color}; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);">${team.id}</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                marker.setIcon(customIcon);
+                // Add popup to marker
+                marker.bindPopup(`
+                    <div style="text-align: center;">
+                        <h3 style="margin: 0 0 10px 0; color: ${team.color};">${team.name}</h3>
+                        <p style="margin: 5px 0;"><strong>Location:</strong> ${team.location}</p>
+                        <p style="margin: 5px 0;"><strong>Specialization:</strong> ${team.specialization}</p>
+                        <p style="margin: 5px 0;"><strong>Team ID:</strong> ${team.id}</p>
+                    </div>
+                `);
+                // Store marker reference
+                markers.push(marker);
+                // Add click event to marker
+                marker.on('click', function () {
+                    // Fly to marker on map with increased zoom
+                    map.flyTo([team.lat, team.lng], 14, { // Increased zoom level to 14
+                        animate: true,
+                        duration: 1.5
+                    });
+                });
+            });
+            // User location marker
+            let userMarker = null;
+            // Location info content
+            const locationInfo = document.querySelector('.location-info-content');
+            // Function to calculate distance between two points
+            function calculateDistance(lat1, lon1, lat2, lon2) {
+                const R = 6371; // Radius of the earth in km
+                const dLat = deg2rad(lat2 - lat1);
+                const dLon = deg2rad(lon2 - lon1);
+                const a =
+                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                const d = R * c; // Distance in km
+                return d;
+            }
+            function deg2rad(deg) {
+                return deg * (Math.PI / 180);
+            }
+            // Function to find nearest team
+            function findNearestTeam(userLat, userLng) {
+                let nearestTeam = null;
+                let minDistance = Infinity;
+                teams.forEach(team => {
+                    const distance = calculateDistance(userLat, userLng, team.lat, team.lng);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearestTeam = team;
+                    }
+                });
+                return { team: nearestTeam, distance: minDistance };
+            }
+            // Locate user button
+            const locateUserBtn = document.getElementById('locateUserBtn');
+            locateUserBtn.addEventListener('click', function () {
+                // Hide the location info content immediately when the button is clicked
+                locationInfo.style.display = 'none';
+                if (navigator.geolocation) {
+                    // Note: We no longer update the message to "Detecting..." as it's hidden
+                    navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            const userLat = position.coords.latitude;
+                            const userLng = position.coords.longitude;
+                            // Remove previous user marker if exists
+                            if (userMarker) {
+                                map.removeLayer(userMarker);
+                            }
+                            // Create user marker
+                            userMarker = L.marker([userLat, userLng], {
+                                title: "Your Location",
+                                alt: "Your Location"
+                            }).addTo(map);
+                            // Customize user marker icon
+                            const userIcon = L.divIcon({
+                                className: 'user-marker',
+                                html: `<div style="background: #4361ee; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5); border: 2px solid white;"><i class="fas fa-user"></i></div>`,
+                                iconSize: [24, 24],
+                                iconAnchor: [12, 12]
+                            });
+                            userMarker.setIcon(userIcon);
+                            // Add popup to user marker
+                            userMarker.bindPopup(`
+                                <div style="text-align: center;">
+                                    <h3 style="margin: 0 0 10px 0; color: #4361ee;">Your Location</h3>
+                                    <p style="margin: 5px 0;">Lat: ${userLat.toFixed(4)}, Lng: ${userLng.toFixed(4)}</p>
+                                </div>
+                            `);
+                            // Find nearest team
+                            const nearest = findNearestTeam(userLat, userLng);
+                            if (nearest.team) {
+                                // Fly to user location with nearest team in view
+                                const bounds = L.latLngBounds([
+                                    [userLat, userLng],
+                                    [nearest.team.lat, nearest.team.lng]
+                                ]);
+                                map.flyToBounds(bounds, {
+                                    padding: [50, 50],
+                                    animate: true,
+                                    duration: 1.5
+                                });
+                                // The location info is already hidden, so no need to update it or reset it
+                            } else {
+                                // Fly to user location with increased zoom
+                                map.flyTo([userLat, userLng], 14, { // Increased zoom level to 14
+                                    animate: true,
+                                    duration: 1.5
+                                });
+                                // The location info is already hidden, so no need to update it or reset it
+                            }
+                            // Optional: Show a temporary success message or indicator if needed
+                        },
+                        function (error) {
+                            console.error('Error getting location:', error);
+                            // Optional: Show a temporary error message or indicator if needed
+                            // The location info remains hidden
+                        }
+                    );
+                } else {
+                    // Optional: Show a temporary message if geolocation is not supported
+                    // The location info remains hidden
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
