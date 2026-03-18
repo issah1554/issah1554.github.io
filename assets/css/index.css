@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "./tailwind.css";
 
 :root {
     --main-50: var(--color-neutral-50);
