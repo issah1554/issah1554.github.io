@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+</head>
+
+<body>
+    <app-layout>
+        <app-topbar slot="topbar" title="Users" subtitle="Manage team access and roles."></app-topbar>
+        <app-footer slot="footer" label="User directory synchronized"></app-footer>
+
+        <div class="mx-auto flex max-w-6xl flex-col gap-6">
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900">Directory</h3>
+                        <p class="text-sm text-slate-500">Invite collaborators and adjust access levels.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <input type="search" placeholder="Search users"
+                            class="w-60 rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700">
+                        <button class="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-700">Roles</button>
+                        <button class="rounded-full bg-slate-900 px-4 py-2 text-sm text-white">Invite user</button>
+                    </div>
+                </div>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-slate-400">Total users</p>
+                        <p class="mt-2 text-2xl font-semibold text-slate-900">46</p>
+                        <p class="text-sm text-slate-500">Active this week</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-slate-400">Admins</p>
+                        <p class="mt-2 text-2xl font-semibold text-slate-900">6</p>
+                        <p class="text-sm text-slate-500">Full access</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-slate-400">Invites</p>
+                        <p class="mt-2 text-2xl font-semibold text-slate-900">3</p>
+                        <p class="text-sm text-slate-500">Pending response</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class="flex items-center justify-between gap-3">
+                    <h3 class="text-lg font-semibold text-slate-900">Recent members</h3>
+                    <button class="text-sm font-medium text-slate-700">Export list</button>
+                </div>
+                <div class="mt-4 overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-xs uppercase tracking-widest text-slate-400">
+                            <tr>
+                                <th class="py-2">Name</th>
+                                <th class="py-2">Role</th>
+                                <th class="py-2">Team</th>
+                                <th class="py-2 text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-700">
+                            <tr class="border-t border-slate-200">
+                                <td class="py-3 font-medium">Stephen IssaH</td>
+                                <td class="py-3">Administrator</td>
+                                <td class="py-3">Operations</td>
+                                <td class="py-3 text-right"><span class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Active</span></td>
+                            </tr>
+                            <tr class="border-t border-slate-200">
+                                <td class="py-3 font-medium">Amina Said</td>
+                                <td class="py-3">Analyst</td>
+                                <td class="py-3">Insights</td>
+                                <td class="py-3 text-right"><span class="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">Idle</span></td>
+                            </tr>
+                            <tr class="border-t border-slate-200">
+                                <td class="py-3 font-medium">Marcus Lee</td>
+                                <td class="py-3">Engineer</td>
+                                <td class="py-3">Platform</td>
+                                <td class="py-3 text-right"><span class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">Invited</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </app-layout>
+
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-navbar.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-topbar.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/footer.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-right-drawer.js"></script>
+</body>
+
+</html>

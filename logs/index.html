@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs</title>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+</head>
+
+<body>
+    <app-layout>
+        <app-topbar slot="topbar" title="Logs" subtitle="Stream processing events and audit trails."></app-topbar>
+        <app-footer slot="footer" label="Log storage healthy"></app-footer>
+
+        <div class="mx-auto flex max-w-6xl flex-col gap-6">
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900">Live log streams</h3>
+                        <p class="text-sm text-slate-500">Monitor real-time signals from connected services.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <input type="search" placeholder="Search logs"
+                            class="w-64 rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700">
+                        <button class="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-700">Filters</button>
+                        <button class="rounded-full bg-slate-900 px-4 py-2 text-sm text-white">New stream</button>
+                    </div>
+                </div>
+                <div class="mt-6 grid gap-4 lg:grid-cols-3">
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-semibold text-slate-900">API Gateway</h4>
+                            <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Live</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Traffic spikes detected in /v2/submit</p>
+                        <p class="mt-4 text-xs text-slate-400">Updated 3 min ago</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-semibold text-slate-900">Worker Pool</h4>
+                            <span class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">Warning</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Queue depth above threshold</p>
+                        <p class="mt-4 text-xs text-slate-400">Updated 12 min ago</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-semibold text-slate-900">Audit Trail</h4>
+                            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">Paused</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Scheduled maintenance window</p>
+                        <p class="mt-4 text-xs text-slate-400">Updated 1 hr ago</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class="flex items-center justify-between gap-3">
+                    <h3 class="text-lg font-semibold text-slate-900">Recent log activity</h3>
+                    <button class="text-sm font-medium text-slate-700">Export</button>
+                </div>
+                <div class="mt-4 space-y-3 text-sm text-slate-700">
+                    <div class="flex items-start justify-between gap-4 rounded-xl border border-slate-200 p-4">
+                        <div>
+                            <p class="font-medium">Cache invalidation request accepted</p>
+                            <p class="text-xs text-slate-400">Auth service • 09:24 AM</p>
+                        </div>
+                        <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Success</span>
+                    </div>
+                    <div class="flex items-start justify-between gap-4 rounded-xl border border-slate-200 p-4">
+                        <div>
+                            <p class="font-medium">Policy escalation required for data export</p>
+                            <p class="text-xs text-slate-400">Compliance • 09:02 AM</p>
+                        </div>
+                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">Review</span>
+                    </div>
+                    <div class="flex items-start justify-between gap-4 rounded-xl border border-slate-200 p-4">
+                        <div>
+                            <p class="font-medium">Build pipeline stopped unexpectedly</p>
+                            <p class="text-xs text-slate-400">CI/CD • 08:48 AM</p>
+                        </div>
+                        <span class="rounded-full bg-rose-100 px-3 py-1 text-xs text-rose-700">Error</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </app-layout>
+
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-navbar.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-topbar.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/footer.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-right-drawer.js"></script>
+</body>
+
+</html>

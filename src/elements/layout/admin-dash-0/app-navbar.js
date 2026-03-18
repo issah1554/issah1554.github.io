@@ -144,25 +144,33 @@ export class AppNavbar extends HTMLElement {
           </div>
 
           <nav class="nav">
-            <a href="/" class="active">
+            <a href="/home">
               Overview
               <span class="pill">Live</span>
             </a>
-            <a href="/analytics">
-              Analytics
-              <span class="meta">24</span>
+            <a href="/labs">
+              Labs
+              <span class="meta">12</span>
             </a>
-            <a href="/projects">
-              Projects
-              <span class="meta">8</span>
-            </a>
-            <a href="/team">
-              Team
-              <span class="meta">6</span>
-            </a>
-            <a href="/settings">
-              Settings
+            <a href="/logs">
+              Logs
               <span class="meta">3</span>
+            </a>
+            <a href="/specs">
+              Specs
+              <span class="meta">9</span>
+            </a>
+            <a href="/users">
+              Users
+              <span class="meta">46</span>
+            </a>
+            <a href="/notifications">
+              Notifications
+              <span class="meta">5</span>
+            </a>
+            <a href="/profile">
+              Profile
+              <span class="meta">1</span>
             </a>
           </nav>
 
@@ -174,6 +182,22 @@ export class AppNavbar extends HTMLElement {
         </aside>
       </div>
     `;
+
+    const links = this.querySelectorAll(".nav a");
+    const currentPath = window.location.pathname.replace(/\/$/, "");
+    links.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (!href) return;
+      const normalizedHref = href.replace(/\/$/, "");
+      const match =
+        currentPath === normalizedHref ||
+        currentPath === `${normalizedHref}/index.html`;
+      if (match) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
   }
 }
 
