@@ -74,6 +74,7 @@ export class UserAvatar extends HTMLElement {
     const radius = this.getRadius(rounded);
     const cornerSize = size / 4;
     const statusColor = this.getStatusColor(status);
+    const borderWidth = 2;
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -87,14 +88,15 @@ export class UserAvatar extends HTMLElement {
           width: ${size}px;
           height: ${size}px;
           border-radius: ${radius};
+          border: ${borderWidth}px solid ${statusColor};
+          padding: ${borderWidth}px;
         }
 
         .avatar-img,
         .avatar-fallback {
           width: 100%;
           height: 100%;
-          border: 2px solid ${statusColor};
-          border-radius: ${radius};
+          border-radius: calc(${radius} - ${borderWidth}px);
         }
 
         .avatar-img {
