@@ -13,7 +13,7 @@ export class AppLayout extends HTMLElement {
         .layout {
           min-height: 100vh;
           display: flex;
-          color: var(--main-100);
+          color: var(--color-main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
         }
 
@@ -31,8 +31,8 @@ export class AppLayout extends HTMLElement {
           flex: 1;
           display: flex;
           flex-direction: column;
-          background: var(--main-100);
-          color: var(--main-900);
+          background: var(--color-main-100);
+          color: var(--color-main-900);
           position: relative;
           z-index: 1;
           margin-left: 260px;
@@ -42,7 +42,7 @@ export class AppLayout extends HTMLElement {
         .main {
           flex: 1;
           padding: 28px 26px;
-          background: var(--main-100);
+          background: var(--color-main-100);
         }
 
         app-navbar {
@@ -69,7 +69,7 @@ export class AppLayout extends HTMLElement {
             left: auto;
             bottom: auto;
             border-right: none;
-            border-bottom: 1px solid var(--main-800);
+            border-bottom: 1px solid var(--color-main-800);
           }
 
           .content {

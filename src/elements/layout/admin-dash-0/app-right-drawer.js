@@ -11,9 +11,9 @@ export class AppRightDrawer extends HTMLElement {
           right: 0;
           height: 100vh;
           width: 320px;
-          background: var(--main-50);
-          border-left: 1px solid var(--main-200);
-          color: var(--main-900);
+          background: var(--color-main-50);
+          border-left: 1px solid var(--color-main-200);
+          color: var(--color-main-900);
           transform: translateX(100%);
           transition: transform 0.25s ease;
           z-index: 20;
@@ -27,8 +27,8 @@ export class AppRightDrawer extends HTMLElement {
 
         .drawer-header {
           padding: 18px 20px;
-          border-bottom: 1px solid var(--main-200);
-          background: var(--main-100);
+          border-bottom: 1px solid var(--color-main-200);
+          background: var(--color-main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
         }
 
@@ -40,7 +40,7 @@ export class AppRightDrawer extends HTMLElement {
         .drawer-body {
           padding: 18px 20px;
           font-size: 14px;
-          color: var(--main-600);
+          color: var(--color-main-600);
           flex: 1;
         }
 
@@ -50,7 +50,7 @@ export class AppRightDrawer extends HTMLElement {
           right: 0;
           transform: translateY(-50%);
           background: var(--primary-600);
-          color: var(--main-50);
+          color: var(--color-main-50);
           border: none;
           padding: 10px 12px;
           border-radius: 10px 0 0 10px;

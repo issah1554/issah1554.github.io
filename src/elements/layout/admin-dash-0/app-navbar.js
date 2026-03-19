@@ -8,7 +8,7 @@ export class AppNavbar extends HTMLElement {
         .app-shell {
           display: block;
           background: var(--color-primary-900);
-          color: var(--main-100);
+          color: var(--color-main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
           width: 100%;
           height: 100%;
@@ -37,7 +37,7 @@ export class AppNavbar extends HTMLElement {
           margin: 10px 0 4px;
           font-size: 24px;
           font-weight: 600;
-          color: var(--main-50);
+          color: var(--color-main-50);
         }
 
         .brand .logo {
@@ -50,7 +50,7 @@ export class AppNavbar extends HTMLElement {
         .brand p {
           margin: 0;
           font-size: 13px;
-          color: var(--main-400);
+          color: var(--color-main-400);
         }
 
         .profile {
@@ -68,13 +68,13 @@ export class AppNavbar extends HTMLElement {
 
         .profile .name {
           font-size: 14px;
-          color: var(--main-100);
+          color: var(--color-main-100);
           font-weight: 600;
         }
 
         .profile .role {
           font-size: 12px;
-          color: var(--main-400);
+          color: var(--color-main-400);
         }
 
         .nav-scroll {
@@ -99,7 +99,7 @@ export class AppNavbar extends HTMLElement {
           justify-content: space-between;
           padding: 10px 12px;
           border-radius: 12px;
-          color: var(--main-300);
+          color: var(--color-main-400);
           text-decoration: none;
           transition: transform 0.2s ease, background 0.2s ease;
         }
@@ -111,7 +111,7 @@ export class AppNavbar extends HTMLElement {
 
         .nav a.active {
           background: var(--primary-600);
-          color: var(--main-50);
+          color: var(--color-main-50);
           font-weight: 600;
         }
 
@@ -119,14 +119,14 @@ export class AppNavbar extends HTMLElement {
           padding: 2px 8px;
           border-radius: 999px;
           background: var(--primary-400);
-          color: var(--main-950);
+          color: var(--color-main-950);
           font-size: 11px;
           letter-spacing: 0.05em;
         }
 
         .meta {
           font-size: 11px;
-          color: var(--main-500);
+          color: var(--color-main-500);
         }
 
         .sidebar-actions {
@@ -146,7 +146,7 @@ export class AppNavbar extends HTMLElement {
           width: 38px;
           height: 38px;
           border-radius: 10px;
-          color: var(--main-200);
+          color: var(--color-main-400);
           text-decoration: none;
           border: 1px solid transparent;
           transition: transform 0.2s ease, background 0.2s ease, border 0.2s ease;
@@ -166,7 +166,7 @@ export class AppNavbar extends HTMLElement {
           .sidenav {
             width: 100%;
             border-right: none;
-            border-bottom: 1px solid var(--main-800);
+            border-bottom: 1px solid var(--color-main-800);
           }
         }
       </style>
