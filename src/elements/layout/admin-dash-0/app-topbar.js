@@ -17,11 +17,11 @@ export class AppTopbar extends HTMLElement {
           <!-- Notifications Icon -->
           <button
           data-notif-toggle
-          class="relative p-2 rounded-full hover:scale-110 transition-transform cursor-pointer w-8 h-8 flex items-center justify-center hover:bg-main-300 hover:border hover:border-main-400"
+          class="relative p-2 rounded-full hover:scale-110 transition-transform cursor-pointer w-10 h-10 flex items-center justify-center hover:bg-main-300 hover:border hover:border-main-400"
           aria-haspopup="true"
           aria-expanded="false"
           >
-          <i class="bi bi-bell"></i>
+          <i class="bi bi-bell text-2xl"></i>
           <span class="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-white">3</span>
           </button>
           <div
@@ -56,7 +56,7 @@ export class AppTopbar extends HTMLElement {
             </div>
           </div>
           <a
-            href="#"
+            href="/notifications"
             class="mt-4 inline-flex w-full items-center justify-center rounded-full border border-main-200 bg-main-100 px-4 py-2 text-xs font-semibold text-main-600 hover:bg-main-200"
           >
             View all notifications
@@ -94,7 +94,7 @@ export class AppTopbar extends HTMLElement {
               <p class="text-xs text-main-500">Project Manager</p>
             </div>
           </div>
-          <a href="#" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-main-100">
+          <a href="/profile" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-main-100">
             <i class="bi bi-person"></i>
             View profile
           </a>

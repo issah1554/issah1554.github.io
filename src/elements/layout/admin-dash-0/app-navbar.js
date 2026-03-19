@@ -6,25 +6,25 @@ export class AppNavbar extends HTMLElement {
     this.innerHTML = `
       <style>
         .app-shell {
-          display: inline-block;
-          background: --color-primary-900;
+          display: block;
+          background: var(--color-primary-900);
           color: var(--main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
           width: 100%;
+          height: 100%;
         }
 
         .sidenav {
           width: 100%;
-          min-height: 100vh;
+          height: 100vh;
           display: flex;
           flex-direction: column;
-          padding-left: 24px;
-          padding-right: 24px;
           padding-bottom: 20px;
           gap: 20px;
           background: var(--color-primary-800);
           border-right: 1px solid var(--color-primary-900);
           box-sizing: border-box;
+          overflow: hidden;
         }
 
         .brand .eyebrow {
@@ -76,6 +76,15 @@ export class AppNavbar extends HTMLElement {
         .profile .role {
           font-size: 12px;
           color: var(--main-400);
+        }
+
+        .nav-scroll {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          flex: 1;
+          min-height: 0;
+          overflow-y: auto;
         }
 
         .nav {
@@ -176,11 +185,11 @@ export class AppNavbar extends HTMLElement {
             <img class="logo" src="/assets/img/logo2.png" alt="${title} logo" />
           </div>
 
-          <div class="profile">
+          <div class="profile px-3">
             <user-avatar
               alt="Admin User"
               initials="AU"
-              size="44"
+              size="50"
               status="online"
               rounded="full"
             ></user-avatar>
@@ -190,41 +199,31 @@ export class AppNavbar extends HTMLElement {
             </div>
           </div>
 
-          <nav class="nav">
-            <a href="/home">
-              Overview
-              <span class="pill">Live</span>
-            </a>
-            <a href="/labs">
-              Labs
-              <span class="meta">12</span>
-            </a>
-            <a href="/logs">
-              Logs
-              <span class="meta">3</span>
-            </a>
-            <a href="/specs">
-              Specs
-              <span class="meta">9</span>
-            </a>
-            <a href="/users">
-              Users
-              <span class="meta">46</span>
-            </a>
-            <a href="/notifications">
-              Notifications
-              <span class="meta">5</span>
-            </a>
-            <a href="/profile">
-              Profile
-              <span class="meta">1</span>
-            </a>
-          </nav>
+          <div class="nav-scroll px-3">
+            <nav class="nav">
+              <a href="/home">
+                Overview
+              </a>
+              <a href="/labs">
+                Labs
+              </a>
+              <a href="/logs">
+                Logs
+              </a>
+              <a href="/specs">
+                Specs
+              </a>
+              <a href="/users">
+                Users
+              </a>
 
-          <div class="status-card">
-            <div class="label">Status</div>
-            <div class="message">All systems normal.</div>
-            <button type="button">View report</button>
+            </nav>
+
+            <div class="status-card">
+              <div class="label">Status</div>
+              <div class="message">All systems normal.</div>
+              <button type="button">View report</button>
+            </div>
           </div>
         </aside>
       </div>

@@ -13,16 +13,16 @@ export class AppLayout extends HTMLElement {
         .layout {
           min-height: 100vh;
           display: flex;
-          background: var(--main-950);
           color: var(--main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
         }
 
         .sidebar {
           width: 260px;
-          border-right: 1px solid var(--main-800);
-          background: var(--main-950);
-          position: relative;
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
           z-index: 2;
           box-sizing: border-box;
         }
@@ -35,6 +35,8 @@ export class AppLayout extends HTMLElement {
           color: var(--main-900);
           position: relative;
           z-index: 1;
+          margin-left: 260px;
+          min-height: 100vh;
         }
 
         .main {
@@ -62,8 +64,16 @@ export class AppLayout extends HTMLElement {
 
           .sidebar {
             width: 100%;
+            position: relative;
+            top: auto;
+            left: auto;
+            bottom: auto;
             border-right: none;
             border-bottom: 1px solid var(--main-800);
+          }
+
+          .content {
+            margin-left: 0;
           }
         }
       </style>
