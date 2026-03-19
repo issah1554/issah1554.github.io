@@ -1,4 +1,4 @@
-class UserAvatar extends HTMLElement {
+export class UserAvatar extends HTMLElement {
   static get observedAttributes() {
     return [
       "src",

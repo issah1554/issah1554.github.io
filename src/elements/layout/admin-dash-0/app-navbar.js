@@ -1,3 +1,5 @@
+import { UserAvatar } from "../../ui/user-avatar.js";
+
 export class AppNavbar extends HTMLElement {
   connectedCallback() {
     const title = this.getAttribute("title") || "MyApp";
@@ -18,8 +20,8 @@ export class AppNavbar extends HTMLElement {
           flex-direction: column;
           padding: 28px 24px;
           gap: 20px;
-          background: var(--main-950);
-          border-right: 1px solid var(--main-800);
+          background: var(--color-primary-800);
+          border-right: 1px solid var(--color-primary-900);
           box-sizing: border-box;
         }
 
@@ -43,6 +45,30 @@ export class AppNavbar extends HTMLElement {
           color: var(--main-400);
         }
 
+        .profile {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 8px 0 4px;
+        }
+
+        .profile .meta {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .profile .name {
+          font-size: 14px;
+          color: var(--main-100);
+          font-weight: 600;
+        }
+
+        .profile .role {
+          font-size: 12px;
+          color: var(--main-400);
+        }
+
         .nav {
           display: flex;
           flex-direction: column;
@@ -62,7 +88,7 @@ export class AppNavbar extends HTMLElement {
         }
 
         .nav a:hover {
-          background: var(--main-800);
+          background: var(--color-primary-700);
           transform: translateX(3px);
         }
 
@@ -138,9 +164,22 @@ export class AppNavbar extends HTMLElement {
       <div class="app-shell">
         <aside class="sidenav">
           <div class="brand">
-            <div class="eyebrow">Control</div>
             <h1>${title}</h1>
             <p>Ops console</p>
+          </div>
+
+          <div class="profile">
+            <user-avatar
+              alt="Admin User"
+              initials="AU"
+              size="44"
+              status="online"
+              rounded="full"
+            ></user-avatar>
+            <div class="meta">
+              <span class="name">Admin User</span>
+              <span class="role">Operations</span>
+            </div>
           </div>
 
           <nav class="nav">
