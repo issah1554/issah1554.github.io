@@ -15,7 +15,8 @@ export class AppTopbar extends HTMLElement {
           <div class="flex items-center gap-4 text-lg">
             
             <!-- Notifications Icon -->
-            <button class="p-2 rounded-full hover:bg-white/40 transition">
+            <button class="p-2 rounded-full  hover:scale-120 transition cursor-pointer w-8 h-8 flex items-center justify-center  
+              hover:bg-main-300 hover:border hover:border-main-400">
               <i class="bi bi-bell"></i>
             </button>
 
@@ -27,6 +28,7 @@ export class AppTopbar extends HTMLElement {
               size="50"
               status="online"
               rounded="full"
+              class="hover:scale-110 transition cursor-pointer"              
             ></user-avatar>
 
           </div>
