@@ -7,6 +7,7 @@ export class UserAvatar extends HTMLElement {
       "initials",
       "status",
       "status-border-color",
+      "show-status",
       "rounded",
       "show-edit-button"
     ];
@@ -69,6 +70,7 @@ export class UserAvatar extends HTMLElement {
     const statusBorderColor = this.getAttribute("status-border-color") || "#ffffff";
     const rounded = this.getAttribute("rounded") || "full";
     const showEditButton = this.getAttribute("show-edit-button") === "true";
+    const showStatus = this.getAttribute("show-status") === "true";
 
     const displayInitials = this.getInitials(initials, alt);
     const radius = this.getRadius(rounded);
@@ -90,6 +92,7 @@ export class UserAvatar extends HTMLElement {
           border-radius: ${radius};
           border: ${borderWidth}px solid ${statusColor};
           padding: ${borderWidth}px;
+          vertical-align: middle;
         }
 
         .avatar-img,
@@ -183,12 +186,14 @@ export class UserAvatar extends HTMLElement {
                 </svg>
               </button>
             `
-            : `
+            : showStatus
+            ? `
               <span
                 class="status-dot"
                 title="${status.charAt(0).toUpperCase() + status.slice(1)}"
               ></span>
             `
+            : ""
         }
       </div>
     `;

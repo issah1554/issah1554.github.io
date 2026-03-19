@@ -1,3 +1,5 @@
+import { UserAvatar } from "../../ui/user-avatar.js";
+
 export class AppTopbar extends HTMLElement {
   connectedCallback() {
     const title = this.getAttribute("title") || "Dashboard";
@@ -17,10 +19,15 @@ export class AppTopbar extends HTMLElement {
               <i class="bi bi-bell"></i>
             </button>
 
-            <!-- User Icon -->
-            <button class="p-2 rounded-full hover:bg-white/40 transition">
-              <i class="bi bi-person-circle"></i>
-            </button>
+            <!-- User Avatar -->
+            <user-avatar
+              src="https://avatars.githubusercontent.com/u/153155657?v=4"
+              alt="Admin User"
+              initials="AU"
+              size="50"
+              status="online"
+              rounded="full"
+            ></user-avatar>
 
           </div>
         </div>
