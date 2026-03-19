@@ -5,7 +5,7 @@ export class AppTopbar extends HTMLElement {
     const title = this.getAttribute("title") || "Dashboard";
 
     this.innerHTML = `
-      <header class="px-6 py-3 border-b border-main-200    text-gray-900">
+      <header class="px-6 py-3 border-b border-main-200    text-main-900">
       <div class="flex items-center justify-between">
         
         <!-- Title -->
@@ -26,10 +26,10 @@ export class AppTopbar extends HTMLElement {
           </button>
           <div
           data-notif-menu
-          class="hidden absolute right-0 mt-1 w-72 rounded-2xl border border-main-200 bg-white p-4 text-sm text-gray-900 shadow-xl z-10"
+          class="hidden absolute right-0 mt-1 w-72 rounded-2xl border border-main-200 bg-white p-4 text-sm text-main-900 shadow-xl z-10"
           >
           <div class="mb-3 flex items-center justify-between">
-            <span class="text-xs font-semibold uppercase tracking-wide text-gray-500">Notifications</span>
+            <span class="text-xs font-semibold uppercase tracking-wide text-main-500">Notifications</span>
             <button class="text-xs font-medium text-main-600 hover:underline">Mark all read</button>
           </div>
           <div class="space-y-3">
@@ -37,21 +37,21 @@ export class AppTopbar extends HTMLElement {
             <i class="bi bi-check-circle text-main-600"></i>
             <div>
               <p class="text-sm font-semibold">Deployment completed</p>
-              <p class="text-xs text-gray-500">Your dashboard update is live.</p>
+              <p class="text-xs text-main-500">Your dashboard update is live.</p>
             </div>
             </div>
             <div class="flex items-start gap-3 rounded-xl bg-white p-3 shadow-sm">
             <i class="bi bi-person-plus text-main-600"></i>
             <div>
               <p class="text-sm font-semibold">New client invite</p>
-              <p class="text-xs text-gray-500">Asha joined your workspace.</p>
+              <p class="text-xs text-main-500">Asha joined your workspace.</p>
             </div>
             </div>
             <div class="flex items-start gap-3 rounded-xl bg-white p-3 shadow-sm">
             <i class="bi bi-graph-up text-main-600"></i>
             <div>
               <p class="text-sm font-semibold">Weekly report ready</p>
-              <p class="text-xs text-gray-500">Review insights from this week.</p>
+              <p class="text-xs text-main-500">Review insights from this week.</p>
             </div>
             </div>
           </div>
@@ -70,7 +70,7 @@ export class AppTopbar extends HTMLElement {
           src="https://avatars.githubusercontent.com/u/153155657?v=4"
           alt="Admin User"
           initials="AU"
-          size="40"
+          size="50"
           status="online"
           rounded="full"
           class="hover:scale-110 transition-transform cursor-pointer"
@@ -78,7 +78,7 @@ export class AppTopbar extends HTMLElement {
 
           <div
           data-profile-menu
-          class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-white p-3 text-sm text-gray-900 shadow-xl z-10"
+          class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-white p-3 text-sm text-main-900 shadow-xl z-10"
           >
           <div class="mb-2 flex flex-col items-center gap-2 rounded-xl bg-main-100 p-3 text-center">
             <user-avatar
@@ -91,7 +91,7 @@ export class AppTopbar extends HTMLElement {
             ></user-avatar>
             <div class="flex flex-col items-center">
               <p class="text-sm font-semibold">Admin User</p>
-              <p class="text-xs text-gray-500">Project Manager</p>
+              <p class="text-xs text-main-500">Project Manager</p>
             </div>
           </div>
           <a href="#" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-main-100">
