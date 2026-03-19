@@ -84,6 +84,10 @@ export class UserAvatar extends HTMLElement {
           box-sizing: border-box;
         }
 
+        :host {
+          display: inline-block;
+        }
+
         .avatar-wrapper {
           position: relative;
           display: inline-block;
