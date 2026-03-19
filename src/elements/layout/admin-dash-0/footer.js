@@ -1,42 +1,14 @@
 export class AppFooter extends HTMLElement {
   connectedCallback() {
-    const label = this.getAttribute("label") || "All systems operational";
+    const year = new Date().getFullYear();
+
     this.innerHTML = `
-      <style>
-        .footer {
-          padding: 16px 26px;
-          border-top: 1px solid var(--main-200);
-          background: var(--main-50);
-          color: var(--main-600);
-          font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          flex-wrap: wrap;
-          font-size: 13px;
-        }
+      <footer class="px-6 py-4 border-t border-gray-200 bg-gray-50 text-gray-600 text-sm flex items-center justify-center gap-3 flex-wrap font-sans">
+        
+        <span>
+          Copyright © ${year} <a href="https://databenki.com" target="_blank" class="text-blue-600 hover:underline">Databenki</a>. All rights reserved.
+        </span>
 
-        .badge {
-          padding: 4px 10px;
-          border-radius: 999px;
-          background: var(--success-100);
-          color: var(--success-700);
-          font-size: 11px;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-
-        a {
-          color: var(--primary-600);
-          text-decoration: none;
-        }
-      </style>
-
-      <footer class="footer">
-        <span>${label}</span>
-        <span class="badge">Status</span>
-        <a href="/">Support</a>
       </footer>
     `;
   }
