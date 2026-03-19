@@ -210,7 +210,7 @@ export class AppNavbar extends HTMLElement {
           </nav>
 
           <div class="sidebar-actions">
-            <a href="#" aria-label="Theme">
+            <a href="#" aria-label="Theme" data-theme-toggle>
               <i class="bi bi-moon-stars"></i>
             </a>
             <a href="#" aria-label="Settings">
@@ -242,6 +242,16 @@ export class AppNavbar extends HTMLElement {
         link.classList.remove("active");
       }
     });
+
+    const themeToggle = this.querySelector("[data-theme-toggle]");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        const root = document.documentElement;
+        const isDark = root.getAttribute("data-theme") === "dark";
+        root.setAttribute("data-theme", isDark ? "light" : "dark");
+      });
+    }
   }
 }
 
