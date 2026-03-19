@@ -2,7 +2,7 @@ import { UserAvatar } from "../../ui/user-avatar.js";
 
 export class AppNavbar extends HTMLElement {
   connectedCallback() {
-    const title = this.getAttribute("title") || "MyApp";
+    const title = this.getAttribute("title") || "Databenki";
     this.innerHTML = `
       <style>
         .app-shell {
@@ -39,6 +39,13 @@ export class AppNavbar extends HTMLElement {
           font-size: 24px;
           font-weight: 600;
           color: var(--main-50);
+        }
+
+        .brand .logo {
+          display: block;
+          width: 128px;
+          height: auto;
+          margin: 10px auto 4px;
         }
 
         .brand p {
@@ -166,7 +173,7 @@ export class AppNavbar extends HTMLElement {
       <div class="app-shell">
         <aside class="sidenav ">
           <div class="brand border-b border-primary-700 pb-3">
-            <h1>${title}</h1>
+            <img class="logo" src="/assets/img/logo2.png" alt="${title} logo" />
           </div>
 
           <div class="profile">
