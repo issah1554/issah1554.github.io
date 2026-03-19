@@ -84,7 +84,6 @@ export class UserAvatar extends HTMLElement {
         .avatar-wrapper {
           position: relative;
           display: inline-block;
-          overflow: hidden;
           width: ${size}px;
           height: ${size}px;
           border-radius: ${radius};
@@ -94,7 +93,7 @@ export class UserAvatar extends HTMLElement {
         .avatar-fallback {
           width: 100%;
           height: 100%;
-          border: 2px solid #cbd5e1;
+          border: 2px solid ${statusColor};
           border-radius: ${radius};
         }
 
@@ -126,7 +125,7 @@ export class UserAvatar extends HTMLElement {
 
         .status-dot {
           background: ${statusColor};
-          border: 2px solid ${statusBorderColor};
+          border: 1px solid ${statusBorderColor};
         }
 
         .edit-btn {
@@ -134,7 +133,7 @@ export class UserAvatar extends HTMLElement {
           align-items: center;
           justify-content: center;
           background: ${statusColor};
-          border: 2px solid #ffffff;
+          border: 1px solid #ffffff;
           cursor: pointer;
           padding: 0;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
