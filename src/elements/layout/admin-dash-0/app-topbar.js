@@ -80,9 +80,19 @@ export class AppTopbar extends HTMLElement {
           data-profile-menu
           class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-white p-3 text-sm text-gray-900 shadow-xl z-10"
           >
-          <div class="mb-2 rounded-xl bg-main-100 p-3">
-            <p class="text-sm font-semibold">Admin User</p>
-            <p class="text-xs text-gray-500">Project Manager</p>
+          <div class="mb-2 flex flex-col items-center gap-2 rounded-xl bg-main-100 p-3 text-center">
+            <user-avatar
+              src="https://avatars.githubusercontent.com/u/153155657?v=4"
+              alt="Admin User"
+              initials="AU"
+              size="50"
+              status="online"
+              rounded="full"
+            ></user-avatar>
+            <div class="flex flex-col items-center">
+              <p class="text-sm font-semibold">Admin User</p>
+              <p class="text-xs text-gray-500">Project Manager</p>
+            </div>
           </div>
           <a href="#" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-main-100">
             <i class="bi bi-person"></i>
