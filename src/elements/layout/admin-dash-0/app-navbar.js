@@ -227,6 +227,12 @@ export class AppNavbar extends HTMLElement {
       </div>
     `;
 
+    const root = document.documentElement;
+    const storedTheme = window.localStorage.getItem("theme");
+    if (storedTheme) {
+      root.setAttribute("data-theme", storedTheme);
+    }
+
     const links = this.querySelectorAll(".nav a");
     const currentPath = window.location.pathname.replace(/\/$/, "");
     links.forEach((link) => {
@@ -247,9 +253,10 @@ export class AppNavbar extends HTMLElement {
     if (themeToggle) {
       themeToggle.addEventListener("click", (event) => {
         event.preventDefault();
-        const root = document.documentElement;
         const isDark = root.getAttribute("data-theme") === "dark";
-        root.setAttribute("data-theme", isDark ? "light" : "dark");
+        const nextTheme = isDark ? "light" : "dark";
+        root.setAttribute("data-theme", nextTheme);
+        window.localStorage.setItem("theme", nextTheme);
       });
     }
   }
