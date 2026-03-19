@@ -5,7 +5,7 @@ export class AppTopbar extends HTMLElement {
     const title = this.getAttribute("title") || "Dashboard";
 
     this.innerHTML = `
-      <header class="px-6 py-3 border-b border-main-200    text-main-900">
+      <header class="px-6 py-3  bg-main-50   text-main-900">
       <div class="flex items-center justify-between">
         
         <!-- Title -->
@@ -22,18 +22,18 @@ export class AppTopbar extends HTMLElement {
           aria-expanded="false"
           >
           <i class="bi bi-bell text-2xl"></i>
-          <span class="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-main-50">3</span>
+          <span class="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-danger-600 text-[10px] font-semibold text-main-50">3</span>
           </button>
           <div
           data-notif-menu
-          class="hidden absolute right-0 mt-1 w-72 rounded-2xl border border-main-200 bg-main-50 p-4 text-sm text-main-900 shadow-xl z-10"
+          class="hidden absolute right-0 mt-1 w-72 rounded-2xl border border-main-200 bg-main-100 p-4 text-sm text-main-900 shadow-xl z-10"
           >
           <div class="mb-3 flex items-center justify-between">
             <span class="text-xs font-semibold uppercase tracking-wide text-main-500">Notifications</span>
             <button class="text-xs font-medium text-main-600 hover:underline">Mark all read</button>
           </div>
           <div class="space-y-3">
-            <div class="flex items-start gap-3 rounded-xl bg-main-100 p-3">
+            <div class="flex items-start gap-3 rounded-xl bg-main-50 p-3 shadow-sm">
             <i class="bi bi-check-circle text-main-600"></i>
             <div>
               <p class="text-sm font-semibold">Deployment completed</p>
@@ -78,9 +78,9 @@ export class AppTopbar extends HTMLElement {
 
           <div
           data-profile-menu
-          class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-main-50 p-3 text-sm text-main-900 shadow-xl z-10"
+          class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-main-100 p-3 text-sm text-main-900 shadow-xl z-10"
           >
-          <div class="mb-2 flex flex-col items-center gap-2 rounded-xl bg-main-100 p-3 text-center">
+          <div class="mb-2 flex flex-col items-center gap-2  border-b border-main-200  p-3 text-center">
             <user-avatar
               src="https://avatars.githubusercontent.com/u/153155657?v=4"
               alt="Admin User"
@@ -103,7 +103,7 @@ export class AppTopbar extends HTMLElement {
             Settings
           </a>
           <div class="my-2 h-px bg-main-200"></div>
-          <a href="/auth/login" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-main-600 hover:bg-main-100">
+          <a href="/auth/login" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-main-600 hover:bg-danger-100 hover:text-danger-600">
             <i class="bi bi-box-arrow-right"></i>
             Log out
           </a>

@@ -177,6 +177,7 @@
     --color-warning-400: var(--color-yellow-400);
     --color-warning-500: var(--color-yellow-500);
     --color-warning-600: var(--color-yellow-600);
+    --color-danger-100: var(--danger-100);
     --color-danger-400: var(--danger-400);
     --color-danger-500: var(--danger-500);
     --color-danger-600: var(--danger-600);
@@ -953,8 +954,14 @@
   .bg-primary-600 {
     background-color: var(--color-primary-600);
   }
+  .bg-red-400 {
+    background-color: var(--color-red-400);
+  }
   .bg-red-500 {
     background-color: var(--color-red-500);
+  }
+  .bg-red-600 {
+    background-color: var(--color-red-600);
   }
   .bg-rose-100 {
     background-color: var(--color-rose-100);
@@ -1520,6 +1527,13 @@
       }
     }
   }
+  .hover\:bg-danger-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-danger-100);
+      }
+    }
+  }
   .hover\:bg-main-50\/20 {
     &:hover {
       @media (hover: hover) {
@@ -1555,6 +1569,13 @@
     &:hover {
       @media (hover: hover) {
         color: #0033ac;
+      }
+    }
+  }
+  .hover\:text-danger-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-danger-600);
       }
     }
   }
@@ -1983,6 +2004,17 @@
   --main-800: var(--color-neutral-200);
   --main-900: var(--color-neutral-100);
   --main-950: var(--color-neutral-50);
+  --danger-50: var(--color-red-950);
+  --danger-100: var(--color-red-900);
+  --danger-200: var(--color-red-800);
+  --danger-300: var(--color-red-700);
+  --danger-400: var(--color-red-600);
+  --danger-500: var(--color-red-500);
+  --danger-600: var(--color-red-400);
+  --danger-700: var(--color-red-300);
+  --danger-800: var(--color-red-200);
+  --danger-900: var(--color-red-100);
+  --danger-950: var(--color-red-50);
 }
 *::-webkit-scrollbar {
   width: 4px;

@@ -134,6 +134,18 @@
     --main-800: var(--color-neutral-200);
     --main-900: var(--color-neutral-100);
     --main-950: var(--color-neutral-50);
+
+    --danger-50: var(--color-red-950);
+    --danger-100: var(--color-red-900);
+    --danger-200: var(--color-red-800);
+    --danger-300: var(--color-red-700);
+    --danger-400: var(--color-red-600);
+    --danger-500: var(--color-red-500);
+    --danger-600: var(--color-red-400);
+    --danger-700: var(--color-red-300);
+    --danger-800: var(--color-red-200);
+    --danger-900: var(--color-red-100);
+    --danger-950: var(--color-red-50);
 }
 
 @theme {

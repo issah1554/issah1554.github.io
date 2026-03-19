@@ -42,7 +42,7 @@ export class AppLayout extends HTMLElement {
         .main {
           flex: 1;
           padding: 28px 26px;
-          background: var(--color-main-100);
+          background: var(--color-main-50);
         }
 
         app-navbar {
