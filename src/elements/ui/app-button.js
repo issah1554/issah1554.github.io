@@ -27,42 +27,42 @@ class AppButton extends HTMLElement {
 
     const colorVariants = {
       primary: {
-        solid: "bg-primary-600 text-white border-none",
+        solid: "bg-primary-600 text-main-50 border-none",
         outline: "bg-transparent text-primary-600 border border-primary-600",
         text: "bg-transparent text-primary-600 border-none"
       },
       secondary: {
-        solid: "bg-secondary-600 text-white border-none",
+        solid: "bg-secondary-600 text-main-50 border-none",
         outline: "bg-transparent text-secondary-600 border border-secondary-600",
         text: "bg-transparent text-secondary-600 border-none"
       },
       accent: {
-        solid: "bg-accent-600 text-white border-none",
+        solid: "bg-accent-600 text-main-50 border-none",
         outline: "bg-transparent text-accent-600 border border-accent-600",
         text: "bg-transparent text-accent-600 border-none"
       },
       neutral: {
-        solid: "bg-neutral-600 text-white border-none",
+        solid: "bg-neutral-600 text-main-50 border-none",
         outline: "bg-transparent text-neutral-600 border border-neutral-600",
         text: "bg-transparent text-neutral-600 border-none"
       },
       success: {
-        solid: "bg-success-600 text-white border-none",
+        solid: "bg-success-600 text-main-50 border-none",
         outline: "bg-transparent text-success-600 border border-success-600",
         text: "bg-transparent text-success-600 border-none"
       },
       warning: {
-        solid: "bg-warning-600 text-white border-none",
+        solid: "bg-warning-600 text-main-50 border-none",
         outline: "bg-transparent text-warning-600 border border-warning-600",
         text: "bg-transparent text-warning-600 border-none"
       },
       error: {
-        solid: "bg-danger-600 text-white border-none",
+        solid: "bg-danger-600 text-main-50 border-none",
         outline: "bg-transparent text-danger-600 border border-danger-600",
         text: "bg-transparent text-danger-600 border-none"
       },
       info: {
-        solid: "bg-info-600 text-white border-none",
+        solid: "bg-info-600 text-main-50 border-none",
         outline: "bg-transparent text-info-600 border border-info-600",
         text: "bg-transparent text-info-600 border-none"
       },
@@ -72,7 +72,7 @@ class AppButton extends HTMLElement {
         text: "bg-transparent text-main-500 border-none"
       },
       dark: {
-        solid: "bg-main-900 text-white border-none",
+        solid: "bg-main-900 text-main-50 border-none",
         outline: "bg-transparent text-main-900 border border-main-900",
         text: "bg-transparent text-main-900 border-none"
       }

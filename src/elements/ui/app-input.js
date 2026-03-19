@@ -28,37 +28,37 @@ class AppInput extends HTMLElement {
 
     const colorVariants = {
       primary: {
-        solid: "bg-white text-primary-500 border border-main-300",
+        solid: "bg-main-50 text-primary-500 border border-main-300",
         outline: "bg-transparent text-primary-500 border border-main-300",
         text: "bg-transparent text-primary-500 border-none"
       },
       secondary: {
-        solid: "bg-white text-secondary-500 border border-main-600",
+        solid: "bg-main-50 text-secondary-500 border border-main-600",
         outline: "bg-transparent text-secondary-500 border border-main-600",
         text: "bg-transparent text-secondary-500 border-none"
       },
       neutral: {
-        solid: "bg-white text-neutral-500 border border-main-600",
+        solid: "bg-main-50 text-neutral-500 border border-main-600",
         outline: "bg-transparent text-neutral-500 border border-main-600",
         text: "bg-transparent text-neutral-500 border-none"
       },
       success: {
-        solid: "bg-white text-success-500 border border-main-300",
+        solid: "bg-main-50 text-success-500 border border-main-300",
         outline: "bg-transparent text-success-500 border border-success-500",
         text: "bg-transparent text-success-500 border-none"
       },
       warning: {
-        solid: "bg-white text-warning-500 border border-main-300",
+        solid: "bg-main-50 text-warning-500 border border-main-300",
         outline: "bg-transparent text-warning-500 border border-warning-500",
         text: "bg-transparent text-warning-500 border-none"
       },
       error: {
-        solid: "bg-white text-danger-500 border border-main-300",
+        solid: "bg-main-50 text-danger-500 border border-main-300",
         outline: "bg-transparent text-danger-500 border border-danger-500",
         text: "bg-transparent text-danger-500 border-none"
       },
       info: {
-        solid: "bg-white text-info-500 border border-main-300",
+        solid: "bg-main-50 text-info-500 border border-main-300",
         outline: "bg-transparent text-info-500 border border-info-500",
         text: "bg-transparent text-info-500 border-none"
       },
@@ -68,7 +68,7 @@ class AppInput extends HTMLElement {
         text: "bg-transparent text-main-700 border-none"
       },
       dark: {
-        solid: "bg-main-900 text-white border border-main-300",
+        solid: "bg-main-900 text-main-50 border border-main-300",
         outline: "bg-transparent text-main-900 border border-main-300",
         text: "bg-transparent text-main-900 border-none"
       }

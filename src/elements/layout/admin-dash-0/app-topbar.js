@@ -22,11 +22,11 @@ export class AppTopbar extends HTMLElement {
           aria-expanded="false"
           >
           <i class="bi bi-bell text-2xl"></i>
-          <span class="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-white">3</span>
+          <span class="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-main-50">3</span>
           </button>
           <div
           data-notif-menu
-          class="hidden absolute right-0 mt-1 w-72 rounded-2xl border border-main-200 bg-white p-4 text-sm text-main-900 shadow-xl z-10"
+          class="hidden absolute right-0 mt-1 w-72 rounded-2xl border border-main-200 bg-main-50 p-4 text-sm text-main-900 shadow-xl z-10"
           >
           <div class="mb-3 flex items-center justify-between">
             <span class="text-xs font-semibold uppercase tracking-wide text-main-500">Notifications</span>
@@ -40,14 +40,14 @@ export class AppTopbar extends HTMLElement {
               <p class="text-xs text-main-500">Your dashboard update is live.</p>
             </div>
             </div>
-            <div class="flex items-start gap-3 rounded-xl bg-white p-3 shadow-sm">
+            <div class="flex items-start gap-3 rounded-xl bg-main-50 p-3 shadow-sm">
             <i class="bi bi-person-plus text-main-600"></i>
             <div>
               <p class="text-sm font-semibold">New client invite</p>
               <p class="text-xs text-main-500">Asha joined your workspace.</p>
             </div>
             </div>
-            <div class="flex items-start gap-3 rounded-xl bg-white p-3 shadow-sm">
+            <div class="flex items-start gap-3 rounded-xl bg-main-50 p-3 shadow-sm">
             <i class="bi bi-graph-up text-main-600"></i>
             <div>
               <p class="text-sm font-semibold">Weekly report ready</p>
@@ -78,7 +78,7 @@ export class AppTopbar extends HTMLElement {
 
           <div
           data-profile-menu
-          class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-white p-3 text-sm text-main-900 shadow-xl z-10"
+          class="hidden absolute right-0 mt-1 w-56 rounded-2xl border border-main-200 bg-main-50 p-3 text-sm text-main-900 shadow-xl z-10"
           >
           <div class="mb-2 flex flex-col items-center gap-2 rounded-xl bg-main-100 p-3 text-center">
             <user-avatar

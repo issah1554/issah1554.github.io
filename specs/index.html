@@ -15,41 +15,41 @@
         <app-footer slot="footer" label="Specs repository current"></app-footer>
 
         <div class="mx-auto flex max-w-6xl flex-col gap-6">
-            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <section class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-sm">
                 <div class="flex items-center justify-between gap-3">
                     <div>
-                        <h3 class="text-lg font-semibold text-slate-900">Active specifications</h3>
-                        <p class="text-sm text-slate-500">Track critical requirements and approvals.</p>
+                        <h3 class="text-lg font-semibold text-main-900">Active specifications</h3>
+                        <p class="text-sm text-main-500">Track critical requirements and approvals.</p>
                     </div>
-                    <button class="rounded-full bg-slate-900 px-4 py-2 text-sm text-white">New spec</button>
+                    <button class="rounded-full bg-main-900 px-4 py-2 text-sm text-main-50">New spec</button>
                 </div>
                 <div class="mt-6 grid gap-4 lg:grid-cols-3">
-                    <div class="rounded-xl border border-slate-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-slate-400">Security</p>
-                        <p class="mt-2 text-base font-semibold text-slate-900">Policy v4.2</p>
-                        <p class="text-sm text-slate-500">Signed by 3/4 reviewers</p>
+                    <div class="rounded-xl border border-main-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-main-400">Security</p>
+                        <p class="mt-2 text-base font-semibold text-main-900">Policy v4.2</p>
+                        <p class="text-sm text-main-500">Signed by 3/4 reviewers</p>
                     </div>
-                    <div class="rounded-xl border border-slate-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-slate-400">Compliance</p>
-                        <p class="mt-2 text-base font-semibold text-slate-900">GDPR Addendum</p>
-                        <p class="text-sm text-slate-500">Review cycle ends in 2 days</p>
+                    <div class="rounded-xl border border-main-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-main-400">Compliance</p>
+                        <p class="mt-2 text-base font-semibold text-main-900">GDPR Addendum</p>
+                        <p class="text-sm text-main-500">Review cycle ends in 2 days</p>
                     </div>
-                    <div class="rounded-xl border border-slate-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-slate-400">Ops</p>
-                        <p class="mt-2 text-base font-semibold text-slate-900">Uptime SLO 99.9%</p>
-                        <p class="text-sm text-slate-500">Monitoring aligned</p>
+                    <div class="rounded-xl border border-main-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-main-400">Ops</p>
+                        <p class="mt-2 text-base font-semibold text-main-900">Uptime SLO 99.9%</p>
+                        <p class="text-sm text-main-500">Monitoring aligned</p>
                     </div>
                 </div>
             </section>
 
-            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <section class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-sm">
                 <div class="flex items-center justify-between gap-3">
-                    <h3 class="text-lg font-semibold text-slate-900">Spec tracker</h3>
-                    <button class="text-sm font-medium text-slate-700">Download bundle</button>
+                    <h3 class="text-lg font-semibold text-main-900">Spec tracker</h3>
+                    <button class="text-sm font-medium text-main-700">Download bundle</button>
                 </div>
                 <div class="mt-4 overflow-x-auto">
                     <table class="w-full text-left text-sm">
-                        <thead class="text-xs uppercase tracking-widest text-slate-400">
+                        <thead class="text-xs uppercase tracking-widest text-main-400">
                             <tr>
                                 <th class="py-2">Spec</th>
                                 <th class="py-2">Owner</th>
@@ -57,23 +57,29 @@
                                 <th class="py-2 text-right">Updated</th>
                             </tr>
                         </thead>
-                        <tbody class="text-slate-700">
-                            <tr class="border-t border-slate-200">
+                        <tbody class="text-main-700">
+                            <tr class="border-t border-main-200">
                                 <td class="py-3 font-medium">Incident Response Playbook</td>
                                 <td class="py-3">S. Nyerere</td>
-                                <td class="py-3"><span class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Approved</span></td>
+                                <td class="py-3"><span
+                                        class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Approved</span>
+                                </td>
                                 <td class="py-3 text-right">Yesterday</td>
                             </tr>
-                            <tr class="border-t border-slate-200">
+                            <tr class="border-t border-main-200">
                                 <td class="py-3 font-medium">Data Retention Matrix</td>
                                 <td class="py-3">K. Silva</td>
-                                <td class="py-3"><span class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">In review</span></td>
+                                <td class="py-3"><span
+                                        class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">In
+                                        review</span></td>
                                 <td class="py-3 text-right">2 days ago</td>
                             </tr>
-                            <tr class="border-t border-slate-200">
+                            <tr class="border-t border-main-200">
                                 <td class="py-3 font-medium">Runbook Automation</td>
                                 <td class="py-3">L. Chen</td>
-                                <td class="py-3"><span class="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">Draft</span></td>
+                                <td class="py-3"><span
+                                        class="rounded-full bg-main-100 px-3 py-1 text-xs text-main-600">Draft</span>
+                                </td>
                                 <td class="py-3 text-right">This week</td>
                             </tr>
                         </tbody>
