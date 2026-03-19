@@ -19,7 +19,6 @@ export class AppNavbar extends HTMLElement {
           height: 100vh;
           display: flex;
           flex-direction: column;
-          padding-bottom: 20px;
           gap: 20px;
           background: var(--color-primary-800);
           border-right: 1px solid var(--color-primary-900);
@@ -81,10 +80,10 @@ export class AppNavbar extends HTMLElement {
         .nav-scroll {
           display: flex;
           flex-direction: column;
-          gap: 20px;
           flex: 1;
           min-height: 0;
           overflow-y: auto;
+          padding-right: 6px;
         }
 
         .nav {
@@ -130,44 +129,37 @@ export class AppNavbar extends HTMLElement {
           color: var(--main-500);
         }
 
-        .status-card {
+        .sidebar-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 12px 6px 6px;
           margin-top: auto;
-          border-radius: 16px;
-          border: 1px solid var(--main-800);
-          padding: 16px;
-          background: var(--main-900);
-          color: var(--main-300);
-          font-size: 12px;
+          border-top: 1px solid var(--color-primary-700);
         }
 
-        .status-card .label {
-          font-size: 10px;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          color: var(--main-500);
-        }
-
-        .status-card .message {
-          margin: 10px 0 0;
-          font-size: 14px;
-          color: var(--main-100);
-        }
-
-        .status-card button {
-          margin-top: 14px;
-          width: 100%;
+        .sidebar-actions a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
           border-radius: 10px;
-          border: 1px solid var(--primary-500);
-          background: transparent;
-          color: var(--primary-300);
-          padding: 8px 10px;
-          cursor: pointer;
-          transition: background 0.2s ease;
+          color: var(--main-200);
+          text-decoration: none;
+          border: 1px solid transparent;
+          transition: transform 0.2s ease, background 0.2s ease, border 0.2s ease;
         }
 
-        .status-card button:hover {
-          background: var(--primary-700);
-          color: var(--main-50);
+        .sidebar-actions a:hover {
+          background: var(--color-primary-700);
+          border-color: var(--color-primary-600);
+          transform: translateY(-1px);
+        }
+
+        .sidebar-actions i {
+          font-size: 18px;
         }
 
         @media (max-width: 900px) {
@@ -199,31 +191,37 @@ export class AppNavbar extends HTMLElement {
             </div>
           </div>
 
-          <div class="nav-scroll px-3">
-            <nav class="nav">
-              <a href="/home">
-                Overview
-              </a>
-              <a href="/labs">
-                Labs
-              </a>
-              <a href="/logs">
-                Logs
-              </a>
-              <a href="/specs">
-                Specs
-              </a>
-              <a href="/users">
-                Users
-              </a>
+          <nav class="nav nav-scroll px-3">
+            <a href="/home">
+              Overview
+            </a>
+            <a href="/labs">
+              Labs
+            </a>
+            <a href="/logs">
+              Logs
+            </a>
+            <a href="/specs">
+              Specs
+            </a>
+            <a href="/users">
+              Users
+            </a>
+          </nav>
 
-            </nav>
-
-            <div class="status-card">
-              <div class="label">Status</div>
-              <div class="message">All systems normal.</div>
-              <button type="button">View report</button>
-            </div>
+          <div class="sidebar-actions">
+            <a href="#" aria-label="Theme">
+              <i class="bi bi-moon-stars"></i>
+            </a>
+            <a href="#" aria-label="Settings">
+              <i class="bi bi-gear"></i>
+            </a>
+            <a href="#" aria-label="Profile">
+              <i class="bi bi-person"></i>
+            </a>            
+            <a href="/auth/login" aria-label="Log out">
+              <i class="bi bi-box-arrow-right"></i>
+            </a>
           </div>
         </aside>
       </div>
