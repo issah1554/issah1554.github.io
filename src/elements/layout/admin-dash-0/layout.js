@@ -1,3 +1,8 @@
+import "./app-navbar.js";
+import "./app-topbar.js";
+import "./footer.js";
+import "./app-right-drawer.js";
+
 export class AppLayout extends HTMLElement {
   connectedCallback() {
     if (!this.shadowRoot) {

@@ -7,7 +7,7 @@ export class AppNavbar extends HTMLElement {
       <style>
         .app-shell {
           display: inline-block;
-          background: transparent;
+          background: --color-primary-900;
           color: var(--main-100);
           font-family: "Space Grotesk", "Syne", "Segoe UI", sans-serif;
           width: 100%;
@@ -18,7 +18,9 @@ export class AppNavbar extends HTMLElement {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
-          padding: 28px 24px;
+          padding-left: 24px;
+          padding-right: 24px;
+          padding-bottom: 20px;
           gap: 20px;
           background: var(--color-primary-800);
           border-right: 1px solid var(--color-primary-900);
@@ -162,10 +164,9 @@ export class AppNavbar extends HTMLElement {
       </style>
 
       <div class="app-shell">
-        <aside class="sidenav">
-          <div class="brand">
+        <aside class="sidenav ">
+          <div class="brand border-b border-primary-700 pb-3">
             <h1>${title}</h1>
-            <p>Ops console</p>
           </div>
 
           <div class="profile">
