@@ -63,14 +63,14 @@ class AppInput extends HTMLElement {
         text: "bg-transparent text-info-500 border-none"
       },
       light: {
-        solid: "bg-gray-100 text-gray-900 border border-main-300",
-        outline: "bg-transparent text-gray-700 border border-gray-400",
-        text: "bg-transparent text-gray-700 border-none"
+        solid: "bg-main-100 text-main-900 border border-main-300",
+        outline: "bg-transparent text-main-700 border border-main-400",
+        text: "bg-transparent text-main-700 border-none"
       },
       dark: {
-        solid: "bg-gray-900 text-white border border-main-300",
-        outline: "bg-transparent text-gray-900 border border-main-300",
-        text: "bg-transparent text-gray-900 border-none"
+        solid: "bg-main-900 text-white border border-main-300",
+        outline: "bg-transparent text-main-900 border border-main-300",
+        text: "bg-transparent text-main-900 border-none"
       }
     };
 
@@ -82,8 +82,8 @@ class AppInput extends HTMLElement {
       warning: "focus:ring-warning-400 focus:border-0",
       error: "focus:ring-danger-400 focus:border-0",
       info: "focus:ring-info-400 focus:border-0",
-      light: "focus:ring-gray-300 focus:border-0",
-      dark: "focus:ring-gray-900 focus:border-0"
+      light: "focus:ring-main-300 focus:border-0",
+      dark: "focus:ring-main-900 focus:border-0"
     };
 
     const selectedSize = sizes[size] || sizes.md;

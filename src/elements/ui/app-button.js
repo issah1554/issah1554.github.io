@@ -67,14 +67,14 @@ class AppButton extends HTMLElement {
         text: "bg-transparent text-info-600 border-none"
       },
       light: {
-        solid: "bg-gray-200 text-black border-none",
-        outline: "bg-transparent text-gray-500 border border-gray-400",
-        text: "bg-transparent text-gray-500 border-none"
+        solid: "bg-main-200 text-black border-none",
+        outline: "bg-transparent text-main-500 border border-main-400",
+        text: "bg-transparent text-main-500 border-none"
       },
       dark: {
-        solid: "bg-gray-900 text-white border-none",
-        outline: "bg-transparent text-gray-900 border border-gray-900",
-        text: "bg-transparent text-gray-900 border-none"
+        solid: "bg-main-900 text-white border-none",
+        outline: "bg-transparent text-main-900 border border-main-900",
+        text: "bg-transparent text-main-900 border-none"
       }
     };
 
