@@ -3,7 +3,7 @@ import { UserAvatar } from "../../ui/user-avatar.js";
 export class AppNavbar extends HTMLElement {
   connectedCallback() {
     const title = this.getAttribute("title") || "Databenki";
-    this.innerHTML = `
+    this.innerHTML = /* html */`
       <style>
         .app-shell {
           display: block;
@@ -21,7 +21,6 @@ export class AppNavbar extends HTMLElement {
           flex-direction: column;
           gap: 20px;
           background: var(--color-primary-800);
-          border-right: 1px solid var(--color-primary-900);
           box-sizing: border-box;
           overflow: hidden;
         }
@@ -30,7 +29,7 @@ export class AppNavbar extends HTMLElement {
           font-size: 10px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
-          color: var(--primary-300);
+          color: var(--color-primary-300);
         }
 
         .brand h1 {
@@ -66,11 +65,6 @@ export class AppNavbar extends HTMLElement {
           gap: 2px;
         }
 
-        .profile .name {
-          font-size: 14px;
-          color: var(--color-main-100);
-          font-weight: 600;
-        }
 
         .profile .role {
           font-size: 12px;
@@ -99,9 +93,19 @@ export class AppNavbar extends HTMLElement {
           justify-content: space-between;
           padding: 10px 12px;
           border-radius: 12px;
-          color: var(--color-main-400);
+          color: var(--color-main-500);
           text-decoration: none;
           transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .nav .nav-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .nav .nav-item i {
+          font-size: 16px;
         }
 
         .nav a:hover {
@@ -110,7 +114,7 @@ export class AppNavbar extends HTMLElement {
         }
 
         .nav a.active {
-          background: var(--primary-600);
+          background: var(--color-primary-600);
           color: var(--color-main-50);
           font-weight: 600;
         }
@@ -118,7 +122,7 @@ export class AppNavbar extends HTMLElement {
         .pill {
           padding: 2px 8px;
           border-radius: 999px;
-          background: var(--primary-400);
+          background: var(--color-primary-400);
           color: var(--color-main-950);
           font-size: 11px;
           letter-spacing: 0.05em;
@@ -146,7 +150,7 @@ export class AppNavbar extends HTMLElement {
           width: 38px;
           height: 38px;
           border-radius: 10px;
-          color: var(--color-main-400);
+          color: var(--color-main-500);
           text-decoration: none;
           border: 1px solid transparent;
           transition: transform 0.2s ease, background 0.2s ease, border 0.2s ease;
@@ -186,26 +190,40 @@ export class AppNavbar extends HTMLElement {
               rounded="full"
             ></user-avatar>
             <div class="meta">
-              <span class="name">Admin User</span>
-              <span class="role">Operations</span>
+              <span class="text-main-500 text-xl">Admin User</span>
             </div>
           </div>
 
           <nav class="nav nav-scroll px-3">
             <a href="/home">
-              Overview
-            </a>
-            <a href="/labs">
-              Labs
-            </a>
-            <a href="/logs">
-              Logs
-            </a>
-            <a href="/specs">
-              Specs
+              <span class="nav-item">
+                <i class="bi bi-speedometer2"></i>
+                <span>Overview</span>
+              </span>
             </a>
             <a href="/users">
-              Users
+              <span class="nav-item">
+                <i class="bi bi-people"></i>
+                <span>Users</span>
+              </span>
+            </a>
+            <a href="/labs">
+              <span class="nav-item">
+                <i class="bi bi-beaker"></i>
+                <span>Labs</span>
+              </span>
+            </a>
+            <a href="/logs">
+              <span class="nav-item">
+                <i class="bi bi-journal-text"></i>
+                <span>Logs</span>
+              </span>
+            </a>
+            <a href="/specs">
+              <span class="nav-item">
+                <i class="bi bi-clipboard-data"></i>
+                <span>Specs</span>
+              </span>
             </a>
           </nav>
 
@@ -216,7 +234,7 @@ export class AppNavbar extends HTMLElement {
             <a href="#" aria-label="Settings">
               <i class="bi bi-gear"></i>
             </a>
-            <a href="#" aria-label="Profile">
+            <a href="/profile" aria-label="Profile">
               <i class="bi bi-person"></i>
             </a>            
             <a href="/auth/login" aria-label="Log out">

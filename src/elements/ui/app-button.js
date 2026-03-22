@@ -83,7 +83,7 @@ class AppButton extends HTMLElement {
     const selectedColor = colorVariants[color] || colorVariants.primary;
     const selectedVariant = selectedColor[variant] || selectedColor.solid;
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
       <button
         class="${selectedSize} ${selectedRounded} ${selectedVariant} ${hostClass} cursor-pointer transition hover:opacity-90"
       >

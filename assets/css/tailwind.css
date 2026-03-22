@@ -161,6 +161,9 @@
     --color-main-900: var(--main-900);
     --color-main-950: var(--main-950);
     --color-primary-50: var(--primary-50);
+    --color-primary-100: var(--primary-100);
+    --color-primary-200: var(--primary-200);
+    --color-primary-300: var(--primary-300);
     --color-primary-400: var(--primary-400);
     --color-primary-500: var(--primary-500);
     --color-primary-600: var(--primary-600);
@@ -437,6 +440,9 @@
       max-width: 3840px;
     }
   }
+  .m-3 {
+    margin: calc(var(--spacing) * 3);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -499,6 +505,9 @@
   }
   .ml-auto {
     margin-left: auto;
+  }
+  .block {
+    display: block;
   }
   .flex {
     display: flex;
@@ -732,6 +741,20 @@
       margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
+  .divide-y {
+    :where(& > :not(:last-child)) {
+      --tw-divide-y-reverse: 0;
+      border-bottom-style: var(--tw-border-style);
+      border-top-style: var(--tw-border-style);
+      border-top-width: calc(1px * var(--tw-divide-y-reverse));
+      border-bottom-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+    }
+  }
+  .divide-main-200 {
+    :where(& > :not(:last-child)) {
+      border-color: var(--color-main-200);
+    }
+  }
   .overflow-hidden {
     overflow: hidden;
   }
@@ -770,6 +793,10 @@
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
+  }
+  .rounded-b-2xl {
+    border-bottom-right-radius: var(--radius-2xl);
+    border-bottom-left-radius: var(--radius-2xl);
   }
   .rounded-br-md {
     border-bottom-right-radius: var(--radius-md);
@@ -953,15 +980,6 @@
   }
   .bg-primary-600 {
     background-color: var(--color-primary-600);
-  }
-  .bg-red-400 {
-    background-color: var(--color-red-400);
-  }
-  .bg-red-500 {
-    background-color: var(--color-red-500);
-  }
-  .bg-red-600 {
-    background-color: var(--color-red-600);
   }
   .bg-rose-100 {
     background-color: var(--color-rose-100);
@@ -1477,6 +1495,13 @@
       }
     }
   }
+  .hover\:rounded-lg {
+    &:hover {
+      @media (hover: hover) {
+        border-radius: var(--radius-lg);
+      }
+    }
+  }
   .hover\:border {
     &:hover {
       @media (hover: hover) {
@@ -1489,6 +1514,13 @@
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-main-400);
+      }
+    }
+  }
+  .hover\:border-primary-300 {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--color-primary-300);
       }
     }
   }
@@ -1544,13 +1576,6 @@
       }
     }
   }
-  .hover\:bg-main-100 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-main-100);
-      }
-    }
-  }
   .hover\:bg-main-200 {
     &:hover {
       @media (hover: hover) {
@@ -1562,6 +1587,20 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-main-300);
+      }
+    }
+  }
+  .hover\:bg-primary-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-primary-100);
+      }
+    }
+  }
+  .hover\:bg-primary-200 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-primary-200);
       }
     }
   }
@@ -1583,6 +1622,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-main-50);
+      }
+    }
+  }
+  .hover\:text-primary-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-primary-600);
       }
     }
   }
@@ -8350,6 +8396,11 @@
   inherits: false;
   initial-value: 0;
 }
+@property --tw-divide-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -8609,6 +8660,7 @@
       --tw-skew-x: initial;
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
+      --tw-divide-y-reverse: 0;
       --tw-border-style: solid;
       --tw-gradient-position: initial;
       --tw-gradient-from: #0000;
