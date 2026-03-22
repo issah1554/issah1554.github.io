@@ -62,7 +62,7 @@ export class AppTopbar extends HTMLElement {
 
         <a
           href="/notifications"
-          class="block text-center hover:bg-primary-100 cursor-pointer p-3 rounded-b-2xl hover:text-primary-600 font-bold"
+          class="block text-center hover:bg-accent-100 cursor-pointer p-3 rounded-b-2xl hover:text-accent-600 font-bold"
         >
           View all notifications
         </a>

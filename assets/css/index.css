@@ -48,17 +48,17 @@
     --secondary-900: var(--color-gray-900);
     --secondary-950: var(--color-gray-950);
 
-    --accent-50: var(--color-amber-50);
-    --accent-100: var(--color-amber-100);
-    --accent-200: var(--color-amber-200);
-    --accent-300: var(--color-amber-300);
-    --accent-400: var(--color-amber-400);
-    --accent-500: var(--color-amber-500);
-    --accent-600: var(--color-amber-600);
-    --accent-700: var(--color-amber-700);
-    --accent-800: var(--color-amber-800);
-    --accent-900: var(--color-amber-900);
-    --accent-950: var(--color-amber-950);
+    --accent-50: var(--color-cyan-50);
+    --accent-100: var(--color-cyan-100);
+    --accent-200: var(--color-cyan-200);
+    --accent-300: var(--color-cyan-300);
+    --accent-400: var(--color-cyan-400);
+    --accent-500: var(--color-cyan-500);
+    --accent-600: var(--color-cyan-600);
+    --accent-700: var(--color-cyan-700);
+    --accent-800: var(--color-cyan-800);
+    --accent-900: var(--color-cyan-900);
+    --accent-950: var(--color-cyan-950);
 
     --warning-50: var(--color-orange-50);
     --warning-100: var(--color-orange-100);
@@ -146,13 +146,25 @@
     --danger-800: var(--color-red-200);
     --danger-900: var(--color-red-100);
     --danger-950: var(--color-red-50);
+
+    --accent-50: var(--color-cyan-950);
+    --accent-100: var(--color-cyan-900);
+    --accent-200: var(--color-cyan-800);
+    --accent-300: var(--color-cyan-700);
+    --accent-400: var(--color-cyan-600);
+    --accent-500: var(--color-cyan-500);
+    --accent-600: var(--color-cyan-400);
+    --accent-700: var(--color-cyan-300);
+    --accent-800: var(--color-cyan-200);
+    --accent-900: var(--color-cyan-100);
+    --accent-950: var(--color-cyan-50);
 }
 
 @theme {
     /* === Base Colors (OKLCH) === */
     --color-main: var(--main-600);
     --color-primary: var(--color-teal-500);
-    --color-accent: var(--color-amber-500);
+    --color-accent: var(--color-cyan-500);
     --color-secondary: var(--color-gray-500);
 
     /* === Main Base === */
