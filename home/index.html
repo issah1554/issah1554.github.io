@@ -4,6 +4,72 @@
 <head>
     <title>Home</title>
     <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <style>
+        .dash-shell {
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255, 206, 161, 0.35), transparent 45%),
+                radial-gradient(circle at 90% 10%, rgba(129, 199, 255, 0.28), transparent 40%),
+                linear-gradient(135deg, #f7f6f2 0%, #f4f4ee 45%, #f0f5f8 100%);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        .dash-card {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .dash-grid-lines {
+            background-image:
+                linear-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .dash-fade {
+            animation: dash-fade-up 0.8s ease both;
+        }
+
+        .dash-delay-1 {
+            animation-delay: 0.15s;
+        }
+
+        .dash-delay-2 {
+            animation-delay: 0.3s;
+        }
+
+        .dash-delay-3 {
+            animation-delay: 0.45s;
+        }
+
+        .dash-float {
+            animation: dash-float 7s ease-in-out infinite;
+        }
+
+        @keyframes dash-fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes dash-float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -12,19 +78,139 @@
         <app-topbar slot="topbar"></app-topbar>
         <app-footer slot="footer" label="Lab telemetry up to date"></app-footer>
 
-        <app-button label="Save" rounded="none"></app-button>
-        <app-button label="Delete" color="error" variant="solid" size="md" rounded="none"></app-button>
-        <app-button label="Info" color="info" variant="outline" size="sm" rounded="full"></app-button>
-        <app-button label="Accent" color="info" variant="solid"></app-button>
+            <div class="max-w-6xl mx-auto space-y-10">
 
-        <br>
-        <user-avatar src="" alt="Stephen IssaH" size="60" status="online" rounded="full"></user-avatar>
-        <user-avatar src="https://avatars.githubusercontent.com/u/153155657?v=4" alt="Stephen IssaH" initials="SI" size="70" status="pending"></user-avatar>
-        <user-avatar src="https://avatars.githubusercontent.com/u/153155657?v=4" alt="Stephen IssaH" size="120" status="online" show-edit-button="true"></user-avatar>
+                <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                    <article class="dash-card rounded-2xl p-5 dash-fade dash-delay-1">
+                        <p class="text-xs uppercase tracking-[0.3em] text-main-500">Active Labs</p>
+                        <div class="flex items-end justify-between">
+                            <h2 class="text-3xl font-semibold text-main-900">12</h2>
+                            <span class="text-xs text-success-700 bg-success-100 px-2 py-1 rounded-full">+4 today</span>
+                        </div>
+                        <p class="text-sm text-main-500 mt-2">Geo spread across 4 campuses.</p>
+                    </article>
+                    <article class="dash-card rounded-2xl p-5 dash-fade dash-delay-2">
+                        <p class="text-xs uppercase tracking-[0.3em] text-main-500">Throughput</p>
+                        <div class="flex items-end justify-between">
+                            <h2 class="text-3xl font-semibold text-main-900">1.4 TB</h2>
+                            <span class="text-xs text-info-700 bg-info-100 px-2 py-1 rounded-full">last 24h</span>
+                        </div>
+                        <p class="text-sm text-main-500 mt-2">Peak at 17:42 UTC.</p>
+                    </article>
+                    <article class="dash-card rounded-2xl p-5 dash-fade dash-delay-3">
+                        <p class="text-xs uppercase tracking-[0.3em] text-main-500">Open Incidents</p>
+                        <div class="flex items-end justify-between">
+                            <h2 class="text-3xl font-semibold text-main-900">3</h2>
+                            <span class="text-xs text-warning-700 bg-warning-100 px-2 py-1 rounded-full">review</span>
+                        </div>
+                        <p class="text-sm text-main-500 mt-2">Two awaiting vendor response.</p>
+                    </article>
+                    <article class="dash-card rounded-2xl p-5 dash-fade dash-delay-3">
+                        <p class="text-xs uppercase tracking-[0.3em] text-main-500">Report Queue</p>
+                        <div class="flex items-end justify-between">
+                            <h2 class="text-3xl font-semibold text-main-900">28</h2>
+                            <span class="text-xs text-main-700 bg-main-100 px-2 py-1 rounded-full">due by Fri</span>
+                        </div>
+                        <p class="text-sm text-main-500 mt-2">Auto-batch after midnight.</p>
+                    </article>
+                </section>
+
+                <section class="grid gap-6 lg:grid-cols-[2fr_1fr]">
+                    <div class="space-y-6">
+
+                        <article class="dash-card rounded-3xl p-6">
+                    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-main-500">Report Dispatch</p>
+                            <h3 class="text-xl font-semibold text-main-900">Recent exports</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-main-100 text-main-700 px-3 py-1 rounded-full">All labs</span>
+                            <span class="bg-info-100 text-info-700 px-3 py-1 rounded-full">Priority</span>
+                            <span class="bg-success-100 text-success-700 px-3 py-1 rounded-full">Delivered</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs uppercase text-main-500 border-b border-main-100">
+                                <tr>
+                                    <th class="py-3">Report</th>
+                                    <th class="py-3">Lab</th>
+                                    <th class="py-3">Owner</th>
+                                    <th class="py-3">Status</th>
+                                    <th class="py-3">ETA</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-main-700">
+                                <tr class="border-b border-main-50">
+                                    <td class="py-4">Run 14-Alpha summary</td>
+                                    <td class="py-4">Atlas</td>
+                                    <td class="py-4">I. Chen</td>
+                                    <td class="py-4"><span
+                                            class="bg-warning-100 text-warning-700 px-2 py-1 rounded-full text-xs">review</span></td>
+                                    <td class="py-4">30m</td>
+                                </tr>
+                                <tr class="border-b border-main-50">
+                                    <td class="py-4">Cryo vault audit</td>
+                                    <td class="py-4">Helios</td>
+                                    <td class="py-4">S. Ofori</td>
+                                    <td class="py-4"><span
+                                            class="bg-success-100 text-success-700 px-2 py-1 rounded-full text-xs">delivered</span></td>
+                                    <td class="py-4">sent</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4">Zephyr drift forecast</td>
+                                    <td class="py-4">Zephyr</td>
+                                    <td class="py-4">M. Diaz</td>
+                                    <td class="py-4"><span class="bg-info-100 text-info-700 px-2 py-1 rounded-full text-xs">queued</span>
+                                    </td>
+                                    <td class="py-4">1h 20m</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        </article>
+                    </div>
+
+                    <aside class="space-y-6">
+                        <article class="dash-card rounded-3xl p-6">
+                            <p class="text-xs uppercase tracking-[0.3em] text-main-500">Operators</p>
+                            <h3 class="text-xl font-semibold text-main-900">Active on console</h3>
+                            <div class="mt-5 space-y-4 text-sm">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-main-900">Stephen IssaH</p>
+                                        <p class="text-xs text-main-500">Lead analyst</p>
+                                    </div>
+                                    <span class="text-xs text-success-700 bg-success-100 px-2 py-1 rounded-full">online</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-main-900">Maya R.</p>
+                                        <p class="text-xs text-main-500">Comms engineer</p>
+                                    </div>
+                                    <span class="text-xs text-warning-700 bg-warning-100 px-2 py-1 rounded-full">in lab</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-main-900">Neal D.</p>
+                                        <p class="text-xs text-main-500">Telemetry QA</p>
+                                    </div>
+                                    <span class="text-xs text-info-700 bg-info-100 px-2 py-1 rounded-full">remote</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between">
+                                <p class="text-xs text-main-500">Team capacity 78%</p>
+                                <app-button label="Message" color="dark" variant="outline" size="sm" rounded="full"></app-button>
+                            </div>
+                        </article>
+
+                    </aside>
+                </section>
+            </div>
     </app-layout>
 
     <script src="../src/elements/ui/app-button.js"></script>
-    <script type="module" src="../src/elements/ui/user-avatar.js"></script>
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
 </body>
 
