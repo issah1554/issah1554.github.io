@@ -16,62 +16,233 @@
         <app-footer slot="footer" label="Notifications synced"></app-footer>
 
         <div class="mx-auto flex max-w-6xl flex-col gap-6">
-            <section class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-sm">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold text-main-900">Delivery channels</h3>
-                        <p class="text-sm text-main-500">Choose where you want to receive updates.</p>
+            <section class="rounded-2xl bg-main-200 p-6">
+
+                <div class="flex items-center justify-between gap-4 overflow-x-auto">
+
+                    <!-- Tabs -->
+                    <div class="flex items-center gap-2 whitespace-nowrap">
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-main-50">
+                            <i class="bi bi-bell"></i>
+                            All
+                        </button>
+
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-main-100 px-4 py-2 text-sm font-medium text-main-600 hover:bg-main-300">
+                            <i class="bi bi-envelope"></i>
+                            Unread
+                            <span class="rounded-full bg-danger px-1.5 py-0.5 text-xs text-main-50">3</span>
+                        </button>
+
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-main-100 px-4 py-2 text-sm font-medium text-main-600 hover:bg-main-300">
+                            <i class="bi bi-cart"></i>
+                            Sales
+                        </button>
+
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-main-100 px-4 py-2 text-sm font-medium text-main-600 hover:bg-main-300">
+                            <i class="bi bi-people"></i>
+                            Users
+                        </button>
+
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-main-100 px-4 py-2 text-sm font-medium text-main-600 hover:bg-main-300">
+                            <i class="bi bi-gear"></i>
+                            System
+                        </button>
                     </div>
-                    <button class="rounded-full bg-main-900 px-4 py-2 text-sm text-main-50">Save preferences</button>
+
+                    <!-- Actions -->
+                    <div class="flex items-center gap-2 whitespace-nowrap">
+                        <button
+                            class="flex items-center gap-2 rounded-lg border border-main-300 px-4 py-2 text-sm text-main-700">
+                            <i class="bi bi-check-all"></i>
+                            Mark All as Read
+                        </button>
+
+                        <button class="flex items-center gap-2 rounded-lg bg-main-900 px-3 py-2 text-sm text-main-50">
+                            <i class="bi bi-gear"></i>
+                        </button>
+                    </div>
+
                 </div>
-                <div class="mt-6 grid gap-4 sm:grid-cols-3">
-                    <div class="rounded-xl border border-main-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-main-400">Email</p>
-                        <p class="mt-2 text-sm text-main-500">Product updates, weekly digest</p>
-                        <button
-                            class="mt-4 rounded-full border border-main-300 px-4 py-2 text-xs text-main-700">Enabled</button>
-                    </div>
-                    <div class="rounded-xl border border-main-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-main-400">SMS</p>
-                        <p class="mt-2 text-sm text-main-500">Critical outages only</p>
-                        <button
-                            class="mt-4 rounded-full border border-main-300 px-4 py-2 text-xs text-main-700">Enabled</button>
-                    </div>
-                    <div class="rounded-xl border border-main-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-main-400">In-app</p>
-                        <p class="mt-2 text-sm text-main-500">Mentions and task updates</p>
-                        <button
-                            class="mt-4 rounded-full border border-main-300 px-4 py-2 text-xs text-main-700">Enabled</button>
-                    </div>
-                </div>
+
             </section>
 
-            <section class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-sm">
-                <div class="flex items-center justify-between gap-3">
-                    <h3 class="text-lg font-semibold text-main-900">Recent notifications</h3>
-                    <button class="text-sm font-medium text-main-700">Mark all as read</button>
-                </div>
-                <div class="mt-4 space-y-3 text-sm text-main-700">
-                    <div class="flex items-start justify-between gap-4 rounded-xl border border-main-200 p-4">
-                        <div>
-                            <p class="font-medium">Mentions increased on release notes</p>
-                            <p class="text-xs text-main-400">Product • 10 minutes ago</p>
+            <section class="overflow-hidden rounded-2xl border border-main-200 bg-main-50">
+                <div class="divide-y divide-main-200">
+                    <div class="flex items-start gap-4 bg-primary/10 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-success/10 text-success">
+                            <i class="bi bi-cart-check"></i>
                         </div>
-                        <span class="rounded-full bg-main-100 px-3 py-1 text-xs text-main-600">New</span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-800">
+                                        New Order Received
+                                        <span class="ml-2 inline-block h-2 w-2 rounded-full bg-primary"></span>
+                                    </p>
+                                    <p class="mt-0.5 text-sm text-main-500">Order #INV-001 from John Doe for $125.50</p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">2 min ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-primary hover:underline">Mark as read</button>
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-start justify-between gap-4 rounded-xl border border-main-200 p-4">
-                        <div>
-                            <p class="font-medium">Report export completed</p>
-                            <p class="text-xs text-main-400">Analytics • 1 hour ago</p>
+
+                    <div class="flex items-start gap-4 bg-primary/10 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-warning/10 text-warning">
+                            <i class="bi bi-exclamation-triangle"></i>
                         </div>
-                        <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Success</span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-800">
+                                        Low Stock Alert
+                                        <span class="ml-2 inline-block h-2 w-2 rounded-full bg-primary"></span>
+                                    </p>
+                                    <p class="mt-0.5 text-sm text-main-500">Premium Notebook is running low (5 items
+                                        left)
+                                    </p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">15 min ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-primary hover:underline">Mark as read</button>
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-start justify-between gap-4 rounded-xl border border-main-200 p-4">
-                        <div>
-                            <p class="font-medium">Security policy requires review</p>
-                            <p class="text-xs text-main-400">Compliance • Today</p>
+
+                    <div class="flex items-start gap-4 bg-primary/10 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-info/10 text-info">
+                            <i class="bi bi-person-plus"></i>
                         </div>
-                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">Action</span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-800">
+                                        New User Registered
+                                        <span class="ml-2 inline-block h-2 w-2 rounded-full bg-primary"></span>
+                                    </p>
+                                    <p class="mt-0.5 text-sm text-main-500">Jane Smith created a new account</p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">1 hour ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-primary hover:underline">Mark as read</button>
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-success/10 text-success">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-600">Payment Received</p>
+                                    <p class="mt-0.5 text-sm text-main-500">Payment of $350.00 received from ABC Corp
+                                    </p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">2 hours ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <i class="bi bi-gear"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-600">System Update</p>
+                                    <p class="mt-0.5 text-sm text-main-500">System maintenance scheduled for tonight at
+                                        2 AM</p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">3 hours ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-info/10 text-info">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-600">Order Shipped</p>
+                                    <p class="mt-0.5 text-sm text-main-500">Order #INV-003 has been shipped to Mike
+                                        Johnson
+                                    </p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">5 hours ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-600">Role Updated</p>
+                                    <p class="mt-0.5 text-sm text-main-500">User permissions updated for Sarah Wilson
+                                    </p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">1 day ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 transition-colors hover:bg-main-100">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-success/10 text-success">
+                            <i class="bi bi-cloud-check"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-medium text-main-600">Backup Completed</p>
+                                    <p class="mt-0.5 text-sm text-main-500">Daily database backup completed successfully
+                                    </p>
+                                </div>
+                                <span class="whitespace-nowrap text-xs text-main-400">1 day ago</span>
+                            </div>
+                            <div class="mt-2 flex items-center gap-3 text-xs">
+                                <button class="text-danger hover:underline">Delete</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
