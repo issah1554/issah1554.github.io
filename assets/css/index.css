@@ -12,6 +12,7 @@
     --color-navy-900: oklch(0.21 0.09 260);
     --color-navy-950: oklch(0.16 0.08 260);
 
+    --main-0: oklch(1.00 0.00 260);
     --main-50: var(--color-neutral-50);
     --main-100: var(--color-neutral-100);
     --main-200: var(--color-neutral-200);
@@ -23,6 +24,7 @@
     --main-800: var(--color-neutral-800);
     --main-900: var(--color-neutral-900);
     --main-950: var(--color-neutral-950);
+    --main-1000: oklch(0.00 0.00 260);
 
     --primary-50: var(--color-navy-50);
     --primary-100: var(--color-navy-100);
