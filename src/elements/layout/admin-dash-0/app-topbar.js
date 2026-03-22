@@ -3,6 +3,7 @@ import { UserAvatar } from "../../ui/user-avatar.js";
 export class AppTopbar extends HTMLElement {
   connectedCallback() {
     const title = this.getAttribute("title") || "Dashboard";
+    const balance = this.getAttribute("balance") || "0";
 
     this.innerHTML = /* html */ `
       <header class="px-6 py-3  bg-main-50   text-main-900">
@@ -13,6 +14,11 @@ export class AppTopbar extends HTMLElement {
 
       <!-- Icons -->
       <div class="flex items-center gap-4 text-lg">
+      <div class="flex items-center gap-2 rounded-full border border-main-200 bg-main-100 px-3 py-1 text-sm font-semibold text-main-700">
+        <i class="bi bi-coin text-base"></i>
+        <span class="text-xs font-semibold uppercase tracking-wide text-main-500">Balance</span>
+        <span>${balance} pts</span>
+      </div>
       <div class="relative">
         <!-- Notifications Icon -->
         <button
