@@ -99,7 +99,7 @@
         <app-topbar slot="topbar"></app-topbar>
         <app-footer slot="footer" label="Lab telemetry up to date"></app-footer>
 
-        <div class="max-w-6xl mx-auto px-4 pb-16">
+        <div class=" mx-auto px-4 pb-16">
             <section class="dash-fade dash-delay-1 mb-6">
                 <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                     <div>
@@ -108,67 +108,82 @@
                 </div>
             </section>
 
-            <nav class="mx-auto grid max-w-5xl gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
-                <a href="/messaging/whatsapp/" class="dash-pop dash-delay-2 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+            <nav class="mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5">
+
+                <!-- WhatsApp -->
+                <a href="/messaging/whatsapp/"
+                    class="dash-pop dash-delay-2 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Channel</p>
-                        <span class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">Live</span>
+                        <i class="bi bi-whatsapp text-4xl text-green-600"></i>
+                        <span
+                            class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">Live</span>
                     </div>
-                    <h2 class="mt-3 text-2xl font-semibold text-main-900">WhatsApp</h2>
-                    <p class="mt-2 text-sm text-main-600">Broadcast lists, support threads, opt-ins.</p>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">WhatsApp</h2>
                     <div class="mt-6 flex items-center justify-between text-sm text-main-500">
                         <span>Open channel</span>
                         <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
                 </a>
-                <a href="/messaging/sms/" class="dash-pop dash-delay-3 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+
+                <!-- SMS -->
+                <a href="/messaging/sms/"
+                    class="dash-pop dash-delay-3 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Channel</p>
-                        <span class="rounded-full bg-main-100 px-2 py-1 text-xs font-semibold text-main-600">Queued</span>
+                        <i class="bi bi-chat-dots text-4xl text-blue-600"></i>
+                        <span
+                            class="rounded-full bg-main-100 px-2 py-1 text-xs font-semibold text-main-600">Queued</span>
                     </div>
-                    <h2 class="mt-3 text-2xl font-semibold text-main-900">SMS</h2>
-                    <p class="mt-2 text-sm text-main-600">Time-sensitive alerts and short updates.</p>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">SMS</h2>
                     <div class="mt-6 flex items-center justify-between text-sm text-main-500">
                         <span>Open channel</span>
                         <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
                 </a>
-                <a href="/messaging/email/" class="dash-pop dash-delay-4 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+
+                <!-- Email -->
+                <a href="/messaging/email/"
+                    class="dash-pop dash-delay-4 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Channel</p>
-                        <span class="rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700">Drafts</span>
+                        <i class="bi bi-envelope text-4xl text-amber-600"></i>
+                        <span
+                            class="rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700">Drafts</span>
                     </div>
-                    <h2 class="mt-3 text-2xl font-semibold text-main-900">Email</h2>
-                    <p class="mt-2 text-sm text-main-600">Campaigns, newsletters, and automations.</p>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">Email</h2>
                     <div class="mt-6 flex items-center justify-between text-sm text-main-500">
                         <span>Open channel</span>
                         <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
                 </a>
-                <a href="/messaging/forms/" class="dash-pop dash-delay-5 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+
+                <!-- Forms -->
+                <a href="/messaging/forms/"
+                    class="dash-pop dash-delay-5 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Channel</p>
-                        <span class="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700">Active</span>
+                        <i class="bi bi-ui-checks text-4xl text-blue-600"></i>
+                        <span
+                            class="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700">Active</span>
                     </div>
-                    <h2 class="mt-3 text-2xl font-semibold text-main-900">Forms</h2>
-                    <p class="mt-2 text-sm text-main-600">Capture inbound requests and feedback.</p>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">Forms</h2>
                     <div class="mt-6 flex items-center justify-between text-sm text-main-500">
                         <span>Open channel</span>
                         <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
                 </a>
-                <a href="/messaging/in-app/" class="dash-pop dash-delay-5 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+
+                <!-- In-app -->
+                <a href="/messaging/in-app/"
+                    class="dash-pop dash-delay-5 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Channel</p>
+                        <i class="bi bi-phone text-4xl text-rose-600"></i>
                         <span class="rounded-full bg-rose-100 px-2 py-1 text-xs font-semibold text-rose-700">Beta</span>
                     </div>
-                    <h2 class="mt-3 text-2xl font-semibold text-main-900">In-app</h2>
-                    <p class="mt-2 text-sm text-main-600">Product announcements and guided prompts.</p>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">In-app</h2>
                     <div class="mt-6 flex items-center justify-between text-sm text-main-500">
                         <span>Open channel</span>
                         <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
                 </a>
+
             </nav>
         </div>
     </app-layout>
