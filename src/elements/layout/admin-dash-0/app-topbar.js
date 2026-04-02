@@ -10,7 +10,7 @@ export class AppTopbar extends HTMLElement {
       <div class="flex items-center justify-between">
       
       <!-- Title -->
-      <h2 class="text-xl font-semibold">${title}</h2>
+      <h2 class="text-xl font-semibold"></h2>
 
       <!-- Icons -->
       <div class="flex items-center gap-4 text-lg">
