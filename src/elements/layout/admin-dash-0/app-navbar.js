@@ -225,7 +225,7 @@ export class AppNavbar extends HTMLElement {
             <a href="#" aria-label="Theme" data-theme-toggle>
               <i class="bi bi-moon-stars"></i>
             </a>
-            <a href="#" aria-label="Settings">
+            <a href="/settings" aria-label="Settings">
               <i class="bi bi-gear"></i>
             </a>
             <a href="/profile" aria-label="Profile">
