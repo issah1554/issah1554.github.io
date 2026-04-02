@@ -18,74 +18,88 @@
             <section class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-sm">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-main-900">Directory</h3>
-                        <p class="text-sm text-main-500">Invite collaborators and adjust access levels.</p>
+                        <h3 class="text-lg font-semibold text-main-900">Contacts</h3>
                     </div>
                     <div class="flex flex-wrap items-center gap-3">
                         <input type="search" placeholder="Search users"
                             class="w-60 rounded-full border border-main-200 px-4 py-2 text-sm text-main-700">
-                        <button
-                            class="rounded-full border border-main-300 px-4 py-2 text-sm text-main-700">Roles</button>
-                        <button class="rounded-full bg-main-900 px-4 py-2 text-sm text-main-50">Invite user</button>
+                        <!-- <button
+                           class="rounded-full border border-main-300 px-4 py-2 text-sm text-main-700">Roles</button>  -->
+                        <button class="rounded-full bg-main-900 px-4 py-2 text-sm text-main-50">Add Contacts</button>
                     </div>
                 </div>
                 <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div class="rounded-xl border border-main-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-main-400">Total users</p>
+                        <p class="text-xs uppercase tracking-widest text-main-400">Total contacts</p>
                         <p class="mt-2 text-2xl font-semibold text-main-900">46</p>
-                        <p class="text-sm text-main-500">Active this week</p>
+
                     </div>
                     <div class="rounded-xl border border-main-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-main-400">Admins</p>
+                        <p class="text-xs uppercase tracking-widest text-main-400">Total phoneNumbers</p>
+                        <p class="mt-2 text-2xl font-semibold text-main-900">40</p>
+                    </div>
+                    <div class="rounded-xl border border-main-200 p-4">
+                        <p class="text-xs uppercase tracking-widest text-main-400">Emails</p>
                         <p class="mt-2 text-2xl font-semibold text-main-900">6</p>
-                        <p class="text-sm text-main-500">Full access</p>
-                    </div>
-                    <div class="rounded-xl border border-main-200 p-4">
-                        <p class="text-xs uppercase tracking-widest text-main-400">Invites</p>
-                        <p class="mt-2 text-2xl font-semibold text-main-900">3</p>
-                        <p class="text-sm text-main-500">Pending response</p>
+
                     </div>
                 </div>
             </section>
 
             <section class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-sm">
                 <div class="flex items-center justify-between gap-3">
-                    <h3 class="text-lg font-semibold text-main-900">Recent members</h3>
-                    <button class="text-sm font-medium text-main-700">Export list</button>
+                    <h3 class="text-lg font-semibold text-main-900">Users</h3>
                 </div>
                 <div class="mt-4 overflow-x-auto">
                     <table class="w-full text-left text-sm">
                         <thead class="text-xs uppercase tracking-widest text-main-400">
                             <tr>
                                 <th class="py-2">Name</th>
-                                <th class="py-2">Role</th>
-                                <th class="py-2">Team</th>
-                                <th class="py-2 text-right">Status</th>
+                                <th class="py-2">PhoneNumber</th>
+                                <th class="py-2">Email</th>
+                                <th class="py-2 text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-main-700">
                             <tr class="border-t border-main-200">
                                 <td class="py-3 font-medium">Stephen IssaH</td>
-                                <td class="py-3">Administrator</td>
-                                <td class="py-3">Operations</td>
-                                <td class="py-3 text-right"><span
-                                        class="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Active</span>
+                                <td class="py-3">0675319092</td>
+                                <td class="py-3">stpne@gmail.com</td>
+                                <td class="py-3 text-right space-x-2">
+                                    <button onclick="openViewModal('Stephen IssaH','0675319092','stpne@gmail.com')"
+                                        class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">View</button>
+                                    <button onclick="openEditModal('Stephen IssaH','0675319092','stpne@gmail.com')"
+                                        class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
+                                    <button onclick="openDeleteModal('Stephen IssaH')"
+                                        class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
                                 </td>
                             </tr>
+
                             <tr class="border-t border-main-200">
                                 <td class="py-3 font-medium">Amina Said</td>
-                                <td class="py-3">Analyst</td>
-                                <td class="py-3">Insights</td>
-                                <td class="py-3 text-right"><span
-                                        class="rounded-full bg-main-100 px-3 py-1 text-xs text-main-600">Idle</span>
+                                <td class="py-3">0775483139</td>
+                                <td class="py-3">amunas@gmail.com</td>
+                                <td class="py-3 text-right space-x-2">
+                                    <button onclick="openViewModal('Amina Said','0775483139','amunas@gmail.com')"
+                                        class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">View</button>
+                                    <button onclick="openEditModal('Amina Said','0775483139','amunas@gmail.com')"
+                                        class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
+                                    <button onclick="openDeleteModal('Amina Said')"
+                                        class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
                                 </td>
                             </tr>
+
                             <tr class="border-t border-main-200">
                                 <td class="py-3 font-medium">Marcus Lee</td>
-                                <td class="py-3">Engineer</td>
-                                <td class="py-3">Platform</td>
-                                <td class="py-3 text-right"><span
-                                        class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">Invited</span>
+                                <td class="py-3">0617852787</td>
+                                <td class="py-3">marcus@gmail.com</td>
+                                <td class="py-3 text-right space-x-2">
+                                    <button onclick="openViewModal('Marcus Lee','0617852787','marcus@gmail.com')"
+                                        class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">View</button>
+                                    <button onclick="openEditModal('Marcus Lee','0617852787','marcus@gmail.com')"
+                                        class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
+                                    <button onclick="openDeleteModal('Marcus Lee')"
+                                        class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -96,6 +110,7 @@
     </app-layout>
 
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../src/elements/layout/admin-dash-0/app-model.js"></script>
 </body>
 
 </html>
