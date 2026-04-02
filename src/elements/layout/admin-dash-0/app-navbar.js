@@ -207,10 +207,10 @@ export class AppNavbar extends HTMLElement {
                 <span>Contacts</span>
               </span>
             </a>
-            <a href="/labs">
+            <a href="/messaging">
               <span class="nav-item">
-                <i class="bi bi-beaker"></i>
-                <span>Labs</span>
+                <i class="bi bi-chat-dots"></i>
+                <span>Messaging</span>
               </span>
             </a>
             <a href="/logs">
