@@ -60,7 +60,7 @@
         <div class="max-w-6xl mx-auto space-y-10">
 
             <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <article class=" bg-main-200 border border-main-300  rounded-2xl p-5 dash-fade dash-delay-1">
+                <article class=" bg-main-100 border border-main-200  rounded-2xl p-5 dash-fade dash-delay-1">
                     <p class="text-xs uppercase tracking-[0.3em] text-main-500">Active Labs</p>
                     <div class="flex items-end justify-between">
                         <h2 class="text-3xl font-semibold text-main-900">12</h2>
@@ -68,7 +68,7 @@
                     </div>
                     <p class="text-sm text-main-500 mt-2">Geo spread across 4 campuses.</p>
                 </article>
-                <article class="bg-main-200 border border-main-300 rounded-2xl p-5 dash-fade dash-delay-2">
+                <article class="bg-main-100 border border-main-200 rounded-2xl p-5 dash-fade dash-delay-2">
                     <p class="text-xs uppercase tracking-[0.3em] text-main-500">Throughput</p>
                     <div class="flex items-end justify-between">
                         <h2 class="text-3xl font-semibold text-main-900">1.4 TB</h2>
@@ -76,7 +76,7 @@
                     </div>
                     <p class="text-sm text-main-500 mt-2">Peak at 17:42 UTC.</p>
                 </article>
-                <article class="bg-main-200 border border-main-300 rounded-2xl p-5 dash-fade dash-delay-3">
+                <article class="bg-main-100 border border-main-200 rounded-2xl p-5 dash-fade dash-delay-3">
                     <p class="text-xs uppercase tracking-[0.3em] text-main-500">Open Incidents</p>
                     <div class="flex items-end justify-between">
                         <h2 class="text-3xl font-semibold text-main-900">3</h2>
@@ -84,7 +84,7 @@
                     </div>
                     <p class="text-sm text-main-500 mt-2">Two awaiting vendor response.</p>
                 </article>
-                <article class="bg-main-200 border border-main-300 rounded-2xl p-5 dash-fade dash-delay-3">
+                <article class="bg-main-100 border border-main-200 rounded-2xl p-5 dash-fade dash-delay-3">
                     <p class="text-xs uppercase tracking-[0.3em] text-main-500">Report Queue</p>
                     <div class="flex items-end justify-between">
                         <h2 class="text-3xl font-semibold text-main-900">28</h2>
@@ -97,7 +97,7 @@
             <section class="grid gap-6 lg:grid-cols-[2fr_1fr]">
                 <div class="space-y-6">
 
-                    <article class="bg-main-200 border border-main-300 rounded-3xl p-6">
+                    <article class="bg-main-100 border border-main-200 rounded-3xl p-6">
                         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <div>
                                 <p class="text-xs uppercase tracking-[0.3em] text-main-500">Report Dispatch</p>
@@ -155,7 +155,7 @@
                 </div>
 
                 <aside class="space-y-6">
-                    <article class="bg-main-200 border border-main-300 rounded-3xl p-6">
+                    <article class="bg-main-100 border border-main-200 rounded-3xl p-6">
                         <p class="text-xs uppercase tracking-[0.3em] text-main-500">Operators</p>
                         <h3 class="text-xl font-semibold text-main-900">Active on console</h3>
                         <div class="mt-5 space-y-4 text-sm">
@@ -188,6 +188,23 @@
                             <app-button label="Message" color="dark" variant="outline" size="sm"
                                 rounded="full"></app-button>
                         </div>
+                        <button id="openBtn">Open Modal</button>
+
+                        <app-modal id="modal1">
+                            <div style="background:white; padding:20px;">
+                                Hello
+                                <button onclick="document.getElementById('modal1').close()">Close</button>
+                            </div>
+                        </app-modal>
+
+                        <script src="app-modal.js"></script>
+                        <script>
+                            const modal = document.getElementById("modal1");
+                            document.getElementById("openBtn").onclick = () => {
+                                modal.setAttribute("open", "");
+                            };
+                        </script>
+
                     </article>
 
                 </aside>
@@ -195,8 +212,12 @@
         </div>
     </app-layout>
 
+    <script>
+
+    </script>
     <script src="../src/elements/ui/app-button.js"></script>
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../src/elements/ui/app-modal.js"></script>
 </body>
 
 </html>
