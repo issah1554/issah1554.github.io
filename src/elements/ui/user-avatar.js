@@ -70,7 +70,7 @@ export class UserAvatar extends HTMLElement {
     const initials = this.getAttribute("initials") || "";
     const status = this.getAttribute("status") || "offline";
     const statusBorderColor = this.getAttribute("status-border-color") || "#ffffff";
-    const fallbackBgColor = this.getAttribute("fallback-bg-color") || "var(--color-primary-700)";
+    const fallbackBgColor = this.getAttribute("fallback-bg-color") || "var(--color-main-500)";
     const rounded = this.getAttribute("rounded") || "full";
     const showEditButton = this.getAttribute("show-edit-button") === "true";
     const showStatus = this.getAttribute("show-status") === "true";
