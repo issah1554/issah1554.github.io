@@ -31,17 +31,15 @@
                 <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div class="rounded-xl border border-main-200 p-4">
                         <p class="text-xs uppercase tracking-widest text-main-400">Total contacts</p>
-                        <p class="mt-2 text-2xl font-semibold text-main-900">46</p>
-
+                        <p id="totalContacts" class="mt-2 text-2xl font-semibold text-main-900">0</p>
                     </div>
                     <div class="rounded-xl border border-main-200 p-4">
                         <p class="text-xs uppercase tracking-widest text-main-400">Total phoneNumbers</p>
-                        <p class="mt-2 text-2xl font-semibold text-main-900">40</p>
+                        <p id="totalPhones" class="mt-2 text-2xl font-semibold text-main-900">0</p>
                     </div>
                     <div class="rounded-xl border border-main-200 p-4">
                         <p class="text-xs uppercase tracking-widest text-main-400">Emails</p>
-                        <p class="mt-2 text-2xl font-semibold text-main-900">6</p>
-
+                        <p id="totalEmails" class="mt-2 text-2xl font-semibold text-main-900">0</p>
                     </div>
                 </div>
             </section>
@@ -60,57 +58,147 @@
                                 <th class="py-2 text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-main-700">
-                            <tr class="border-t border-main-200">
-                                <td class="py-3 font-medium">Stephen IssaH</td>
-                                <td class="py-3">0675319092</td>
-                                <td class="py-3">stpne@gmail.com</td>
-                                <td class="py-3 text-right space-x-2">
-                                    <button onclick="openViewModal('Stephen IssaH','0675319092','stpne@gmail.com')"
-                                        class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">View</button>
-                                    <button onclick="openEditModal('Stephen IssaH','0675319092','stpne@gmail.com')"
-                                        class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
-                                    <button onclick="openDeleteModal('Stephen IssaH')"
-                                        class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
-                                </td>
-                            </tr>
-
-                            <tr class="border-t border-main-200">
-                                <td class="py-3 font-medium">Amina Said</td>
-                                <td class="py-3">0775483139</td>
-                                <td class="py-3">amunas@gmail.com</td>
-                                <td class="py-3 text-right space-x-2">
-                                    <button onclick="openViewModal('Amina Said','0775483139','amunas@gmail.com')"
-                                        class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">View</button>
-                                    <button onclick="openEditModal('Amina Said','0775483139','amunas@gmail.com')"
-                                        class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
-                                    <button onclick="openDeleteModal('Amina Said')"
-                                        class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
-                                </td>
-                            </tr>
-
-                            <tr class="border-t border-main-200">
-                                <td class="py-3 font-medium">Marcus Lee</td>
-                                <td class="py-3">0617852787</td>
-                                <td class="py-3">marcus@gmail.com</td>
-                                <td class="py-3 text-right space-x-2">
-                                    <button onclick="openViewModal('Marcus Lee','0617852787','marcus@gmail.com')"
-                                        class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">View</button>
-                                    <button onclick="openEditModal('Marcus Lee','0617852787','marcus@gmail.com')"
-                                        class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
-                                    <button onclick="openDeleteModal('Marcus Lee')"
-                                        class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="contactsTable" class="text-main-700"></tbody>
                     </table>
                 </div>
             </section>
+
         </div>
     </app-layout>
 
+    <app-modal id="viewModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Contact details</h4>
+                    <p class="text-sm text-main-500">Read-only view.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('viewModal')">Close</button>
+            </div>
+            <div class="mt-4 space-y-3 text-sm text-main-700">
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Name</p>
+                    <p id="viewName" class="mt-1 font-medium text-main-900"></p>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Phone</p>
+                    <p id="viewPhone" class="mt-1 font-medium text-main-900"></p>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Email</p>
+                    <p id="viewEmail" class="mt-1 font-medium text-main-900"></p>
+                </div>
+            </div>
+        </div>
+    </app-modal>
+
+    <app-modal id="editModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-100 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Edit contact</h4>
+                    <p class="text-sm text-main-500">Update details for this contact.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('editModal')">Close</button>
+            </div>
+            <form class="mt-4 space-y-3">
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Name
+                    <input id="editName" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Phone
+                    <input id="editPhone" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Email
+                    <input id="editEmail" type="email"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('editModal')"
+                        class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                    <button type="submit"
+                        class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Save</button>
+                </div>
+            </form>
+        </div>
+    </app-modal>
+
+    <script>
+        const contacts = [
+            { name: "Stephen IssaH", phone: "0675319092", email: "stpne@gmail.com" },
+            { name: "Amina Said", phone: "0775483139", email: "amunas@gmail.com" },
+            { name: "Marcus Lee", phone: "0617852787", email: "marcus@gmail.com" },
+        ];
+
+        const tableBody = document.getElementById("contactsTable");
+        const totalContacts = document.getElementById("totalContacts");
+        const totalPhones = document.getElementById("totalPhones");
+        const totalEmails = document.getElementById("totalEmails");
+
+        const viewModal = document.getElementById("viewModal");
+        const editModal = document.getElementById("editModal");
+
+        const viewName = document.getElementById("viewName");
+        const viewPhone = document.getElementById("viewPhone");
+        const viewEmail = document.getElementById("viewEmail");
+
+        const editName = document.getElementById("editName");
+        const editPhone = document.getElementById("editPhone");
+        const editEmail = document.getElementById("editEmail");
+
+        function closeModal(id) {
+            document.getElementById(id)?.close();
+        }
+
+        function openViewModal(name, phone, email) {
+            viewName.textContent = name;
+            viewPhone.textContent = phone;
+            viewEmail.textContent = email;
+            viewModal.setAttribute("open", "");
+        }
+
+        function openEditModal(name, phone, email) {
+            editName.value = name;
+            editPhone.value = phone;
+            editEmail.value = email;
+            editModal.setAttribute("open", "");
+        }
+
+        function renderContacts() {
+            tableBody.innerHTML = contacts
+                .map((contact) => {
+                    return `
+                        <tr class="border-t border-main-200">
+                            <td class="py-3 font-medium">${contact.name}</td>
+                            <td class="py-3">${contact.phone}</td>
+                            <td class="py-3">${contact.email}</td>
+                            <td class="py-3 text-right space-x-2">
+                                <button onclick="openViewModal('${contact.name}','${contact.phone}','${contact.email}')"
+                                    class="rounded-full bg-blue-200 px-3 py-1 text-xs text-blue-700"><i class="bi bi-pencil"></i></button>
+                                <button onclick="openEditModal('${contact.name}','${contact.phone}','${contact.email}')"
+                                    class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">Edit</button>
+                                <button class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                })
+                .join("");
+
+            totalContacts.textContent = contacts.length;
+            totalPhones.textContent = contacts.filter((contact) => contact.phone).length;
+            totalEmails.textContent = contacts.filter((contact) => contact.email).length;
+        }
+
+        renderContacts();
+    </script>
+
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
-    <script type="module" src="../src/elements/layout/admin-dash-0/app-model.js"></script>
+    <script type="module" src="../src/elements/ui/app-modal.js"></script>
+    <script type="module" src="../src/elements/ui/app-button.js"></script>
 </body>
 
 </html>
