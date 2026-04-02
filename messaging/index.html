@@ -126,35 +126,63 @@
                 <aside class="dash-fade dash-delay-2 space-y-5">
                     <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-main-200/60 ring-1 ring-slate-200">
                         <div class="flex items-center justify-between">
-                            <h2 class="text-lg font-semibold text-main-900">Smart inbox</h2>
+                            <h2 class="text-lg font-semibold text-main-900">Conversations list</h2>
                             <span
                                 class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">12
-                                live</span>
+                                active</span>
                         </div>
                         <div class="mt-4 space-y-3">
                             <button
                                 class="flex w-full items-center gap-3 rounded-xl bg-slate-900 px-3 py-2 text-left text-sm font-semibold text-main-0">
-                                <span class="h-2 w-2 rounded-full bg-orange-400"></span>
-                                Priority
-                                <span class="ml-auto rounded-full bg-main-0/20 px-2 py-0.5 text-xs">6</span>
+                                <user-avatar alt="Alyssa Trinh" initials="AT" size="32" status="online"
+                                    rounded="full" fallback-bg-color="var(--color-main-500)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Alyssa Trinh</span>
+                                        <span class="text-xs text-main-0/70">09:21</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-0/70">Need the contingency note in place.</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-0/20 px-2 py-0.5 text-xs">New</span>
                             </button>
                             <button
                                 class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
-                                <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                                Active
-                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">28</span>
-                            </button>
-                            <button
-                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
-                                <span class="h-2 w-2 rounded-full bg-slate-400"></span>
-                                Snoozed
+                                <user-avatar alt="Atlas Group" initials="AG" size="32" status="online"
+                                    rounded="full" fallback-bg-color="var(--color-main-400)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Atlas Group</span>
+                                        <span class="text-xs text-main-400">08:56</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-500">Approved the recap. Next steps?</p>
+                                </div>
                                 <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">4</span>
                             </button>
                             <button
                                 class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
-                                <span class="h-2 w-2 rounded-full bg-indigo-400"></span>
-                                Broadcasts
-                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">9</span>
+                                <user-avatar alt="Bluestone Labs" initials="BL" size="32" status="offline" show-status-ring="false"
+                                    rounded="full" fallback-bg-color="var(--color-main-300)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Bluestone Labs</span>
+                                        <span class="text-xs text-main-400">Yesterday</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-500">Can you confirm the audit logs?</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">Snoozed</span>
+                            </button>
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
+                                <user-avatar alt="Rootline" initials="RL" size="32" status="pending"
+                                    rounded="full" fallback-bg-color="var(--color-main-200)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Rootline</span>
+                                        <span class="text-xs text-main-400">Mon</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-500">Handoff notes for Q4?</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">Draft</span>
                             </button>
                         </div>
                     </div>
@@ -167,7 +195,7 @@
                     <div class="rounded-3xl bg-main-0/90 p-6 shadow-2xl shadow-slate-200/70 ring-1 ring-slate-200">
                         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <div class="flex items-center gap-4">
-                                <user-avatar alt="Admin User" initials="AU" size="50" status="online"
+                                <user-avatar alt="Admin User" initials="AU" size="50" status="online" fallback-bg-color="var(--color-main-500)"
                                     rounded="full"></user-avatar>
                                 <div>
                                     <p class="text-lg font-semibold text-main-900">Alyssa Trinh</p>
