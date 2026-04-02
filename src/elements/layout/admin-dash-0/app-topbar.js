@@ -14,11 +14,11 @@ export class AppTopbar extends HTMLElement {
 
       <!-- Icons -->
       <div class="flex items-center gap-4 text-lg">
-      <div class="flex items-center gap-2 rounded-full border border-main-200 bg-main-100 px-3 py-1 text-sm font-semibold text-main-700">
+      <!-- div class="flex items-center gap-2 rounded-full border border-main-200 bg-main-100 px-3 py-1 text-sm font-semibold text-main-700">
         <i class="bi bi-coin text-base"></i>
         <span class="text-xs font-semibold uppercase tracking-wide text-main-500">Balance</span>
         <span>${balance} pts</span>
-      </div>
+      </div -->
       <div class="relative">
         <!-- Notifications Icon -->
         <button
