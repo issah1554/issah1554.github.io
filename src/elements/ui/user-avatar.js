@@ -115,7 +115,7 @@ export class UserAvatar extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #3b82f6;
+          background: var(--color-primary-700);
           color: #ffffff;
           font-weight: 600;
           font-size: ${size / 2.5}px;

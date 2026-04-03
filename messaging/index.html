@@ -99,24 +99,23 @@
         <app-topbar slot="topbar"></app-topbar>
         <app-footer slot="footer" label="Lab telemetry up to date"></app-footer>
 
-        <div class="max-w-6xl mx-auto space-y-10 px-4 pb-16">
-            <section class="dash-fade dash-delay-1">
+        <div class="max-w-6xl mx-auto px-4 pb-16">
+            <section class="dash-fade dash-delay-1 mb-4">
                 <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                     <div>
-                        <p class="text-sm uppercase tracking-[0.3em] text-slate-500">Messaging center</p>
-                        <h1 class="text-3xl md:text-4xl font-semibold text-slate-900">Keep every conversation within reach.</h1>
-                        <p class="mt-3 max-w-xl text-slate-600">
-                            Route VIP threads, triage escalations, and keep your team aligned without losing the human tone.
-                        </p>
+                        <p class="text-sm uppercase tracking-[0.3em] text-main-500">Messaging center</p>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <button class="rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-slate-900/20">
+                        <button
+                            class="rounded-full bg-main-900 px-5 py-2 text-sm font-semibold text-main-50 shadow-lg shadow-slate-900/20">
                             New message
                         </button>
-                        <button class="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700">
+                        <button
+                            class="rounded-full border border-slate-300 bg-main-0 px-5 py-2 text-sm font-semibold text-main-700">
                             Create segment
                         </button>
-                        <button class="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700">
+                        <button
+                            class="rounded-full border border-slate-300 bg-main-0 px-5 py-2 text-sm font-semibold text-main-700">
                             Export logs
                         </button>
                     </div>
@@ -125,214 +124,191 @@
 
             <section class="grid gap-6 md:grid-cols-[280px_1fr] lg:grid-cols-[300px_1fr_280px]">
                 <aside class="dash-fade dash-delay-2 space-y-5">
-                    <div class="rounded-2xl bg-white/90 p-5 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+                    <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-main-200/60 ring-1 ring-slate-200">
                         <div class="flex items-center justify-between">
-                            <h2 class="text-lg font-semibold text-slate-900">Smart inbox</h2>
-                            <span class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">12 live</span>
+                            <h2 class="text-lg font-semibold text-main-900">Smart inbox</h2>
+                            <span
+                                class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">12
+                                live</span>
                         </div>
                         <div class="mt-4 space-y-3">
-                            <button class="flex w-full items-center gap-3 rounded-xl bg-slate-900 px-3 py-2 text-left text-sm font-semibold text-white">
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl bg-slate-900 px-3 py-2 text-left text-sm font-semibold text-main-0">
                                 <span class="h-2 w-2 rounded-full bg-orange-400"></span>
                                 Priority
-                                <span class="ml-auto rounded-full bg-white/20 px-2 py-0.5 text-xs">6</span>
+                                <span class="ml-auto rounded-full bg-main-0/20 px-2 py-0.5 text-xs">6</span>
                             </button>
-                            <button class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-sm font-semibold text-slate-700">
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
                                 <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
                                 Active
-                                <span class="ml-auto rounded-full bg-slate-100 px-2 py-0.5 text-xs">28</span>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">28</span>
                             </button>
-                            <button class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-sm font-semibold text-slate-700">
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
                                 <span class="h-2 w-2 rounded-full bg-slate-400"></span>
                                 Snoozed
-                                <span class="ml-auto rounded-full bg-slate-100 px-2 py-0.5 text-xs">4</span>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">4</span>
                             </button>
-                            <button class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-sm font-semibold text-slate-700">
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
                                 <span class="h-2 w-2 rounded-full bg-indigo-400"></span>
                                 Broadcasts
-                                <span class="ml-auto rounded-full bg-slate-100 px-2 py-0.5 text-xs">9</span>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">9</span>
                             </button>
                         </div>
                     </div>
 
-                    <div class="rounded-2xl bg-slate-900 p-5 text-white shadow-xl shadow-slate-900/20">
-                        <p class="text-xs uppercase tracking-[0.2em] text-slate-300">Insights</p>
-                        <h3 class="mt-2 text-lg font-semibold">Response health</h3>
-                        <div class="mt-4 space-y-3 text-sm text-slate-200">
-                            <div class="flex items-center justify-between">
-                                <span>Avg. first reply</span>
-                                <span class="font-semibold text-white">4m 20s</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span>Open loops</span>
-                                <span class="font-semibold text-white">18</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span>Escalations</span>
-                                <span class="font-semibold text-white">3</span>
-                            </div>
-                        </div>
-                        <button class="mt-4 w-full rounded-xl bg-white/10 px-3 py-2 text-sm font-semibold text-white backdrop-blur">
-                            View playbook
-                        </button>
-                    </div>
+
+
                 </aside>
 
                 <main class="dash-pop dash-delay-3 space-y-6">
-                    <div class="rounded-3xl bg-white/90 p-6 shadow-2xl shadow-slate-200/70 ring-1 ring-slate-200">
+                    <div class="rounded-3xl bg-main-0/90 p-6 shadow-2xl shadow-slate-200/70 ring-1 ring-slate-200">
                         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <div class="flex items-center gap-4">
-                                <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-300 to-sky-400 p-0.5">
-                                    <div class="flex h-full w-full items-center justify-center rounded-2xl bg-white text-lg font-semibold text-slate-800">AT</div>
-                                </div>
+                                <user-avatar alt="Admin User" initials="AU" size="50" status="online"
+                                    rounded="full"></user-avatar>
                                 <div>
-                                    <p class="text-lg font-semibold text-slate-900">Alyssa Trinh</p>
-                                    <p class="text-sm text-slate-500">VIP · Northstar Enterprise</p>
+                                    <p class="text-lg font-semibold text-main-900">Alyssa Trinh</p>
+                                    <p class="text-sm text-main-500">VIP · Northstar Enterprise</p>
                                 </div>
                             </div>
                             <div class="flex flex-wrap gap-2">
-                                <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">Connected</span>
-                                <span class="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">Needs follow-up</span>
-                                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">Acct: NS-2207</span>
+                                <span
+                                    class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">Connected</span>
+                                <span
+                                    class="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">Needs
+                                    follow-up</span>
+                                <span
+                                    class="rounded-full bg-main-100 px-3 py-1 text-xs font-semibold text-main-600">Acct:
+                                    NS-2207</span>
                             </div>
                         </div>
                         <div class="mt-6 space-y-4">
                             <div class="flex items-start gap-3">
-                                <div class="h-10 w-10 rounded-full bg-slate-100 text-center text-sm font-semibold text-slate-700">AT</div>
-                                <div class="max-w-lg rounded-2xl bg-slate-100 px-4 py-3 text-sm text-slate-700">
-                                    We are rolling the upgrade tonight. Can you keep the on-call team in the loop and confirm the swap window?
-                                    <div class="mt-2 text-xs text-slate-400">09:12 AM</div>
+                                <user-avatar alt="Admin User" initials="AU" size="35" status="online"
+                                    rounded="full"></user-avatar>
+
+                                <div class="max-w-lg rounded-2xl bg-main-100 px-4 py-3 text-sm text-main-700">
+                                    We are rolling the upgrade tonight. Can you keep the on-call team in the loop and
+                                    confirm the swap window?
+                                    <div class="mt-2 text-xs text-main-400">09:12 AM</div>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 justify-end">
-                                <div class="max-w-lg rounded-2xl bg-slate-900 px-4 py-3 text-sm text-white">
-                                    Absolutely. I am looping in the integration crew and scheduling a 15-minute status check at 7:45 PM.
-                                    <div class="mt-2 text-xs text-white/60">09:15 AM</div>
+                                <div class="max-w-lg rounded-2xl bg-slate-900 px-4 py-3 text-sm text-main-400">
+                                    Absolutely. I am looping in the integration crew and scheduling a 15-minute status
+                                    check at 7:45 PM.
+                                    <div class="mt-2 text-xs text-main-0/60">09:15 AM</div>
                                 </div>
-                                <div class="h-10 w-10 rounded-full bg-slate-900 text-center text-sm font-semibold text-white">ME</div>
+                                <div
+                                    class="h-10 w-10 rounded-full bg-slate-900 text-center text-sm font-semibold text-main-0">
+                                    ME</div>
                             </div>
                             <div class="flex items-start gap-3">
-                                <div class="h-10 w-10 rounded-full bg-slate-100 text-center text-sm font-semibold text-slate-700">AT</div>
-                                <div class="max-w-lg rounded-2xl bg-slate-100 px-4 py-3 text-sm text-slate-700">
-                                    Perfect. Please add a contingency note for the backup cluster in case of latency spikes.
-                                    <div class="mt-2 text-xs text-slate-400">09:19 AM</div>
+                                <div
+                                    class="h-10 w-10 rounded-full bg-main-100 text-center text-sm font-semibold text-main-700">
+                                    AT</div>
+                                <div class="max-w-lg rounded-2xl bg-main-100 px-4 py-3 text-sm text-main-700">
+                                    Perfect. Please add a contingency note for the backup cluster in case of latency
+                                    spikes.
+                                    <div class="mt-2 text-xs text-main-400">09:19 AM</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-6 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3">
-                            <div class="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-slate-400">
+                        <div class="mt-6 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-main-0 px-4 py-3">
+                            <div
+                                class="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-main-400">
                                 <span>Draft reply</span>
                                 <span>Priority lane</span>
                             </div>
                             <div class="flex flex-col gap-3 md:flex-row md:items-center">
-                                <div class="flex-1 text-sm text-slate-600">
-                                    Draft: “I will include the backup cluster handoff in the runbook and send a quick recap to the on-call group.”
+                                <div class="flex-1 text-sm text-main-600">
+                                    Draft: “I will include the backup cluster handoff in the runbook and send a quick
+                                    recap to the on-call group.”
                                 </div>
                                 <div class="flex gap-2">
-                                    <button class="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white">Send</button>
-                                    <button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700">Schedule</button>
+                                    <button
+                                        class="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-main-0">Send</button>
+                                    <button
+                                        class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-main-700">Schedule</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid gap-4 md:grid-cols-2">
-                        <div class="dash-fade dash-delay-4 rounded-2xl bg-white/90 p-5 shadow-lg shadow-slate-200/60 ring-1 ring-slate-200">
-                            <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Queue focus</p>
-                            <h3 class="mt-2 text-lg font-semibold text-slate-900">Escalations to watch</h3>
-                            <div class="mt-4 space-y-3 text-sm text-slate-600">
-                                <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2">
-                                    <div>
-                                        <p class="font-semibold text-slate-800">Renewal pushback</p>
-                                        <p class="text-xs text-slate-400">Orbit Banking · 2 hrs</p>
-                                    </div>
-                                    <span class="rounded-full bg-orange-100 px-2 py-1 text-xs font-semibold text-orange-700">6 msgs</span>
-                                </div>
-                                <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2">
-                                    <div>
-                                        <p class="font-semibold text-slate-800">API saturation</p>
-                                        <p class="text-xs text-slate-400">Lighthouse Ops · 45 mins</p>
-                                    </div>
-                                    <span class="rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">Urgent</span>
-                                </div>
-                                <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2">
-                                    <div>
-                                        <p class="font-semibold text-slate-800">Training follow-up</p>
-                                        <p class="text-xs text-slate-400">Jetstream · 5 msgs</p>
-                                    </div>
-                                    <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">Today</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dash-fade dash-delay-5 rounded-2xl bg-slate-900 p-5 text-white shadow-lg shadow-slate-900/20">
-                            <p class="text-xs uppercase tracking-[0.25em] text-slate-300">Team pulse</p>
-                            <h3 class="mt-2 text-lg font-semibold">Active teammates</h3>
-                            <div class="mt-4 space-y-4 text-sm text-slate-200">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-semibold text-white">Jamal R.</p>
-                                        <p class="text-xs text-slate-400">Handling escalations</p>
-                                    </div>
-                                    <span class="rounded-full bg-white/10 px-3 py-1 text-xs">6 threads</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-semibold text-white">Priya S.</p>
-                                        <p class="text-xs text-slate-400">Onboarding new orgs</p>
-                                    </div>
-                                    <span class="rounded-full bg-white/10 px-3 py-1 text-xs">4 threads</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-semibold text-white">Lena V.</p>
-                                        <p class="text-xs text-slate-400">Night shift cover</p>
-                                    </div>
-                                    <span class="rounded-full bg-white/10 px-3 py-1 text-xs">2 threads</span>
-                                </div>
-                            </div>
-                            <button class="mt-5 w-full rounded-xl bg-white px-3 py-2 text-sm font-semibold text-slate-900">Start huddle</button>
-                        </div>
-                    </div>
                 </main>
 
                 <aside class="dash-fade dash-delay-2 space-y-5">
-                    <div class="rounded-2xl bg-white/90 p-5 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+                    <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-lg font-semibold text-slate-900">Live threads</h3>
-                            <span class="text-xs font-semibold text-slate-400">Updated 2m ago</span>
+                            <h3 class="text-lg font-semibold text-main-900">Live threads</h3>
+                            <span class="text-xs font-semibold text-main-400">Updated 2m ago</span>
                         </div>
-                        <div class="mt-4 space-y-3 text-sm text-slate-600">
-                            <div class="rounded-xl border border-slate-200 bg-white px-3 py-3">
+                        <div class="mt-4 space-y-3 text-sm text-main-600">
+                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
                                 <div class="flex items-center justify-between">
-                                    <p class="font-semibold text-slate-800">Atlas Group</p>
-                                    <span class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">On track</span>
+                                    <p class="font-semibold text-main-800">Atlas Group</p>
+                                    <span
+                                        class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">On
+                                        track</span>
                                 </div>
-                                <p class="mt-2 text-xs text-slate-400">“We approved the recap. Next steps?”</p>
+                                <p class="mt-2 text-xs text-main-400">“We approved the recap. Next steps?”</p>
                             </div>
-                            <div class="rounded-xl border border-slate-200 bg-white px-3 py-3">
+                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
                                 <div class="flex items-center justify-between">
-                                    <p class="font-semibold text-slate-800">Bluestone Labs</p>
-                                    <span class="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">Waiting</span>
+                                    <p class="font-semibold text-main-800">Bluestone Labs</p>
+                                    <span
+                                        class="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">Waiting</span>
                                 </div>
-                                <p class="mt-2 text-xs text-slate-400">“Can you confirm the audit logs?”</p>
+                                <p class="mt-2 text-xs text-main-400">“Can you confirm the audit logs?”</p>
                             </div>
-                            <div class="rounded-xl border border-slate-200 bg-white px-3 py-3">
+                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
                                 <div class="flex items-center justify-between">
-                                    <p class="font-semibold text-slate-800">Rootline</p>
-                                    <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600">Drafted</span>
+                                    <p class="font-semibold text-main-800">Rootline</p>
+                                    <span
+                                        class="rounded-full bg-main-100 px-2 py-0.5 text-xs font-semibold text-main-600">Drafted</span>
                                 </div>
-                                <p class="mt-2 text-xs text-slate-400">“Handoff notes for Q4?”</p>
+                                <p class="mt-2 text-xs text-main-400">“Handoff notes for Q4?”</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dash-float rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-5">
-                        <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Automation</p>
-                        <h3 class="mt-2 text-lg font-semibold text-slate-900">Suggested workflow</h3>
-                        <p class="mt-3 text-sm text-slate-600">
-                            Launch the escalation macro and auto-share the incident update to your status page.
-                        </p>
-                        <button class="mt-4 w-full rounded-xl bg-slate-900 px-3 py-2 text-sm font-semibold text-white">Run macro</button>
+                    <div
+                        class="dash-fade dash-delay-4 rounded-2xl bg-main-0/90 p-5 shadow-lg shadow-slate-200/60 ring-1 ring-slate-200">
+                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Queue focus</p>
+                        <h3 class="mt-2 text-lg font-semibold text-main-900">Escalations to watch</h3>
+                        <div class="mt-4 space-y-3 text-sm text-main-600">
+                            <div
+                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
+                                <div>
+                                    <p class="font-semibold text-main-800">Renewal pushback</p>
+                                    <p class="text-xs text-main-400">Orbit Banking · 2 hrs</p>
+                                </div>
+                                <span
+                                    class="rounded-full bg-orange-100 px-2 py-1 text-xs font-semibold text-orange-700">6
+                                    msgs</span>
+                            </div>
+                            <div
+                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
+                                <div>
+                                    <p class="font-semibold text-main-800">API saturation</p>
+                                    <p class="text-xs text-main-400">Lighthouse Ops · 45 mins</p>
+                                </div>
+                                <span
+                                    class="rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">Urgent</span>
+                            </div>
+                            <div
+                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
+                                <div>
+                                    <p class="font-semibold text-main-800">Training follow-up</p>
+                                    <p class="text-xs text-main-400">Jetstream · 5 msgs</p>
+                                </div>
+                                <span
+                                    class="rounded-full bg-main-100 px-2 py-1 text-xs font-semibold text-main-600">Today</span>
+                            </div>
+                        </div>
                     </div>
                 </aside>
             </section>
@@ -341,6 +317,7 @@
 
     <script src="../src/elements/ui/app-button.js"></script>
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../src/elements/ui/user-avatar.js"></script>
 </body>
 
 </html>

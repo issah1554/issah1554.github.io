@@ -219,12 +219,6 @@ export class AppNavbar extends HTMLElement {
                 <span>Logs</span>
               </span>
             </a>
-            <a href="/specs">
-              <span class="nav-item">
-                <i class="bi bi-clipboard-data"></i>
-                <span>Specs</span>
-              </span>
-            </a>
           </nav>
 
           <div class="sidebar-actions">
