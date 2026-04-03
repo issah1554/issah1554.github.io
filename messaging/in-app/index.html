@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="../../assets/css/tailwind.css">
+    <style>
+        :root {
+            --ink: #0f172a;
+            --mist: #e2e8f0;
+            --sea: #0ea5a6;
+            --sun: #f97316;
+            --cloud: #f8fafc;
+            --stone: #1e293b;
+        }
+
+        body {
+            font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(14, 165, 166, 0.12), transparent 55%),
+                radial-gradient(circle at 10% 25%, rgba(249, 115, 22, 0.14), transparent 45%),
+                linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
+            color: var(--ink);
+        }
+
+        .dash-fade {
+            animation: dash-fade-up 0.8s ease both;
+        }
+
+        .dash-delay-1 {
+            animation-delay: 0.15s;
+        }
+
+        .dash-delay-2 {
+            animation-delay: 0.3s;
+        }
+
+        .dash-delay-3 {
+            animation-delay: 0.45s;
+        }
+
+        .dash-float {
+            animation: dash-float 7s ease-in-out infinite;
+        }
+
+        .dash-pop {
+            animation: dash-pop 0.9s ease both;
+        }
+
+        .dash-delay-4 {
+            animation-delay: 0.6s;
+        }
+
+        .dash-delay-5 {
+            animation-delay: 0.75s;
+        }
+
+        @keyframes dash-fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes dash-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes dash-pop {
+            0% {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <app-layout>
+        <app-navbar slot="sidebar"></app-navbar>
+        <app-topbar slot="topbar"></app-topbar>
+        <app-footer slot="footer" label="Lab telemetry up to date"></app-footer>
+
+        <div class="max-w-6xl mx-auto px-4 pb-16">
+            <section class="dash-fade dash-delay-1 mb-4">
+                <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.3em] text-main-500">Messaging center</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button
+                            class="rounded-full bg-main-900 px-5 py-2 text-sm font-semibold text-main-50 shadow-lg shadow-slate-900/20">
+                            New message
+                        </button>
+                        <button
+                            class="rounded-full border border-slate-300 bg-main-0 px-5 py-2 text-sm font-semibold text-main-700">
+                            Create segment
+                        </button>
+                        <button
+                            class="rounded-full border border-slate-300 bg-main-0 px-5 py-2 text-sm font-semibold text-main-700">
+                            Export logs
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid gap-6 md:grid-cols-[280px_1fr] lg:grid-cols-[300px_1fr_280px]">
+                <aside class="dash-fade dash-delay-2 space-y-5">
+                    <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-main-200/60 ring-1 ring-slate-200">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-lg font-semibold text-main-900">Conversations list</h2>
+                            <span
+                                class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">12
+                                active</span>
+                        </div>
+                        <div class="mt-4 space-y-3">
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl bg-slate-900 px-3 py-2 text-left text-sm font-semibold text-main-0">
+                                <user-avatar alt="Alyssa Trinh" initials="AT" size="32" status="online"
+                                    rounded="full" fallback-bg-color="var(--color-main-500)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Alyssa Trinh</span>
+                                        <span class="text-xs text-main-0/70">09:21</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-0/70">Need the contingency note in place.</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-0/20 px-2 py-0.5 text-xs">New</span>
+                            </button>
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
+                                <user-avatar alt="Atlas Group" initials="AG" size="32" status="online"
+                                    rounded="full" fallback-bg-color="var(--color-main-400)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Atlas Group</span>
+                                        <span class="text-xs text-main-400">08:56</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-500">Approved the recap. Next steps?</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">4</span>
+                            </button>
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
+                                <user-avatar alt="Bluestone Labs" initials="BL" size="32" status="offline" show-status-ring="false"
+                                    rounded="full" fallback-bg-color="var(--color-main-300)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Bluestone Labs</span>
+                                        <span class="text-xs text-main-400">Yesterday</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-500">Can you confirm the audit logs?</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">Snoozed</span>
+                            </button>
+                            <button
+                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
+                                <user-avatar alt="Rootline" initials="RL" size="32" status="pending"
+                                    rounded="full" fallback-bg-color="var(--color-main-200)"></user-avatar>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span>Rootline</span>
+                                        <span class="text-xs text-main-400">Mon</span>
+                                    </div>
+                                    <p class="text-xs font-medium text-main-500">Handoff notes for Q4?</p>
+                                </div>
+                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">Draft</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                </aside>
+
+                <main class="dash-pop dash-delay-3 space-y-6">
+                    <div class="rounded-3xl bg-main-0/90 p-6 shadow-2xl shadow-slate-200/70 ring-1 ring-slate-200">
+                        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                            <div class="flex items-center gap-4">
+                                <user-avatar alt="Admin User" initials="AU" size="50" status="online" fallback-bg-color="var(--color-main-500)"
+                                    rounded="full"></user-avatar>
+                                <div>
+                                    <p class="text-lg font-semibold text-main-900">Alyssa Trinh</p>
+                                    <p class="text-sm text-main-500">VIP · Northstar Enterprise</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">Connected</span>
+                                <span
+                                    class="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">Needs
+                                    follow-up</span>
+                                <span
+                                    class="rounded-full bg-main-100 px-3 py-1 text-xs font-semibold text-main-600">Acct:
+                                    NS-2207</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-y-4">
+                            <div class="flex items-start gap-3">
+                                <user-avatar alt="Admin User" initials="AU" size="35" status="online"
+                                    rounded="full"></user-avatar>
+
+                                <div class="max-w-lg rounded-2xl bg-main-100 px-4 py-3 text-sm text-main-700">
+                                    We are rolling the upgrade tonight. Can you keep the on-call team in the loop and
+                                    confirm the swap window?
+                                    <div class="mt-2 text-xs text-main-400">09:12 AM</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 justify-end">
+                                <div class="max-w-lg rounded-2xl bg-slate-900 px-4 py-3 text-sm text-main-400">
+                                    Absolutely. I am looping in the integration crew and scheduling a 15-minute status
+                                    check at 7:45 PM.
+                                    <div class="mt-2 text-xs text-main-0/60">09:15 AM</div>
+                                </div>
+                                <div
+                                    class="h-10 w-10 rounded-full bg-slate-900 text-center text-sm font-semibold text-main-0">
+                                    ME</div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div
+                                    class="h-10 w-10 rounded-full bg-main-100 text-center text-sm font-semibold text-main-700">
+                                    AT</div>
+                                <div class="max-w-lg rounded-2xl bg-main-100 px-4 py-3 text-sm text-main-700">
+                                    Perfect. Please add a contingency note for the backup cluster in case of latency
+                                    spikes.
+                                    <div class="mt-2 text-xs text-main-400">09:19 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-main-0 px-4 py-3">
+                            <div
+                                class="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-main-400">
+                                <span>Draft reply</span>
+                                <span>Priority lane</span>
+                            </div>
+                            <div class="flex flex-col gap-3 md:flex-row md:items-center">
+                                <div class="flex-1 text-sm text-main-600">
+                                    Draft: “I will include the backup cluster handoff in the runbook and send a quick
+                                    recap to the on-call group.”
+                                </div>
+                                <div class="flex gap-2">
+                                    <button
+                                        class="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-main-0">Send</button>
+                                    <button
+                                        class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-main-700">Schedule</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+
+                <aside class="dash-fade dash-delay-2 space-y-5">
+                    <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-main-900">Live threads</h3>
+                            <span class="text-xs font-semibold text-main-400">Updated 2m ago</span>
+                        </div>
+                        <div class="mt-4 space-y-3 text-sm text-main-600">
+                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-semibold text-main-800">Atlas Group</p>
+                                    <span
+                                        class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">On
+                                        track</span>
+                                </div>
+                                <p class="mt-2 text-xs text-main-400">“We approved the recap. Next steps?”</p>
+                            </div>
+                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-semibold text-main-800">Bluestone Labs</p>
+                                    <span
+                                        class="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">Waiting</span>
+                                </div>
+                                <p class="mt-2 text-xs text-main-400">“Can you confirm the audit logs?”</p>
+                            </div>
+                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-semibold text-main-800">Rootline</p>
+                                    <span
+                                        class="rounded-full bg-main-100 px-2 py-0.5 text-xs font-semibold text-main-600">Drafted</span>
+                                </div>
+                                <p class="mt-2 text-xs text-main-400">“Handoff notes for Q4?”</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="dash-fade dash-delay-4 rounded-2xl bg-main-0/90 p-5 shadow-lg shadow-slate-200/60 ring-1 ring-slate-200">
+                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Queue focus</p>
+                        <h3 class="mt-2 text-lg font-semibold text-main-900">Escalations to watch</h3>
+                        <div class="mt-4 space-y-3 text-sm text-main-600">
+                            <div
+                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
+                                <div>
+                                    <p class="font-semibold text-main-800">Renewal pushback</p>
+                                    <p class="text-xs text-main-400">Orbit Banking · 2 hrs</p>
+                                </div>
+                                <span
+                                    class="rounded-full bg-orange-100 px-2 py-1 text-xs font-semibold text-orange-700">6
+                                    msgs</span>
+                            </div>
+                            <div
+                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
+                                <div>
+                                    <p class="font-semibold text-main-800">API saturation</p>
+                                    <p class="text-xs text-main-400">Lighthouse Ops · 45 mins</p>
+                                </div>
+                                <span
+                                    class="rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">Urgent</span>
+                            </div>
+                            <div
+                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
+                                <div>
+                                    <p class="font-semibold text-main-800">Training follow-up</p>
+                                    <p class="text-xs text-main-400">Jetstream · 5 msgs</p>
+                                </div>
+                                <span
+                                    class="rounded-full bg-main-100 px-2 py-1 text-xs font-semibold text-main-600">Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+        </div>
+    </app-layout>
+
+    <script src="../../src/elements/ui/app-button.js"></script>
+    <script type="module" src="../../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../../src/elements/ui/user-avatar.js"></script>
+</body>
+
+</html>

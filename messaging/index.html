@@ -99,219 +99,92 @@
         <app-topbar slot="topbar"></app-topbar>
         <app-footer slot="footer" label="Lab telemetry up to date"></app-footer>
 
-        <div class="max-w-6xl mx-auto px-4 pb-16">
-            <section class="dash-fade dash-delay-1 mb-4">
-                <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div class=" mx-auto px-4 pb-16">
+            <section class="dash-fade dash-delay-1 mb-6">
+                <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                     <div>
-                        <p class="text-sm uppercase tracking-[0.3em] text-main-500">Messaging center</p>
-                    </div>
-                    <div class="flex flex-wrap gap-3">
-                        <button
-                            class="rounded-full bg-main-900 px-5 py-2 text-sm font-semibold text-main-50 shadow-lg shadow-slate-900/20">
-                            New message
-                        </button>
-                        <button
-                            class="rounded-full border border-slate-300 bg-main-0 px-5 py-2 text-sm font-semibold text-main-700">
-                            Create segment
-                        </button>
-                        <button
-                            class="rounded-full border border-slate-300 bg-main-0 px-5 py-2 text-sm font-semibold text-main-700">
-                            Export logs
-                        </button>
+                        <p class="text-sm uppercase tracking-[0.3em] text-main-500">Messaging Center</p>
                     </div>
                 </div>
             </section>
 
-            <section class="grid gap-6 md:grid-cols-[280px_1fr] lg:grid-cols-[300px_1fr_280px]">
-                <aside class="dash-fade dash-delay-2 space-y-5">
-                    <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-main-200/60 ring-1 ring-slate-200">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-lg font-semibold text-main-900">Smart inbox</h2>
-                            <span
-                                class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">12
-                                live</span>
-                        </div>
-                        <div class="mt-4 space-y-3">
-                            <button
-                                class="flex w-full items-center gap-3 rounded-xl bg-slate-900 px-3 py-2 text-left text-sm font-semibold text-main-0">
-                                <span class="h-2 w-2 rounded-full bg-orange-400"></span>
-                                Priority
-                                <span class="ml-auto rounded-full bg-main-0/20 px-2 py-0.5 text-xs">6</span>
-                            </button>
-                            <button
-                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
-                                <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                                Active
-                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">28</span>
-                            </button>
-                            <button
-                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
-                                <span class="h-2 w-2 rounded-full bg-slate-400"></span>
-                                Snoozed
-                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">4</span>
-                            </button>
-                            <button
-                                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-main-0 px-3 py-2 text-left text-sm font-semibold text-main-700">
-                                <span class="h-2 w-2 rounded-full bg-indigo-400"></span>
-                                Broadcasts
-                                <span class="ml-auto rounded-full bg-main-100 px-2 py-0.5 text-xs">9</span>
-                            </button>
-                        </div>
+            <nav class="mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5">
+
+                <!-- WhatsApp -->
+                <a href="/messaging/whatsapp/"
+                    class="dash-pop dash-delay-2 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div class="flex items-center justify-between">
+                        <i class="bi bi-whatsapp text-4xl text-green-600"></i>
+                        <span
+                            class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">Live</span>
                     </div>
-
-
-
-                </aside>
-
-                <main class="dash-pop dash-delay-3 space-y-6">
-                    <div class="rounded-3xl bg-main-0/90 p-6 shadow-2xl shadow-slate-200/70 ring-1 ring-slate-200">
-                        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                            <div class="flex items-center gap-4">
-                                <user-avatar alt="Admin User" initials="AU" size="50" status="online"
-                                    rounded="full"></user-avatar>
-                                <div>
-                                    <p class="text-lg font-semibold text-main-900">Alyssa Trinh</p>
-                                    <p class="text-sm text-main-500">VIP · Northstar Enterprise</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">Connected</span>
-                                <span
-                                    class="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">Needs
-                                    follow-up</span>
-                                <span
-                                    class="rounded-full bg-main-100 px-3 py-1 text-xs font-semibold text-main-600">Acct:
-                                    NS-2207</span>
-                            </div>
-                        </div>
-                        <div class="mt-6 space-y-4">
-                            <div class="flex items-start gap-3">
-                                <user-avatar alt="Admin User" initials="AU" size="35" status="online"
-                                    rounded="full"></user-avatar>
-
-                                <div class="max-w-lg rounded-2xl bg-main-100 px-4 py-3 text-sm text-main-700">
-                                    We are rolling the upgrade tonight. Can you keep the on-call team in the loop and
-                                    confirm the swap window?
-                                    <div class="mt-2 text-xs text-main-400">09:12 AM</div>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3 justify-end">
-                                <div class="max-w-lg rounded-2xl bg-slate-900 px-4 py-3 text-sm text-main-400">
-                                    Absolutely. I am looping in the integration crew and scheduling a 15-minute status
-                                    check at 7:45 PM.
-                                    <div class="mt-2 text-xs text-main-0/60">09:15 AM</div>
-                                </div>
-                                <div
-                                    class="h-10 w-10 rounded-full bg-slate-900 text-center text-sm font-semibold text-main-0">
-                                    ME</div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div
-                                    class="h-10 w-10 rounded-full bg-main-100 text-center text-sm font-semibold text-main-700">
-                                    AT</div>
-                                <div class="max-w-lg rounded-2xl bg-main-100 px-4 py-3 text-sm text-main-700">
-                                    Perfect. Please add a contingency note for the backup cluster in case of latency
-                                    spikes.
-                                    <div class="mt-2 text-xs text-main-400">09:19 AM</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-main-0 px-4 py-3">
-                            <div
-                                class="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-main-400">
-                                <span>Draft reply</span>
-                                <span>Priority lane</span>
-                            </div>
-                            <div class="flex flex-col gap-3 md:flex-row md:items-center">
-                                <div class="flex-1 text-sm text-main-600">
-                                    Draft: “I will include the backup cluster handoff in the runbook and send a quick
-                                    recap to the on-call group.”
-                                </div>
-                                <div class="flex gap-2">
-                                    <button
-                                        class="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-main-0">Send</button>
-                                    <button
-                                        class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-main-700">Schedule</button>
-                                </div>
-                            </div>
-                        </div>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">WhatsApp</h2>
+                    <div class="mt-6 flex items-center justify-between text-sm text-main-500">
+                        <span>Open channel</span>
+                        <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
+                </a>
 
-                </main>
-
-                <aside class="dash-fade dash-delay-2 space-y-5">
-                    <div class="rounded-2xl bg-main-0/90 p-5 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-lg font-semibold text-main-900">Live threads</h3>
-                            <span class="text-xs font-semibold text-main-400">Updated 2m ago</span>
-                        </div>
-                        <div class="mt-4 space-y-3 text-sm text-main-600">
-                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
-                                <div class="flex items-center justify-between">
-                                    <p class="font-semibold text-main-800">Atlas Group</p>
-                                    <span
-                                        class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">On
-                                        track</span>
-                                </div>
-                                <p class="mt-2 text-xs text-main-400">“We approved the recap. Next steps?”</p>
-                            </div>
-                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
-                                <div class="flex items-center justify-between">
-                                    <p class="font-semibold text-main-800">Bluestone Labs</p>
-                                    <span
-                                        class="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">Waiting</span>
-                                </div>
-                                <p class="mt-2 text-xs text-main-400">“Can you confirm the audit logs?”</p>
-                            </div>
-                            <div class="rounded-xl border border-slate-200 bg-main-0 px-3 py-3">
-                                <div class="flex items-center justify-between">
-                                    <p class="font-semibold text-main-800">Rootline</p>
-                                    <span
-                                        class="rounded-full bg-main-100 px-2 py-0.5 text-xs font-semibold text-main-600">Drafted</span>
-                                </div>
-                                <p class="mt-2 text-xs text-main-400">“Handoff notes for Q4?”</p>
-                            </div>
-                        </div>
+                <!-- SMS -->
+                <a href="/messaging/sms/"
+                    class="dash-pop dash-delay-3 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div class="flex items-center justify-between">
+                        <i class="bi bi-chat-dots text-4xl text-blue-600"></i>
+                        <span
+                            class="rounded-full bg-main-100 px-2 py-1 text-xs font-semibold text-main-600">Queued</span>
                     </div>
-
-                    <div
-                        class="dash-fade dash-delay-4 rounded-2xl bg-main-0/90 p-5 shadow-lg shadow-slate-200/60 ring-1 ring-slate-200">
-                        <p class="text-xs uppercase tracking-[0.25em] text-main-400">Queue focus</p>
-                        <h3 class="mt-2 text-lg font-semibold text-main-900">Escalations to watch</h3>
-                        <div class="mt-4 space-y-3 text-sm text-main-600">
-                            <div
-                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
-                                <div>
-                                    <p class="font-semibold text-main-800">Renewal pushback</p>
-                                    <p class="text-xs text-main-400">Orbit Banking · 2 hrs</p>
-                                </div>
-                                <span
-                                    class="rounded-full bg-orange-100 px-2 py-1 text-xs font-semibold text-orange-700">6
-                                    msgs</span>
-                            </div>
-                            <div
-                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
-                                <div>
-                                    <p class="font-semibold text-main-800">API saturation</p>
-                                    <p class="text-xs text-main-400">Lighthouse Ops · 45 mins</p>
-                                </div>
-                                <span
-                                    class="rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">Urgent</span>
-                            </div>
-                            <div
-                                class="flex items-center justify-between rounded-xl border border-slate-200 bg-main-0 px-3 py-2">
-                                <div>
-                                    <p class="font-semibold text-main-800">Training follow-up</p>
-                                    <p class="text-xs text-main-400">Jetstream · 5 msgs</p>
-                                </div>
-                                <span
-                                    class="rounded-full bg-main-100 px-2 py-1 text-xs font-semibold text-main-600">Today</span>
-                            </div>
-                        </div>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">SMS</h2>
+                    <div class="mt-6 flex items-center justify-between text-sm text-main-500">
+                        <span>Open channel</span>
+                        <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
                     </div>
-                </aside>
-            </section>
+                </a>
+
+                <!-- Email -->
+                <a href="/messaging/email/"
+                    class="dash-pop dash-delay-4 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div class="flex items-center justify-between">
+                        <i class="bi bi-envelope text-4xl text-amber-600"></i>
+                        <span
+                            class="rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700">Drafts</span>
+                    </div>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">Email</h2>
+                    <div class="mt-6 flex items-center justify-between text-sm text-main-500">
+                        <span>Open channel</span>
+                        <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
+                    </div>
+                </a>
+
+                <!-- Forms -->
+                <a href="/messaging/forms/"
+                    class="dash-pop dash-delay-5 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div class="flex items-center justify-between">
+                        <i class="bi bi-ui-checks text-4xl text-blue-600"></i>
+                        <span
+                            class="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700">Active</span>
+                    </div>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">Forms</h2>
+                    <div class="mt-6 flex items-center justify-between text-sm text-main-500">
+                        <span>Open channel</span>
+                        <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
+                    </div>
+                </a>
+
+                <!-- In-app -->
+                <a href="/messaging/in-app/"
+                    class="dash-pop dash-delay-5 group w-full max-w-sm rounded-3xl bg-main-0/90 p-6 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div class="flex items-center justify-between">
+                        <i class="bi bi-phone text-4xl text-rose-600"></i>
+                        <span class="rounded-full bg-rose-100 px-2 py-1 text-xs font-semibold text-rose-700">Beta</span>
+                    </div>
+                    <h2 class="mt-4 text-2xl font-semibold text-main-900">In-app</h2>
+                    <div class="mt-6 flex items-center justify-between text-sm text-main-500">
+                        <span>Open channel</span>
+                        <span class="text-lg text-main-900 group-hover:translate-x-1 transition">→</span>
+                    </div>
+                </a>
+
+            </nav>
         </div>
     </app-layout>
 

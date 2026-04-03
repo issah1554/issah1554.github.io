@@ -109,7 +109,7 @@ export class AppTopbar extends HTMLElement {
         <i class="bi bi-person"></i>
         View profile
         </a>
-        <a href="#" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-main-200">
+        <a href="/settings" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-main-200">
         <i class="bi bi-gear"></i>
         Settings
         </a>

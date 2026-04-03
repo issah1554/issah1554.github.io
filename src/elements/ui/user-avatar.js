@@ -7,7 +7,9 @@ export class UserAvatar extends HTMLElement {
       "initials",
       "status",
       "status-border-color",
+      "fallback-bg-color",
       "show-status",
+      "show-status-ring",
       "rounded",
       "show-edit-button"
     ];
@@ -68,15 +70,17 @@ export class UserAvatar extends HTMLElement {
     const initials = this.getAttribute("initials") || "";
     const status = this.getAttribute("status") || "offline";
     const statusBorderColor = this.getAttribute("status-border-color") || "#ffffff";
+    const fallbackBgColor = this.getAttribute("fallback-bg-color") || "var(--color-main-500)";
     const rounded = this.getAttribute("rounded") || "full";
     const showEditButton = this.getAttribute("show-edit-button") === "true";
     const showStatus = this.getAttribute("show-status") === "true";
+    const showStatusRing = this.getAttribute("show-status-ring") !== "false";
 
     const displayInitials = this.getInitials(initials, alt);
     const radius = this.getRadius(rounded);
     const cornerSize = size / 4;
     const statusColor = this.getStatusColor(status);
-    const borderWidth = 2;
+    const borderWidth = showStatusRing ? 2 : 0;
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -115,7 +119,7 @@ export class UserAvatar extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--color-primary-700);
+          background: ${fallbackBgColor};
           color: #ffffff;
           font-weight: 600;
           font-size: ${size / 2.5}px;
