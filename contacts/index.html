@@ -4,31 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Contacts</title>
     <link rel="stylesheet" href="../assets/css/tailwind.css">
 </head>
 
-<body class="users-page">
+<body class="contacts-page">
     <style>
-        .users-page .section-animate {
+        .contacts-page .section-animate {
             opacity: 0;
             transform: translateY(16px);
             animation: pageFadeSlide 0.6s ease-out forwards;
         }
 
-        .users-page .section-animate:nth-of-type(1) {
+        .contacts-page .section-animate:nth-of-type(1) {
             animation-delay: 0.05s;
         }
 
-        .users-page .section-animate:nth-of-type(2) {
+        .contacts-page .section-animate:nth-of-type(2) {
             animation-delay: 0.15s;
         }
 
-        .users-page button {
+        .contacts-page button {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .users-page button:hover {
+        .contacts-page button:hover {
             transform: translateY(-1px);
             box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
         }
@@ -61,7 +61,6 @@
                             <i class="bi bi-download text-base text-main-600" aria-hidden="true"></i>
                             import (CSV/XLS)
                         </button>
-                        <input id="importFileInput" type="file" class="hidden" accept=".csv,.xls,.xlsx">
                         <button id="exportContactsButton"
                             class="flex items-center gap-2 rounded-xl border border-main-300 bg-white px-4 py-2 text-sm text-main-800">
                             <i class="bi bi-upload text-base text-main-600" aria-hidden="true"></i>
@@ -130,8 +129,7 @@
                                 <th class="py-2">
                                     <button id="sortPhoneButton"
                                         class="flex items-center gap-2 text-xs uppercase tracking-widest text-main-400">
-                                        Ph
-                                        oneNumber
+                                        PhoneNumber
                                         <i id="sortPhoneIcon" class="bi bi-arrow-down-up text-xs text-main-300"
                                             aria-hidden="true"></i>
                                     </button>
@@ -297,6 +295,55 @@
         </div>
     </app-modal>
 
+    <app-modal id="importModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-100 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Import contacts</h4>
+                    <p class="text-sm text-main-500">Choose which columns to import.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('importModal')">Close</button>
+            </div>
+            <div class="mt-4 space-y-3 text-sm text-main-700">
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Upload file (CSV/XLS)
+                    <input id="importFileInput" type="file" accept=".csv,.xls,.xlsx"
+                        class="mt-1 w-full rounded-xl border border-main-200 bg-white px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="flex items-center gap-2 text-xs text-main-500">
+                    <input id="importHeaderToggle" type="checkbox" class="h-4 w-4 rounded border-main-300">
+                    First row is header
+                </label>
+                <div class="grid gap-3 sm:grid-cols-2">
+                    <label class="block text-xs uppercase tracking-widest text-main-400">
+                        Name column
+                        <select id="importNameSelect"
+                            class="mt-1 w-full rounded-xl border border-main-200 bg-white px-3 py-2 text-sm text-main-700">
+                        </select>
+                    </label>
+                    <label class="block text-xs uppercase tracking-widest text-main-400">
+                        Phone column
+                        <select id="importPhoneSelect"
+                            class="mt-1 w-full rounded-xl border border-main-200 bg-white px-3 py-2 text-sm text-main-700">
+                        </select>
+                    </label>
+                    <label class="block text-xs uppercase tracking-widest text-main-400">
+                        Email column
+                        <select id="importEmailSelect"
+                            class="mt-1 w-full rounded-xl border border-main-200 bg-white px-3 py-2 text-sm text-main-700">
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="mt-6 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeModal('importModal')"
+                    class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                <button type="button" id="confirmImportButton"
+                    class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Import</button>
+            </div>
+        </div>
+    </app-modal>
+
     <script>
         const storageKey = "contacts";
         const defaultContacts = [
@@ -348,6 +395,12 @@
         const addForm = document.getElementById("addForm");
 
         const deleteMessage = document.getElementById("deleteMessage");
+        const importHeaderToggle = document.getElementById("importHeaderToggle");
+        const importNameSelect = document.getElementById("importNameSelect");
+        const importPhoneSelect = document.getElementById("importPhoneSelect");
+        const importEmailSelect = document.getElementById("importEmailSelect");
+        const confirmImportButton = document.getElementById("confirmImportButton");
+        const importModal = document.getElementById("importModal");
 
         let currentEditIndex = null;
         let currentDeleteIndex = null;
@@ -356,6 +409,8 @@
         let rowsPerPage = Number(rowsPerPageSelect.value);
         let sortKey = "name";
         let sortAsc = true;
+        let importRows = [];
+        let importHasHeader = true;
 
         function loadContacts() {
             const raw = localStorage.getItem(storageKey);
@@ -587,6 +642,67 @@
             return rows;
         }
 
+        function isLikelyHeaderRow(row) {
+            if (!row || row.length === 0) return false;
+            const textCells = row.filter((cell) => String(cell).trim().length > 0);
+            const numericCells = row.filter((cell) => /^\d+(\.\d+)?$/.test(String(cell).trim()));
+            return textCells.length > 0 && numericCells.length < textCells.length;
+        }
+
+        function buildColumnOptions() {
+            const headerRow = importRows[0] || [];
+            const maxColumns = Math.max(headerRow.length, ...importRows.map((row) => row.length));
+            const labels = [];
+            for (let i = 0; i < maxColumns; i += 1) {
+                if (importHasHeader) {
+                    const label = (headerRow[i] || `Column ${i + 1}`).trim();
+                    labels.push({ value: String(i), label: label || `Column ${i + 1}` });
+                } else {
+                    labels.push({ value: String(i), label: `Column ${i + 1}` });
+                }
+            }
+
+            const optionsHtml = [
+                `<option value="">Skip</option>`,
+                ...labels.map((item) => `<option value="${item.value}">${item.label}</option>`),
+            ].join("");
+
+            importNameSelect.innerHTML = optionsHtml;
+            importPhoneSelect.innerHTML = optionsHtml;
+            importEmailSelect.innerHTML = optionsHtml;
+        }
+
+        function applyImportSelections() {
+            const nameIndex = importNameSelect.value === "" ? null : Number(importNameSelect.value);
+            const phoneIndex = importPhoneSelect.value === "" ? null : Number(importPhoneSelect.value);
+            const emailIndex = importEmailSelect.value === "" ? null : Number(importEmailSelect.value);
+            const dataRows = importHasHeader ? importRows.slice(1) : importRows;
+
+            const importedContacts = dataRows
+                .map((row) => {
+                    const name = nameIndex === null ? "" : (row[nameIndex] || "").trim();
+                    const phone = phoneIndex === null ? "" : (row[phoneIndex] || "").trim();
+                    const email = emailIndex === null ? "" : (row[emailIndex] || "").trim();
+                    if (!name && !phone && !email) return null;
+                    return {
+                        name: name || email || phone || "Unnamed contact",
+                        phone,
+                        email,
+                    };
+                })
+                .filter(Boolean);
+
+            if (importedContacts.length === 0) {
+                alert("No valid contacts found with the selected columns.");
+                return;
+            }
+
+            contacts = contacts.concat(importedContacts);
+            saveContacts();
+            renderContacts();
+            closeModal("importModal");
+        }
+
         function normalizeHeader(value) {
             return value.toLowerCase().replace(/[^a-z0-9]/g, "");
         }
@@ -652,15 +768,11 @@
                     return;
                 }
 
-                const importedContacts = mapRowsToContacts(rows);
-                if (importedContacts.length === 0) {
-                    alert("No valid contacts found in this file.");
-                    return;
-                }
-
-                contacts = contacts.concat(importedContacts);
-                saveContacts();
-                renderContacts();
+                importRows = rows;
+                importHasHeader = isLikelyHeaderRow(rows[0]);
+                importHeaderToggle.checked = importHasHeader;
+                buildColumnOptions();
+                confirmImportButton.disabled = false;
             };
 
             reader.readAsText(file);
@@ -733,7 +845,14 @@
             window.location.href = "/contacts/groups";
         });
         importContactsButton.addEventListener("click", () => {
-            importFileInput.click();
+            importRows = [];
+            importFileInput.value = "";
+            importHeaderToggle.checked = true;
+            importNameSelect.innerHTML = "";
+            importPhoneSelect.innerHTML = "";
+            importEmailSelect.innerHTML = "";
+            confirmImportButton.disabled = true;
+            importModal.setAttribute("open", "");
         });
         sortNameButton.addEventListener("click", () => {
             if (sortKey === "name") {
@@ -799,9 +918,13 @@
                 return;
             }
             importContactsFromFile(file);
-            importFileInput.value = "";
         });
         exportContactsButton.addEventListener("click", exportContactsToCsv);
+        importHeaderToggle.addEventListener("change", (event) => {
+            importHasHeader = event.target.checked;
+            buildColumnOptions();
+        });
+        confirmImportButton.addEventListener("click", applyImportSelections);
 
         renderContacts();
     </script>
