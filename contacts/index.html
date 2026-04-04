@@ -202,6 +202,7 @@
                     <p class="text-xs uppercase tracking-widest text-main-400">Email</p>
                     <p id="viewEmail" class="mt-1 font-medium text-main-900"></p>
                 </div>
+                <div id="viewExtraFields" class="space-y-2"></div>
             </div>
         </div>
     </app-modal>
@@ -310,6 +311,7 @@
                     <input id="importFileInput" type="file" accept=".csv,.xls,.xlsx"
                         class="mt-1 w-full rounded-xl border border-main-200 bg-white px-3 py-2 text-sm text-main-700">
                 </label>
+                <p id="importErrorMessage" class="hidden text-xs text-red-600"></p>
                 <label class="flex items-center gap-2 text-xs text-main-500">
                     <input id="importHeaderToggle" type="checkbox" class="h-4 w-4 rounded border-main-300">
                     First row is header
@@ -333,6 +335,12 @@
                             class="mt-1 w-full rounded-xl border border-main-200 bg-white px-3 py-2 text-sm text-main-700">
                         </select>
                     </label>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Additional fields</p>
+                    <div id="importCustomFields"
+                        class="mt-2 max-h-36 space-y-2 overflow-y-auto rounded-xl border border-main-200 bg-white p-3 text-sm text-main-700">
+                    </div>
                 </div>
             </div>
             <div class="mt-6 flex items-center justify-end gap-2">
@@ -383,6 +391,7 @@
         const viewName = document.getElementById("viewName");
         const viewPhone = document.getElementById("viewPhone");
         const viewEmail = document.getElementById("viewEmail");
+        const viewExtraFields = document.getElementById("viewExtraFields");
 
         const editName = document.getElementById("editName");
         const editPhone = document.getElementById("editPhone");
@@ -399,8 +408,10 @@
         const importNameSelect = document.getElementById("importNameSelect");
         const importPhoneSelect = document.getElementById("importPhoneSelect");
         const importEmailSelect = document.getElementById("importEmailSelect");
+        const importCustomFields = document.getElementById("importCustomFields");
         const confirmImportButton = document.getElementById("confirmImportButton");
         const importModal = document.getElementById("importModal");
+        const importErrorMessage = document.getElementById("importErrorMessage");
 
         let currentEditIndex = null;
         let currentDeleteIndex = null;
@@ -436,6 +447,22 @@
             viewName.textContent = contact.name;
             viewPhone.textContent = contact.phone;
             viewEmail.textContent = contact.email;
+            viewExtraFields.innerHTML = "";
+            if (contact.extraFields) {
+                const entries = Object.entries(contact.extraFields).filter(([, value]) =>
+                    String(value || "").trim()
+                );
+                viewExtraFields.innerHTML = entries
+                    .map(([label, value]) => {
+                        return `
+                            <div>
+                                <p class="text-xs uppercase tracking-widest text-main-400">${label}</p>
+                                <p class="mt-1 font-medium text-main-900">${value}</p>
+                            </div>
+                        `;
+                    })
+                    .join("");
+            }
             viewModal.setAttribute("open", "");
         }
 
@@ -672,28 +699,97 @@
             importEmailSelect.innerHTML = optionsHtml;
         }
 
+        function buildCustomFieldOptions() {
+            if (!importRows.length) {
+                importCustomFields.innerHTML = "";
+                return;
+            }
+            const headerRow = importRows[0] || [];
+            const maxColumns = Math.max(headerRow.length, ...importRows.map((row) => row.length));
+            const nameIndex = importNameSelect.value === "" ? null : Number(importNameSelect.value);
+            const phoneIndex = importPhoneSelect.value === "" ? null : Number(importPhoneSelect.value);
+            const emailIndex = importEmailSelect.value === "" ? null : Number(importEmailSelect.value);
+
+            const items = [];
+            for (let i = 0; i < maxColumns; i += 1) {
+                if (i === nameIndex || i === phoneIndex || i === emailIndex) continue;
+                const label = importHasHeader
+                    ? (headerRow[i] || `Column ${i + 1}`).trim()
+                    : `Column ${i + 1}`;
+                items.push({ value: String(i), label: label || `Column ${i + 1}` });
+            }
+
+            importCustomFields.innerHTML = items
+                .map((item) => {
+                    return `
+                        <label class="flex items-center gap-3 rounded-xl border border-main-200 px-3 py-2">
+                            <input type="checkbox" value="${item.value}" class="h-4 w-4 rounded border-main-300">
+                            <span class="text-sm text-main-700">${item.label}</span>
+                        </label>
+                    `;
+                })
+                .join("");
+
+            if (!items.length) {
+                importCustomFields.innerHTML = `
+                    <div class="rounded-xl border border-main-200 bg-main-50 px-3 py-3 text-sm text-main-500">
+                        No extra columns available.
+                    </div>
+                `;
+            }
+        }
+
         function applyImportSelections() {
             const nameIndex = importNameSelect.value === "" ? null : Number(importNameSelect.value);
             const phoneIndex = importPhoneSelect.value === "" ? null : Number(importPhoneSelect.value);
             const emailIndex = importEmailSelect.value === "" ? null : Number(importEmailSelect.value);
             const dataRows = importHasHeader ? importRows.slice(1) : importRows;
 
+            if (nameIndex === null && phoneIndex === null && emailIndex === null) {
+                importErrorMessage.textContent = "Please select at least one column to import.";
+                importErrorMessage.classList.remove("hidden");
+                return;
+            }
+
+            if (phoneIndex === null && emailIndex === null) {
+                importErrorMessage.textContent =
+                    "Please select a Phone or Email column (or both) to import.";
+                importErrorMessage.classList.remove("hidden");
+                return;
+            }
+
+            const selectedCustomFields = Array.from(
+                importCustomFields.querySelectorAll('input[type="checkbox"]:checked')
+            ).map((input) => Number(input.value));
+            const headerRow = importRows[0] || [];
             const importedContacts = dataRows
                 .map((row) => {
                     const name = nameIndex === null ? "" : (row[nameIndex] || "").trim();
                     const phone = phoneIndex === null ? "" : (row[phoneIndex] || "").trim();
                     const email = emailIndex === null ? "" : (row[emailIndex] || "").trim();
                     if (!name && !phone && !email) return null;
+                    const extraFields = {};
+                    selectedCustomFields.forEach((index) => {
+                        const label = importHasHeader
+                            ? (headerRow[index] || `Column ${index + 1}`).trim()
+                            : `Column ${index + 1}`;
+                        const value = (row[index] || "").trim();
+                        if (label && value) {
+                            extraFields[label] = value;
+                        }
+                    });
                     return {
                         name: name || email || phone || "Unnamed contact",
                         phone,
                         email,
+                        extraFields: Object.keys(extraFields).length ? extraFields : undefined,
                     };
                 })
                 .filter(Boolean);
 
             if (importedContacts.length === 0) {
-                alert("No valid contacts found with the selected columns.");
+                importErrorMessage.textContent = "No valid contacts found with the selected columns.";
+                importErrorMessage.classList.remove("hidden");
                 return;
             }
 
@@ -764,7 +860,9 @@
                 }
 
                 if (rows.length === 0) {
-                    alert("Unable to read this file. Please upload a CSV or an XLS file exported as a table.");
+                    importErrorMessage.textContent =
+                        "Unable to read this file. Please upload a CSV or an XLS file exported as a table.";
+                    importErrorMessage.classList.remove("hidden");
                     return;
                 }
 
@@ -772,6 +870,7 @@
                 importHasHeader = isLikelyHeaderRow(rows[0]);
                 importHeaderToggle.checked = importHasHeader;
                 buildColumnOptions();
+                buildCustomFieldOptions();
                 confirmImportButton.disabled = false;
             };
 
@@ -851,7 +950,10 @@
             importNameSelect.innerHTML = "";
             importPhoneSelect.innerHTML = "";
             importEmailSelect.innerHTML = "";
+            importCustomFields.innerHTML = "";
             confirmImportButton.disabled = true;
+            importErrorMessage.textContent = "";
+            importErrorMessage.classList.add("hidden");
             importModal.setAttribute("open", "");
         });
         sortNameButton.addEventListener("click", () => {
@@ -913,18 +1015,25 @@
             if (!file) return;
             const name = file.name.toLowerCase();
             if (!name.endsWith(".csv") && !name.endsWith(".xls") && !name.endsWith(".xlsx")) {
-                alert("Please select a CSV or XLS file.");
+                importErrorMessage.textContent = "Please select a CSV or XLS file.";
+                importErrorMessage.classList.remove("hidden");
                 importFileInput.value = "";
                 return;
             }
+            importErrorMessage.textContent = "";
+            importErrorMessage.classList.add("hidden");
             importContactsFromFile(file);
         });
         exportContactsButton.addEventListener("click", exportContactsToCsv);
         importHeaderToggle.addEventListener("change", (event) => {
             importHasHeader = event.target.checked;
             buildColumnOptions();
+            buildCustomFieldOptions();
         });
         confirmImportButton.addEventListener("click", applyImportSelections);
+        importNameSelect.addEventListener("change", buildCustomFieldOptions);
+        importPhoneSelect.addEventListener("change", buildCustomFieldOptions);
+        importEmailSelect.addEventListener("change", buildCustomFieldOptions);
 
         renderContacts();
     </script>

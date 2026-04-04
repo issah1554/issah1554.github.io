@@ -623,6 +623,9 @@
   .max-h-0 {
     max-height: calc(var(--spacing) * 0);
   }
+  .max-h-36 {
+    max-height: calc(var(--spacing) * 36);
+  }
   .max-h-64 {
     max-height: calc(var(--spacing) * 64);
   }
@@ -1659,6 +1662,9 @@
   }
   .text-primary-600 {
     color: var(--color-primary-600);
+  }
+  .text-red-600 {
+    color: var(--color-red-600);
   }
   .text-red-700 {
     color: var(--color-red-700);
