@@ -231,7 +231,7 @@ export class AppNavbar extends HTMLElement {
             <a href="/profile" aria-label="Profile">
               <i class="bi bi-person"></i>
             </a>            
-            <a href="/auth/login" aria-label="Log out">
+            <a href="/auth/login" aria-label="Log out" title="Log out">
               <i class="bi bi-box-arrow-right"></i>
             </a>
           </div>

@@ -38,90 +38,389 @@
         <app-footer slot="footer" label="Group categories loaded"></app-footer>
 
         <div class="mx-auto flex max-w-6xl flex-col gap-6">
-            <section class="section-animate rounded-2xl border border-main-200 bg-main-100 p-6 shadow-sm">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold text-main-900">Contact Groups</h3>
-                        <p class="text-sm text-main-500">Quick access to curated lists.</p>
-                    </div>
-                    <button class="rounded-xl bg-main-900 px-4 py-2 text-sm text-main-50">Create group</button>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-main-900">Contact Groups</h3>
                 </div>
-                <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Family</p>
-                        <p class="mt-2 text-sm text-main-700">12 contacts</p>
-                    </div>
-                    <div class="rounded-xl border border-sky-200 bg-sky-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Work</p>
-                        <p class="mt-2 text-sm text-main-700">28 contacts</p>
-                    </div>
-                    <div class="rounded-xl border border-amber-200 bg-amber-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-widest text-black">VIP</p>
-                        <p class="mt-2 text-sm text-main-700">5 contacts</p>
-                    </div>
-                    <div class="rounded-xl border border-rose-200 bg-rose-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Vendors</p>
-                        <p class="mt-2 text-sm text-main-700">9 contacts</p>
-                    </div>
-                    <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Leads</p>
-                        <p class="mt-2 text-sm text-main-700">21 contacts</p>
-                    </div>
-                    <div class="rounded-xl border border-lime-200 bg-lime-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Newsletter</p>
-                        <p class="mt-2 text-sm text-main-700">32 contacts</p>
-                    </div>
-                </div>
-            </section>
+                <button id="createGroupButton"
+                    class="rounded-xl bg-main-900 px-4 py-2 text-sm text-main-50">Create group</button>
+            </div>
+
 
             <section class="section-animate rounded-2xl border border-main-200 bg-main-100 p-6 shadow-sm">
                 <div class="flex items-center justify-between gap-3">
-                    <h3 class="text-lg font-semibold text-main-900">Group Directory</h3>
-                    <a href="../users/index.html" class="text-sm text-main-500 hover:text-main-700">Back to users</a>
+                    <a href="../index.html" class="text-sm text-main-500 hover:text-main-700">Back to contacts</a>
+                    <div class="relative">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-main-400">
+                            <i class="bi bi-search text-sm" aria-hidden="true"></i>
+                        </span>
+                        <input id="groupSearchInput" type="search" placeholder="Search groups"
+                            class="w-56 rounded-full border border-main-200 py-2 pl-10 pr-3 text-sm text-main-700">
+                    </div>
                 </div>
                 <div class="mt-4 overflow-x-auto">
                     <table class="w-full text-left text-sm">
                         <thead class="text-xs uppercase tracking-widest text-main-400">
                             <tr>
-                                <th class="py-2">Group</th>
-                                <th class="py-2">Members</th>
-                                <th class="py-2">Updated</th>
+                                <th class="py-2">
+                                    <button id="sortGroupButton"
+                                        class="flex items-center gap-2 text-xs uppercase tracking-widest text-main-400">
+                                        Group
+                                        <i id="sortGroupIcon" class="bi bi-arrow-down-up text-xs text-main-300"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </th>
+                                <th class="py-2">
+                                    <button id="sortContactsButton"
+                                        class="flex items-center gap-2 text-xs uppercase tracking-widest text-main-400">
+                                        Contacts
+                                        <i id="sortContactsIcon" class="bi bi-arrow-down-up text-xs text-main-300"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </th>
+                                <th class="py-2">Description</th>
                                 <th class="py-2 text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-main-700">
-                            <tr class="border-t border-main-200">
-                                <td class="py-3 font-medium">Family</td>
-                                <td class="py-3">12</td>
-                                <td class="py-3">Today</td>
-                                <td class="py-3 text-right">
-                                    <button class="rounded-full bg-main-900 px-3 py-1 text-xs text-main-50">View</button>
-                                </td>
-                            </tr>
-                            <tr class="border-t border-main-200">
-                                <td class="py-3 font-medium">Work</td>
-                                <td class="py-3">28</td>
-                                <td class="py-3">2 days ago</td>
-                                <td class="py-3 text-right">
-                                    <button class="rounded-full bg-main-900 px-3 py-1 text-xs text-main-50">View</button>
-                                </td>
-                            </tr>
-                            <tr class="border-t border-main-200">
-                                <td class="py-3 font-medium">VIP</td>
-                                <td class="py-3">5</td>
-                                <td class="py-3">Yesterday</td>
-                                <td class="py-3 text-right">
-                                    <button class="rounded-full bg-main-900 px-3 py-1 text-xs text-main-50">View</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="groupsTable" class="text-main-700"></tbody>
                     </table>
+                </div>
+                <div class="mt-4 flex items-center justify-between gap-3 text-xs text-main-500">
+                    <span id="groupsResultsSummary">Showing 0 of 0</span>
+                    <div class="flex items-center gap-2">
+                        <button id="groupsPrevPageButton"
+                            class="rounded-full border border-main-200 bg-white px-3 py-1.5 text-xs text-main-700">
+                            Prev
+                        </button>
+                        <span id="groupsPageIndicator">1 / 1</span>
+                        <button id="groupsNextPageButton"
+                            class="rounded-full border border-main-200 bg-white px-3 py-1.5 text-xs text-main-700">
+                            Next
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>
     </app-layout>
 
+    <app-modal id="groupModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-100 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 id="groupModalTitle" class="text-lg font-semibold text-main-900">Create group</h4>
+                    <p class="text-sm text-main-500">Add a new group category.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('groupModal')">Close</button>
+            </div>
+            <form id="groupForm" class="mt-4 space-y-3">
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Group name
+                    <input id="groupName" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Description
+                    <input id="groupDescription" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('groupModal')"
+                        class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                    <button type="submit"
+                        class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Save</button>
+                </div>
+            </form>
+        </div>
+    </app-modal>
+
+    <app-modal id="deleteGroupModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Delete group</h4>
+                    <p class="text-sm text-main-500">This action cannot be undone.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('deleteGroupModal')">Close</button>
+            </div>
+            <p id="deleteGroupMessage" class="mt-4 text-sm text-main-700"></p>
+            <div class="mt-6 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeModal('deleteGroupModal')"
+                    class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                <button type="button" onclick="confirmDeleteGroup()"
+                    class="rounded-full bg-red-600 px-4 py-2 text-xs text-white">Delete</button>
+            </div>
+        </div>
+    </app-modal>
+
     <script type="module" src="../../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../../src/elements/ui/app-modal.js"></script>
+    <script>
+        const groupsStorageKey = "contactGroups";
+        const contactsStorageKey = "contacts";
+
+        const groupsTable = document.getElementById("groupsTable");
+        const createGroupButton = document.getElementById("createGroupButton");
+        const groupModal = document.getElementById("groupModal");
+        const groupForm = document.getElementById("groupForm");
+        const groupModalTitle = document.getElementById("groupModalTitle");
+        const groupNameInput = document.getElementById("groupName");
+        const groupDescriptionInput = document.getElementById("groupDescription");
+        const deleteGroupMessage = document.getElementById("deleteGroupMessage");
+        const groupSearchInput = document.getElementById("groupSearchInput");
+        const groupsResultsSummary = document.getElementById("groupsResultsSummary");
+        const groupsPrevPageButton = document.getElementById("groupsPrevPageButton");
+        const groupsNextPageButton = document.getElementById("groupsNextPageButton");
+        const groupsPageIndicator = document.getElementById("groupsPageIndicator");
+        const sortGroupButton = document.getElementById("sortGroupButton");
+        const sortGroupIcon = document.getElementById("sortGroupIcon");
+        const sortContactsButton = document.getElementById("sortContactsButton");
+        const sortContactsIcon = document.getElementById("sortContactsIcon");
+
+        let groups = loadGroups();
+        let currentEditId = null;
+        let currentDeleteId = null;
+        let currentPage = 1;
+        const groupsPerPage = 5;
+        let sortKey = "name";
+        let sortAsc = true;
+
+        function loadContacts() {
+            const raw = localStorage.getItem(contactsStorageKey);
+            if (!raw) return [];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function loadGroups() {
+            const raw = localStorage.getItem(groupsStorageKey);
+            if (!raw) {
+                return [
+                    {
+                        id: "grp-family",
+                        name: "Family",
+                        description: "Immediate family members",
+                        members: ["stpne@gmail.com"],
+                    },
+                    {
+                        id: "grp-work",
+                        name: "Work",
+                        description: "Colleagues and business contacts",
+                        members: ["marcus@gmail.com"],
+                    },
+                    {
+                        id: "grp-vip",
+                        name: "VIP",
+                        description: "High-value contacts",
+                        members: [],
+                    },
+                ];
+            }
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function saveGroups() {
+            localStorage.setItem(groupsStorageKey, JSON.stringify(groups));
+        }
+
+        function closeModal(id) {
+            document.getElementById(id)?.close();
+        }
+
+        function openGroupModal(group = null) {
+            currentEditId = group ? group.id : null;
+            groupModalTitle.textContent = group ? "Edit group" : "Create group";
+            groupNameInput.value = group ? group.name : "";
+            groupDescriptionInput.value = group ? group.description : "";
+            groupModal.setAttribute("open", "");
+        }
+
+        function renderGroups() {
+            const query = groupSearchInput.value.trim().toLowerCase();
+            const filteredGroups = groups.filter((group) => {
+                if (!query) return true;
+                return (
+                    group.name.toLowerCase().includes(query) ||
+                    (group.description || "").toLowerCase().includes(query)
+                );
+            });
+
+            const sortedGroups = filteredGroups.sort((a, b) => {
+                if (sortKey === "members") {
+                    const countA = Array.isArray(a.members) ? a.members.length : 0;
+                    const countB = Array.isArray(b.members) ? b.members.length : 0;
+                    return sortAsc ? countA - countB : countB - countA;
+                }
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                if (nameA < nameB) return sortAsc ? -1 : 1;
+                if (nameA > nameB) return sortAsc ? 1 : -1;
+                return 0;
+            });
+
+            const totalPages = Math.max(1, Math.ceil(sortedGroups.length / groupsPerPage));
+            currentPage = Math.min(currentPage, totalPages);
+            const startIndex = (currentPage - 1) * groupsPerPage;
+            const paginatedGroups = sortedGroups.slice(startIndex, startIndex + groupsPerPage);
+
+            groupsTable.innerHTML = paginatedGroups
+                .map((group) => {
+                    const memberCount = Array.isArray(group.members) ? group.members.length : 0;
+                    return `
+                        <tr class="border-t border-main-200">
+                            <td class="py-3 font-medium">${group.name}</td>
+                            <td class="py-3">${memberCount}</td>
+                            <td class="py-3">${group.description || "-"}</td>
+                            <td class="py-3 text-right space-x-2">
+                                <button type="button" onclick="openGroupDetails('${group.id}')"
+                                    class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">
+                                    <i class="bi bi-eye" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" onclick="openGroupEdit('${group.id}')"
+                                    class="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">
+                                    <i class="bi bi-pencil" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" onclick="openDeleteGroupModal('${group.id}')"
+                                    class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">
+                                    <i class="bi bi-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                })
+                .join("");
+
+            if (!filteredGroups.length) {
+                groupsTable.innerHTML = `
+                    <tr class="border-t border-main-200">
+                        <td colspan="4" class="py-6 text-center text-sm text-main-500">
+                            No groups created yet.
+                        </td>
+                    </tr>
+                `;
+            }
+
+            groupsResultsSummary.textContent = `Showing ${filteredGroups.length} of ${groups.length}`;
+            groupsPageIndicator.textContent = `${currentPage} / ${totalPages}`;
+            groupsPrevPageButton.disabled = currentPage <= 1;
+            groupsNextPageButton.disabled = currentPage >= totalPages;
+            groupsPrevPageButton.classList.toggle("opacity-50", groupsPrevPageButton.disabled);
+            groupsNextPageButton.classList.toggle("opacity-50", groupsNextPageButton.disabled);
+        }
+
+        function updateSortIcons() {
+            const iconMap = {
+                name: sortGroupIcon,
+                members: sortContactsIcon,
+            };
+            Object.entries(iconMap).forEach(([key, icon]) => {
+                icon.classList.remove("bi-arrow-down", "bi-arrow-up", "bi-arrow-down-up", "text-main-600");
+                icon.classList.add("bi-arrow-down-up", "text-main-300");
+                if (key === sortKey) {
+                    icon.classList.remove("bi-arrow-down-up", "text-main-300");
+                    icon.classList.add(sortAsc ? "bi-arrow-up" : "bi-arrow-down", "text-main-600");
+                }
+            });
+        }
+
+        function openGroupDetails(groupId) {
+            window.location.href = `./details/index.html?id=${encodeURIComponent(groupId)}`;
+        }
+
+        function openGroupEdit(groupId) {
+            const group = groups.find((item) => item.id === groupId);
+            if (!group) return;
+            openGroupModal(group);
+        }
+
+        function openDeleteGroupModal(groupId) {
+            const group = groups.find((item) => item.id === groupId);
+            if (!group) return;
+            currentDeleteId = groupId;
+            deleteGroupMessage.textContent = `Delete ${group.name}?`;
+            document.getElementById("deleteGroupModal").setAttribute("open", "");
+        }
+
+        function confirmDeleteGroup() {
+            if (!currentDeleteId) return;
+            groups = groups.filter((item) => item.id !== currentDeleteId);
+            currentDeleteId = null;
+            saveGroups();
+            renderGroups();
+            closeModal("deleteGroupModal");
+        }
+
+        createGroupButton.addEventListener("click", () => openGroupModal());
+        groupSearchInput.addEventListener("input", () => {
+            currentPage = 1;
+            renderGroups();
+        });
+        sortGroupButton.addEventListener("click", () => {
+            if (sortKey === "name") {
+                sortAsc = !sortAsc;
+            } else {
+                sortKey = "name";
+                sortAsc = true;
+            }
+            updateSortIcons();
+            renderGroups();
+        });
+        sortContactsButton.addEventListener("click", () => {
+            if (sortKey === "members") {
+                sortAsc = !sortAsc;
+            } else {
+                sortKey = "members";
+                sortAsc = true;
+            }
+            updateSortIcons();
+            renderGroups();
+        });
+        groupsPrevPageButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage -= 1;
+                renderGroups();
+            }
+        });
+        groupsNextPageButton.addEventListener("click", () => {
+            currentPage += 1;
+            renderGroups();
+        });
+
+        groupForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = groupNameInput.value.trim();
+            if (!name) return;
+            const description = groupDescriptionInput.value.trim();
+            if (currentEditId) {
+                const group = groups.find((item) => item.id === currentEditId);
+                if (group) {
+                    group.name = name;
+                    group.description = description;
+                }
+            } else {
+                groups.push({
+                    id: `grp-${Date.now()}`,
+                    name,
+                    description,
+                    members: [],
+                });
+            }
+            saveGroups();
+            renderGroups();
+            closeModal("groupModal");
+        });
+
+        updateSortIcons();
+        renderGroups();
+    </script>
 </body>
 
 </html>

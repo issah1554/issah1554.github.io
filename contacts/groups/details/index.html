@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Details</title>
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css">
+</head>
+
+<body class="groups-page">
+    <style>
+        .groups-page .section-animate {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: pageFadeSlide 0.6s ease-out forwards;
+        }
+
+        @keyframes pageFadeSlide {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <app-layout>
+        <app-navbar slot="sidebar"></app-navbar>
+        <app-topbar slot="topbar" title="Group Details" subtitle="Manage group members."></app-topbar>
+        <app-footer slot="footer" label="Group details ready"></app-footer>
+
+        <div class="mx-auto flex max-w-6xl flex-col gap-6">
+            <section class="section-animate rounded-2xl border border-main-200 bg-main-100 p-6 shadow-sm">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h3 id="groupTitle" class="text-lg font-semibold text-main-900">Group</h3>
+                        <p id="groupDescription" class="text-sm text-main-500"></p>
+                    </div>
+                    <a href="../index.html" class="text-sm text-main-500 hover:text-main-700">Back to groups</a>
+                </div>
+            </section>
+
+            <section class="section-animate rounded-2xl border border-main-200 bg-main-100 p-6 shadow-sm">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <h3 class="text-lg font-semibold text-main-900">Members</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button id="addMemberButton"
+                            class="rounded-xl bg-main-900 px-4 py-2 text-sm text-main-50">
+                            Add member
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-xs uppercase tracking-widest text-main-400">
+                            <tr>
+                                <th class="py-2">Name</th>
+                                <th class="py-2">PhoneNumber</th>
+                                <th class="py-2">Email</th>
+                                <th class="py-2 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTable" class="text-main-700"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </app-layout>
+
+    <app-modal id="addMembersModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-100 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Add members</h4>
+                    <p class="text-sm text-main-500">Select one or more contacts to add.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('addMembersModal')">Close</button>
+            </div>
+            <div class="mt-4">
+                <div class="relative">
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-main-400">
+                        <i class="bi bi-search text-sm" aria-hidden="true"></i>
+                    </span>
+                    <input id="memberSearchInput" type="search" placeholder="Search contacts"
+                        class="w-full rounded-full border border-main-200 py-2 pl-10 pr-3 text-sm text-main-700">
+                </div>
+                <div id="membersList"
+                    class="mt-4 max-h-64 space-y-2 overflow-y-auto rounded-xl border border-main-200 bg-white p-3 text-sm text-main-700">
+                </div>
+            </div>
+            <div class="mt-6 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeModal('addMembersModal')"
+                    class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                <button type="button" id="confirmAddMembersButton"
+                    class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Add selected</button>
+            </div>
+        </div>
+    </app-modal>
+
+    <app-modal id="removeMemberModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Remove member</h4>
+                    <p class="text-sm text-main-500">This action cannot be undone.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('removeMemberModal')">Close</button>
+            </div>
+            <p id="removeMemberMessage" class="mt-4 text-sm text-main-700"></p>
+            <div class="mt-6 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeModal('removeMemberModal')"
+                    class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                <button type="button" id="confirmRemoveMemberButton"
+                    class="rounded-full bg-red-600 px-4 py-2 text-xs text-white">Remove</button>
+            </div>
+        </div>
+    </app-modal>
+
+    <script type="module" src="../../../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../../../src/elements/ui/app-modal.js"></script>
+    <script>
+        const groupsStorageKey = "contactGroups";
+        const contactsStorageKey = "contacts";
+
+        const groupTitle = document.getElementById("groupTitle");
+        const groupDescription = document.getElementById("groupDescription");
+        const membersTable = document.getElementById("membersTable");
+        const addMemberButton = document.getElementById("addMemberButton");
+        const memberSearchInput = document.getElementById("memberSearchInput");
+        const membersList = document.getElementById("membersList");
+        const confirmAddMembersButton = document.getElementById("confirmAddMembersButton");
+        const removeMemberMessage = document.getElementById("removeMemberMessage");
+        const confirmRemoveMemberButton = document.getElementById("confirmRemoveMemberButton");
+
+        const groupId = new URLSearchParams(window.location.search).get("id");
+
+        function loadContacts() {
+            const raw = localStorage.getItem(contactsStorageKey);
+            if (!raw) return [];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function loadGroups() {
+            const raw = localStorage.getItem(groupsStorageKey);
+            if (!raw) return [];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function saveGroups(groups) {
+            localStorage.setItem(groupsStorageKey, JSON.stringify(groups));
+        }
+
+        function closeModal(id) {
+            document.getElementById(id)?.close();
+        }
+
+        function contactKey(contact) {
+            return contact.email || contact.phone || contact.name;
+        }
+
+        function contactLabel(contact) {
+            const primary = contact.name || "Unnamed";
+            const secondary = contact.phone || contact.email || "No contact";
+            return `${primary} (${secondary})`;
+        }
+
+        function renderGroup() {
+            const groups = loadGroups();
+            const group = groups.find((item) => item.id === groupId);
+            if (!group) {
+                groupTitle.textContent = "Group not found";
+                groupDescription.textContent = "Return to groups to select a valid group.";
+                membersTable.innerHTML = `
+                    <tr class="border-t border-main-200">
+                        <td colspan="4" class="py-6 text-center text-sm text-main-500">
+                            No members to display.
+                        </td>
+                    </tr>
+                `;
+                addMemberButton.disabled = true;
+                return;
+            }
+
+            groupTitle.textContent = group.name;
+            groupDescription.textContent = group.description || "No description provided.";
+
+            const contacts = loadContacts();
+            const memberKeys = new Set(group.members || []);
+            const members = contacts.filter((contact) => memberKeys.has(contactKey(contact)));
+            const availableContacts = contacts.filter((contact) => !memberKeys.has(contactKey(contact)));
+
+            membersTable.innerHTML = members
+                .map((contact) => {
+                    const key = contactKey(contact);
+                    return `
+                        <tr class="border-t border-main-200">
+                            <td class="py-3 font-medium">${contact.name || "-"}</td>
+                            <td class="py-3">${contact.phone || "-"}</td>
+                            <td class="py-3">${contact.email || "-"}</td>
+                            <td class="py-3 text-right">
+                                <button type="button" onclick="openRemoveMemberModal('${key}')"
+                                    class="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">
+                                    Remove
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                })
+                .join("");
+
+            if (members.length === 0) {
+                membersTable.innerHTML = `
+                    <tr class="border-t border-main-200">
+                        <td colspan="4" class="py-6 text-center text-sm text-main-500">
+                            No members in this group.
+                        </td>
+                    </tr>
+                `;
+            }
+
+            addMemberButton.disabled = availableContacts.length === 0;
+        }
+
+        function renderMemberChoices() {
+            const query = memberSearchInput.value.trim().toLowerCase();
+            const groups = loadGroups();
+            const group = groups.find((item) => item.id === groupId);
+            if (!group) return;
+            const contacts = loadContacts();
+            const memberKeys = new Set(group.members || []);
+            const availableContacts = contacts.filter((contact) => !memberKeys.has(contactKey(contact)));
+
+            const filteredContacts = availableContacts.filter((contact) => {
+                if (!query) return true;
+                const label = contactLabel(contact).toLowerCase();
+                return label.includes(query);
+            });
+
+            membersList.innerHTML = filteredContacts
+                .map((contact) => {
+                    const key = contactKey(contact);
+                    const label = contactLabel(contact);
+                    return `
+                        <label class="flex items-center gap-3 rounded-xl border border-main-200 px-3 py-2">
+                            <input type="checkbox" value="${key}" class="h-4 w-4 rounded border-main-300">
+                            <span class="text-sm text-main-700">${label}</span>
+                        </label>
+                    `;
+                })
+                .join("");
+
+            if (!filteredContacts.length) {
+                membersList.innerHTML = `
+                    <div class="rounded-xl border border-main-200 bg-main-50 px-3 py-4 text-center text-sm text-main-500">
+                        No contacts available.
+                    </div>
+                `;
+            }
+        }
+
+        function removeMember(memberKey) {
+            const groups = loadGroups();
+            const group = groups.find((item) => item.id === groupId);
+            if (!group || !Array.isArray(group.members)) return;
+            group.members = group.members.filter((key) => key !== memberKey);
+            saveGroups(groups);
+            renderGroup();
+        }
+
+        function openRemoveMemberModal(memberKey) {
+            const contacts = loadContacts();
+            const contact = contacts.find((item) => contactKey(item) === memberKey);
+            const label = contact ? contactLabel(contact) : "this member";
+            removeMemberMessage.textContent = `Remove ${label} from this group?`;
+            confirmRemoveMemberButton.setAttribute("data-member-key", memberKey);
+            document.getElementById("removeMemberModal").setAttribute("open", "");
+        }
+
+        function confirmRemoveMember() {
+            const memberKey = confirmRemoveMemberButton.getAttribute("data-member-key");
+            if (!memberKey) return;
+            removeMember(memberKey);
+            confirmRemoveMemberButton.removeAttribute("data-member-key");
+            closeModal("removeMemberModal");
+        }
+
+        function openAddMembersModal() {
+            memberSearchInput.value = "";
+            renderMemberChoices();
+            document.getElementById("addMembersModal").setAttribute("open", "");
+        }
+
+        function addSelectedMembers() {
+            const groups = loadGroups();
+            const group = groups.find((item) => item.id === groupId);
+            if (!group) return;
+            const selectedKeys = Array.from(
+                membersList.querySelectorAll('input[type="checkbox"]:checked')
+            ).map((input) => input.value);
+
+            if (!selectedKeys.length) {
+                closeModal("addMembersModal");
+                return;
+            }
+
+            if (!Array.isArray(group.members)) group.members = [];
+            selectedKeys.forEach((key) => {
+                if (!group.members.includes(key)) {
+                    group.members.push(key);
+                }
+            });
+            saveGroups(groups);
+            renderGroup();
+            closeModal("addMembersModal");
+        }
+
+        addMemberButton.addEventListener("click", openAddMembersModal);
+        confirmAddMembersButton.addEventListener("click", addSelectedMembers);
+        memberSearchInput.addEventListener("input", renderMemberChoices);
+        confirmRemoveMemberButton.addEventListener("click", confirmRemoveMember);
+
+        renderGroup();
+    </script>
+</body>
+
+</html>
