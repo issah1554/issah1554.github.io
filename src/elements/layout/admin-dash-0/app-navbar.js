@@ -201,7 +201,7 @@ export class AppNavbar extends HTMLElement {
                 <span>Overview</span>
               </span>
             </a>
-            <a href="/users">
+            <a href="/contacts">
               <span class="nav-item">
                 <i class="bi bi-people"></i>
                 <span>Contacts</span>

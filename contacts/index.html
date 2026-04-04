@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+</head>
+
+<body class="users-page">
+    <style>
+        .users-page .section-animate {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: pageFadeSlide 0.6s ease-out forwards;
+        }
+
+        .users-page .section-animate:nth-of-type(1) {
+            animation-delay: 0.05s;
+        }
+
+        .users-page .section-animate:nth-of-type(2) {
+            animation-delay: 0.15s;
+        }
+
+        .users-page button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .users-page button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+        }
+
+        @keyframes pageFadeSlide {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <app-layout>
+        <app-navbar slot="sidebar"></app-navbar>
+        <app-topbar slot="topbar" title="Users" subtitle="Manage team access and roles."></app-topbar>
+        <app-footer slot="footer" label="User directory synchronized"></app-footer>
+
+        <div class="mx-auto flex max-w-6xl flex-col gap-6">
+            <section class="section-animate rounded-2xl border border-main-200 bg-main-100 p-6 shadow-sm">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-main-900">Contacts</h3>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button id="manageGroupsButton"
+                            class="rounded-xl border border-main-300 bg-white px-4 py-2 text-sm text-main-800">
+                            Manage contact groups
+                        </button>
+                        <button id="importContactsButton"
+                            class="flex items-center gap-2 rounded-xl border border-main-300 bg-white px-4 py-2 text-sm text-main-800">
+                            <i class="bi bi-download text-base text-main-600" aria-hidden="true"></i>
+                            import (CSV/XLS)
+                        </button>
+                        <input id="importFileInput" type="file" class="hidden" accept=".csv,.xls,.xlsx">
+                        <button id="exportContactsButton"
+                            class="flex items-center gap-2 rounded-xl border border-main-300 bg-white px-4 py-2 text-sm text-main-800">
+                            <i class="bi bi-upload text-base text-main-600" aria-hidden="true"></i>
+                            Export contacts
+                        </button>
+                        <!-- <button
+                           class="rounded-full border border-main-300 px-4 py-2 text-sm text-main-700">Roles</button>  -->
+                        <button id="addContactButton"
+                            class="rounded-xl border border-main-300 bg-white px-4 py-2 text-sm text-main-800">Add Contacts</button>
+                    </div>
+                </div>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="rounded-xl border border-yellow-200 bg-yellow-50 p-4">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Total contacts</p>
+                        <p id="totalContacts" class="mt-2 text-2xl font-semibold text-main-900">0</p>
+                    </div>
+                    <div class="rounded-xl border border-green-200 bg-green-50 p-4">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Total phoneNumbers</p>
+                        <p id="totalPhones" class="mt-2 text-2xl font-semibold text-main-900">0</p>
+                    </div>
+                    <div class="rounded-xl border border-blue-200 bg-blue-50 p-4">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-black">Emails</p>
+                        <p id="totalEmails" class="mt-2 text-2xl font-semibold text-main-900">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-animate rounded-2xl border border-main-200 bg-main-100 p-6 shadow-sm">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-main-700">
+                    <label
+                        class="flex items-center gap-2 rounded-full border border-main-200 bg-white px-3 py-1.5 text-xs text-main-700">
+                        Rows
+                        <select id="rowsPerPageSelectTop" class="bg-transparent text-xs text-main-700">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </label>
+                </div>
+                    <div class="relative">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-main-400">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <path d="M20 20l-3.5-3.5"></path>
+                            </svg>
+                        </span>
+                        <input id="searchInput" type="search" placeholder="Search users"
+                            class="w-60 rounded-full border border-main-200 py-2 pl-10 pr-4 text-sm text-main-700">
+                    </div>
+                </div>
+                <div class="mt-4 overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-xs uppercase tracking-widest text-main-400">
+                            <tr>
+                                <th class="py-2">
+                                    <button id="sortNameButton"
+                                        class="flex items-center gap-2 text-xs uppercase tracking-widest text-main-400">
+                                        Name
+                                        <i id="sortNameIcon" class="bi bi-arrow-down-up text-xs text-main-300"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </th>
+                                <th class="py-2">
+                                    <button id="sortPhoneButton"
+                                        class="flex items-center gap-2 text-xs uppercase tracking-widest text-main-400">
+                                        PhoneNumber
+                                        <i id="sortPhoneIcon" class="bi bi-arrow-down-up text-xs text-main-300"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </th>
+                                <th class="py-2">
+                                    <button id="sortEmailButton"
+                                        class="flex items-center gap-2 text-xs uppercase tracking-widest text-main-400">
+                                        Email
+                                        <i id="sortEmailIcon" class="bi bi-arrow-down-up text-xs text-main-300"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </th>
+                                <th class="py-2 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactsTable" class="text-main-700"></tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="flex flex-wrap items-center gap-2 text-xs text-main-500">
+                        <span id="resultsSummary">Showing 0 of 0</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <label class="flex items-center gap-2 rounded-full border border-main-200 bg-white px-3 py-1.5 text-xs text-main-700">
+                            Rows
+                            <select id="rowsPerPageSelect" class="bg-transparent text-xs text-main-700">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </label>
+                        <div class="flex items-center gap-1">
+                            <button id="prevPageButton"
+                                class="rounded-full border border-main-200 bg-white px-3 py-1.5 text-xs text-main-700">
+                                Prev
+                            </button>
+                            <span id="pageIndicator" class="text-xs text-main-500">1 / 1</span>
+                            <button id="nextPageButton"
+                                class="rounded-full border border-main-200 bg-white px-3 py-1.5 text-xs text-main-700">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </app-layout>
+
+    <app-modal id="viewModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Contact details</h4>
+                    <p class="text-sm text-main-500">Read-only view.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('viewModal')">Close</button>
+            </div>
+            <div class="mt-4 space-y-3 text-sm text-main-700">
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Name</p>
+                    <p id="viewName" class="mt-1 font-medium text-main-900"></p>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Phone</p>
+                    <p id="viewPhone" class="mt-1 font-medium text-main-900"></p>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-main-400">Email</p>
+                    <p id="viewEmail" class="mt-1 font-medium text-main-900"></p>
+                </div>
+            </div>
+        </div>
+    </app-modal>
+
+    <app-modal id="editModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-100 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Edit contact</h4>
+                    <p class="text-sm text-main-500">Update details for this contact.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('editModal')">Close</button>
+            </div>
+            <form id="editForm" class="mt-4 space-y-3">
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Name
+                    <input id="editName" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Phone
+                    <input id="editPhone" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Email
+                    <input id="editEmail" type="email"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('editModal')"
+                        class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                    <button type="submit"
+                        class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Save</button>
+                </div>
+            </form>
+        </div>
+    </app-modal>
+
+    <app-modal id="addModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-100 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Add contact</h4>
+                    <p class="text-sm text-main-500">Create a new contact in your list.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('addModal')">Close</button>
+            </div>
+            <form id="addForm" class="mt-4 space-y-3">
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Name
+                    <input id="addName" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Phone
+                    <input id="addPhone" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Email
+                    <input id="addEmail" type="email"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('addModal')"
+                        class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                    <button type="submit"
+                        class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Add</button>
+                </div>
+            </form>
+        </div>
+    </app-modal>
+
+    <app-modal id="deleteModal" size="sm">
+        <div class="rounded-2xl border border-main-200 bg-main-50 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-semibold text-main-900">Delete contact</h4>
+                    <p class="text-sm text-main-500">This action cannot be undone.</p>
+                </div>
+                <button class="text-sm text-main-400" onclick="closeModal('deleteModal')">Close</button>
+            </div>
+            <p id="deleteMessage" class="mt-4 text-sm text-main-700"></p>
+            <div class="mt-6 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeModal('deleteModal')"
+                    class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
+                <button type="button" onclick="confirmDelete()"
+                    class="rounded-full bg-red-600 px-4 py-2 text-xs text-white">Delete</button>
+            </div>
+        </div>
+    </app-modal>
+
+    <script>
+        const storageKey = "contacts";
+        const defaultContacts = [
+            { name: "Stephen IssaH", phone: "0675319092", email: "stpne@gmail.com" },
+            { name: "Amina Said", phone: "0775483139", email: "amunas@gmail.com" },
+            { name: "Marcus Lee", phone: "0617852787", email: "marcus@gmail.com" },
+        ];
+
+        const tableBody = document.getElementById("contactsTable");
+        const totalContacts = document.getElementById("totalContacts");
+        const totalPhones = document.getElementById("totalPhones");
+        const totalEmails = document.getElementById("totalEmails");
+        const searchInput = document.getElementById("searchInput");
+        const addContactButton = document.getElementById("addContactButton");
+        const manageGroupsButton = document.getElementById("manageGroupsButton");
+        const importContactsButton = document.getElementById("importContactsButton");
+        const importFileInput = document.getElementById("importFileInput");
+        const exportContactsButton = document.getElementById("exportContactsButton");
+        const sortNameButton = document.getElementById("sortNameButton");
+        const sortNameIcon = document.getElementById("sortNameIcon");
+        const sortPhoneButton = document.getElementById("sortPhoneButton");
+        const sortPhoneIcon = document.getElementById("sortPhoneIcon");
+        const sortEmailButton = document.getElementById("sortEmailButton");
+        const sortEmailIcon = document.getElementById("sortEmailIcon");
+        const rowsPerPageSelect = document.getElementById("rowsPerPageSelect");
+        const rowsPerPageSelectTop = document.getElementById("rowsPerPageSelectTop");
+        const prevPageButton = document.getElementById("prevPageButton");
+        const nextPageButton = document.getElementById("nextPageButton");
+        const pageIndicator = document.getElementById("pageIndicator");
+        const resultsSummary = document.getElementById("resultsSummary");
+
+        const viewModal = document.getElementById("viewModal");
+        const editModal = document.getElementById("editModal");
+        const addModal = document.getElementById("addModal");
+        const deleteModal = document.getElementById("deleteModal");
+
+        const viewName = document.getElementById("viewName");
+        const viewPhone = document.getElementById("viewPhone");
+        const viewEmail = document.getElementById("viewEmail");
+
+        const editName = document.getElementById("editName");
+        const editPhone = document.getElementById("editPhone");
+        const editEmail = document.getElementById("editEmail");
+        const editForm = document.getElementById("editForm");
+
+        const addName = document.getElementById("addName");
+        const addPhone = document.getElementById("addPhone");
+        const addEmail = document.getElementById("addEmail");
+        const addForm = document.getElementById("addForm");
+
+        const deleteMessage = document.getElementById("deleteMessage");
+
+        let currentEditIndex = null;
+        let currentDeleteIndex = null;
+        let contacts = loadContacts();
+        let currentPage = 1;
+        let rowsPerPage = Number(rowsPerPageSelect.value);
+        let sortKey = "name";
+        let sortAsc = true;
+
+        function loadContacts() {
+            const raw = localStorage.getItem(storageKey);
+            if (!raw) return [...defaultContacts];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [...defaultContacts];
+            } catch (error) {
+                return [...defaultContacts];
+            }
+        }
+
+        function saveContacts() {
+            localStorage.setItem(storageKey, JSON.stringify(contacts));
+        }
+
+        function closeModal(id) {
+            document.getElementById(id)?.close();
+        }
+
+        function openViewModal(index) {
+            const contact = contacts[index];
+            viewName.textContent = contact.name;
+            viewPhone.textContent = contact.phone;
+            viewEmail.textContent = contact.email;
+            viewModal.setAttribute("open", "");
+        }
+
+        function openEditModal(index) {
+            const contact = contacts[index];
+            currentEditIndex = index;
+            editName.value = contact.name;
+            editPhone.value = contact.phone;
+            editEmail.value = contact.email;
+            editModal.setAttribute("open", "");
+        }
+
+        function openAddModal() {
+            addForm.reset();
+            addModal.setAttribute("open", "");
+        }
+
+        function openDeleteModal(index) {
+            const contact = contacts[index];
+            if (!contact) return;
+            currentDeleteIndex = index;
+            deleteMessage.textContent = `Delete ${contact.name} from your contacts?`;
+            deleteModal.setAttribute("open", "");
+        }
+
+        function confirmDelete() {
+            if (currentDeleteIndex === null) return;
+            contacts.splice(currentDeleteIndex, 1);
+            currentEditIndex = null;
+            currentDeleteIndex = null;
+            saveContacts();
+            renderContacts();
+            closeModal("deleteModal");
+        }
+
+        function renderContacts() {
+            const query = searchInput.value.trim().toLowerCase();
+            const filteredContacts = contacts
+                .map((contact, index) => ({ ...contact, index }))
+                .filter((contact) => {
+                    if (!query) return true;
+                    return (
+                        contact.name.toLowerCase().includes(query) ||
+                        contact.phone.toLowerCase().includes(query) ||
+                        contact.email.toLowerCase().includes(query)
+                    );
+                });
+
+            const sortedContacts = filteredContacts.sort((a, b) => {
+                const valueA = String(a[sortKey] || "").toLowerCase();
+                const valueB = String(b[sortKey] || "").toLowerCase();
+                if (valueA < valueB) return sortAsc ? -1 : 1;
+                if (valueA > valueB) return sortAsc ? 1 : -1;
+                return 0;
+            });
+
+            const totalPages = Math.max(1, Math.ceil(sortedContacts.length / rowsPerPage));
+            currentPage = Math.min(currentPage, totalPages);
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const paginatedContacts = sortedContacts.slice(startIndex, startIndex + rowsPerPage);
+
+            tableBody.innerHTML = paginatedContacts
+                .map((contact) => {
+                    return `
+                        <tr class="border-t border-main-200">
+                            <td class="py-3 font-medium">${contact.name}</td>
+                            <td class="py-3">${contact.phone}</td>
+                            <td class="py-3">${contact.email}</td>
+                            <td class="py-3 text-right space-x-2">
+                                <button onclick="openViewModal(${contact.index})"
+                                    class="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">
+                                    <span class="sr-only">View</span>
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                                <button onclick="openEditModal(${contact.index})"
+                                    class="rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">
+                                    <span class="sr-only">Edit</span>
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 20h9"></path>
+                                        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="openDeleteModal(${contact.index})"
+                                    class="rounded-full bg-green-100 px-3 py-1 text-xs text-green-700">
+                                    <span class="sr-only">Delete</span>
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 6h18"></path>
+                                        <path d="M8 6V4h8v2"></path>
+                                        <path d="M19 6l-1 14H6L5 6"></path>
+                                        <path d="M10 11v6"></path>
+                                        <path d="M14 11v6"></path>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                })
+                .join("");
+
+            if (sortedContacts.length === 0) {
+                tableBody.innerHTML = `
+                    <tr class="border-t border-main-200">
+                        <td colspan="4" class="py-6 text-center text-sm text-main-500">
+                            No contacts match your search.
+                        </td>
+                    </tr>
+                `;
+            }
+
+            pageIndicator.textContent = `${currentPage} / ${totalPages}`;
+            resultsSummary.textContent = `Showing ${sortedContacts.length} of ${contacts.length}`;
+            prevPageButton.disabled = currentPage <= 1;
+            nextPageButton.disabled = currentPage >= totalPages;
+            prevPageButton.classList.toggle("opacity-50", prevPageButton.disabled);
+            nextPageButton.classList.toggle("opacity-50", nextPageButton.disabled);
+
+            totalContacts.textContent = contacts.length;
+            totalPhones.textContent = contacts.filter((contact) => contact.phone).length;
+            totalEmails.textContent = contacts.filter((contact) => contact.email).length;
+        }
+
+        function updateSortIcons() {
+            const iconMap = {
+                name: sortNameIcon,
+                phone: sortPhoneIcon,
+                email: sortEmailIcon,
+            };
+            Object.entries(iconMap).forEach(([key, icon]) => {
+                icon.classList.remove("bi-arrow-down", "bi-arrow-up", "bi-arrow-down-up", "text-main-600");
+                icon.classList.add("bi-arrow-down-up", "text-main-300");
+                if (key === sortKey) {
+                    icon.classList.remove("bi-arrow-down-up", "text-main-300");
+                    icon.classList.add(sortAsc ? "bi-arrow-up" : "bi-arrow-down", "text-main-600");
+                }
+            });
+        }
+
+        function detectDelimiter(line) {
+            const commaCount = (line.match(/,/g) || []).length;
+            const semicolonCount = (line.match(/;/g) || []).length;
+            const tabCount = (line.match(/\t/g) || []).length;
+            if (tabCount > commaCount && tabCount > semicolonCount) return "\t";
+            if (semicolonCount > commaCount) return ";";
+            return ",";
+        }
+
+        function parseDelimitedLine(line, delimiter) {
+            const result = [];
+            let current = "";
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i += 1) {
+                const char = line[i];
+                if (char === '"') {
+                    if (inQuotes && line[i + 1] === '"') {
+                        current += '"';
+                        i += 1;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                    continue;
+                }
+                if (char === delimiter && !inQuotes) {
+                    result.push(current);
+                    current = "";
+                    continue;
+                }
+                current += char;
+            }
+            result.push(current);
+            return result;
+        }
+
+        function parseCsv(text) {
+            const lines = text
+                .replace(/\r\n/g, "\n")
+                .replace(/\r/g, "\n")
+                .split("\n")
+                .filter((line) => line.trim().length > 0);
+            if (lines.length === 0) return [];
+            const delimiter = detectDelimiter(lines[0]);
+            return lines.map((line) => parseDelimitedLine(line, delimiter));
+        }
+
+        function parseHtmlTable(text) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, "text/html");
+            const table = doc.querySelector("table");
+            if (!table) return [];
+            const rows = [];
+            table.querySelectorAll("tr").forEach((row) => {
+                const cells = Array.from(row.querySelectorAll("th, td")).map((cell) =>
+                    cell.textContent.trim()
+                );
+                if (cells.some((cell) => cell.length > 0)) {
+                    rows.push(cells);
+                }
+            });
+            return rows;
+        }
+
+        function normalizeHeader(value) {
+            return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+        }
+
+        function mapRowsToContacts(rows) {
+            if (rows.length === 0) return [];
+            const headerRow = rows[0].map((cell) => normalizeHeader(cell));
+            const headerIndex = {};
+            const headerMatches = {
+                name: ["name", "fullname", "full_name", "contactname", "contact"],
+                phone: [
+                    "phone",
+                    "phonenumber",
+                    "phone_number",
+                    "mobile",
+                    "mobilenumber",
+                    "tel",
+                    "telephone",
+                ],
+                email: ["email", "e-mail", "mail"],
+            };
+
+            Object.entries(headerMatches).forEach(([key, values]) => {
+                const index = headerRow.findIndex((value) => values.includes(value));
+                if (index !== -1) {
+                    headerIndex[key] = index;
+                }
+            });
+
+            const hasHeader = Object.keys(headerIndex).length > 0;
+            const dataRows = hasHeader ? rows.slice(1) : rows;
+            const fallbackIndex = { name: 0, phone: 1, email: 2 };
+
+            return dataRows
+                .map((row) => {
+                    const name = (row[headerIndex.name ?? fallbackIndex.name] || "").trim();
+                    const phone = (row[headerIndex.phone ?? fallbackIndex.phone] || "").trim();
+                    const email = (row[headerIndex.email ?? fallbackIndex.email] || "").trim();
+                    if (!name && !phone && !email) return null;
+                    return {
+                        name: name || email || phone || "Unnamed contact",
+                        phone,
+                        email,
+                    };
+                })
+                .filter(Boolean);
+        }
+
+        function importContactsFromFile(file) {
+            const fileName = file.name.toLowerCase();
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const content = event.target.result || "";
+                let rows = [];
+                if (fileName.endsWith(".csv")) {
+                    rows = parseCsv(content);
+                } else if (fileName.endsWith(".xls") || fileName.endsWith(".xlsx")) {
+                    rows = parseHtmlTable(content);
+                }
+
+                if (rows.length === 0) {
+                    alert("Unable to read this file. Please upload a CSV or an XLS file exported as a table.");
+                    return;
+                }
+
+                const importedContacts = mapRowsToContacts(rows);
+                if (importedContacts.length === 0) {
+                    alert("No valid contacts found in this file.");
+                    return;
+                }
+
+                contacts = contacts.concat(importedContacts);
+                saveContacts();
+                renderContacts();
+            };
+
+            reader.readAsText(file);
+        }
+
+        function escapeCsvValue(value) {
+            if (value === null || value === undefined) return "";
+            const stringValue = String(value);
+            if (/["\n,;]/.test(stringValue)) {
+                return `"${stringValue.replace(/"/g, '""')}"`;
+            }
+            return stringValue;
+        }
+
+        function exportContactsToCsv() {
+            const header = ["Name", "PhoneNumber", "Email"];
+            const rows = contacts.map((contact) => [
+                contact.name || "",
+                contact.phone || "",
+                contact.email || "",
+            ]);
+            const lines = [header, ...rows].map((row) => row.map(escapeCsvValue).join(","));
+            const csvContent = `${lines.join("\n")}\n`;
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            const timestamp = new Date().toISOString().slice(0, 10);
+            link.href = url;
+            link.download = `contacts-${timestamp}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        editForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (currentEditIndex === null) return;
+
+            contacts[currentEditIndex] = {
+                name: editName.value.trim(),
+                phone: editPhone.value.trim(),
+                email: editEmail.value.trim(),
+            };
+
+            saveContacts();
+            renderContacts();
+            closeModal("editModal");
+        });
+
+        addForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = addName.value.trim();
+            if (!name) return;
+
+            contacts.push({
+                name,
+                phone: addPhone.value.trim(),
+                email: addEmail.value.trim(),
+            });
+
+            saveContacts();
+            renderContacts();
+            closeModal("addModal");
+        });
+
+        searchInput.addEventListener("input", renderContacts);
+        addContactButton.addEventListener("click", openAddModal);
+        manageGroupsButton.addEventListener("click", () => {
+            window.location.href = "/contacts/groups";
+        });
+        importContactsButton.addEventListener("click", () => {
+            importFileInput.click();
+        });
+        sortNameButton.addEventListener("click", () => {
+            if (sortKey === "name") {
+                sortAsc = !sortAsc;
+            } else {
+                sortKey = "name";
+                sortAsc = true;
+            }
+            updateSortIcons();
+            renderContacts();
+        });
+        sortPhoneButton.addEventListener("click", () => {
+            if (sortKey === "phone") {
+                sortAsc = !sortAsc;
+            } else {
+                sortKey = "phone";
+                sortAsc = true;
+            }
+            updateSortIcons();
+            renderContacts();
+        });
+        sortEmailButton.addEventListener("click", () => {
+            if (sortKey === "email") {
+                sortAsc = !sortAsc;
+            } else {
+                sortKey = "email";
+                sortAsc = true;
+            }
+            updateSortIcons();
+            renderContacts();
+        });
+        function handleRowsPerPageChange(value) {
+            rowsPerPage = Number(value);
+            rowsPerPageSelect.value = value;
+            rowsPerPageSelectTop.value = value;
+            currentPage = 1;
+            renderContacts();
+        }
+
+        rowsPerPageSelect.addEventListener("change", (event) => {
+            handleRowsPerPageChange(event.target.value);
+        });
+        rowsPerPageSelectTop.addEventListener("change", (event) => {
+            handleRowsPerPageChange(event.target.value);
+        });
+        prevPageButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage -= 1;
+                renderContacts();
+            }
+        });
+        nextPageButton.addEventListener("click", () => {
+            currentPage += 1;
+            renderContacts();
+        });
+        importFileInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+            const name = file.name.toLowerCase();
+            if (!name.endsWith(".csv") && !name.endsWith(".xls") && !name.endsWith(".xlsx")) {
+                alert("Please select a CSV or XLS file.");
+                importFileInput.value = "";
+                return;
+            }
+            importContactsFromFile(file);
+            importFileInput.value = "";
+        });
+        exportContactsButton.addEventListener("click", exportContactsToCsv);
+
+        renderContacts();
+    </script>
+
+    <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
+    <script type="module" src="../src/elements/ui/app-modal.js"></script>
+    <script type="module" src="../src/elements/ui/app-button.js"></script>
+</body>
+
+</html>
