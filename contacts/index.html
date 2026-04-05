@@ -373,12 +373,7 @@
     </app-modal>
 
     <script>
-        const storageKey = "contacts";
-        const defaultContacts = [
-            { name: "Stephen IssaH", phone: "0675319092", email: "stpne@gmail.com" },
-            { name: "Amina Said", phone: "0775483139", email: "amunas@gmail.com" },
-            { name: "Marcus Lee", phone: "0617852787", email: "marcus@gmail.com" },
-        ];
+        const contactsApiUrl = "http://api.databenki.org/api/contacts";
 
         const tableBody = document.getElementById("contactsTable");
         const totalContacts = document.getElementById("totalContacts");
@@ -439,7 +434,7 @@
 
         let currentEditIndex = null;
         let currentDeleteIndex = null;
-        let contacts = loadContacts();
+        let contacts = [];
         let currentPage = 1;
         let rowsPerPage = Number(rowsPerPageSelect.value);
         let sortKey = "name";
@@ -447,19 +442,49 @@
         let importRows = [];
         let importHasHeader = true;
 
-        function loadContacts() {
-            const raw = localStorage.getItem(storageKey);
-            if (!raw) return [...defaultContacts];
-            try {
-                const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed : [...defaultContacts];
-            } catch (error) {
-                return [...defaultContacts];
+        function saveContacts() {}
+
+        function mapApiContact(item) {
+            const nameParts = [item?.first_name, item?.last_name].filter(Boolean);
+            const name = nameParts.join(" ").trim();
+            const extraFields = {};
+            if (Array.isArray(item?.attributes)) {
+                item.attributes.forEach((attr) => {
+                    if (attr?.key && attr?.value) {
+                        extraFields[attr.key] = attr.value;
+                    }
+                });
             }
+            if (Array.isArray(item?.groups) && item.groups.length) {
+                extraFields.groups = item.groups.join(", ");
+            }
+            if (item?.location) {
+                extraFields.location = item.location;
+            }
+            return {
+                name: name || item?.primary_email || item?.primary_phone || "Unnamed contact",
+                phone: item?.primary_phone || "",
+                email: item?.primary_email || "",
+                extraFields: Object.keys(extraFields).length ? extraFields : undefined,
+            };
         }
 
-        function saveContacts() {
-            localStorage.setItem(storageKey, JSON.stringify(contacts));
+        async function fetchContacts() {
+            try {
+                const response = await fetch(contactsApiUrl);
+                if (!response.ok) {
+                    throw new Error(`Request failed: ${response.status}`);
+                }
+                const data = await response.json();
+                const list = Array.isArray(data?.contacts) ? data.contacts : [];
+                contacts = list.map(mapApiContact);
+                currentPage = 1;
+                renderContacts();
+            } catch (error) {
+                contacts = [];
+                renderContacts();
+                resultsSummary.textContent = "Unable to load contacts.";
+            }
         }
 
         function closeModal(id) {
@@ -1151,6 +1176,7 @@
         importEmailSelect.addEventListener("change", buildCustomFieldOptions);
 
         renderContacts();
+        fetchContacts();
     </script>
 
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
