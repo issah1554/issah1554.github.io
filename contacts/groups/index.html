@@ -155,7 +155,6 @@
     <script type="module" src="../../src/elements/layout/admin-dash-0/layout.js"></script>
     <script type="module" src="../../src/elements/ui/app-modal.js"></script>
     <script>
-        const groupsStorageKey = "contactGroups";
         const contactsStorageKey = "contacts";
 
         const groupsTable = document.getElementById("groupsTable");
@@ -176,7 +175,7 @@
         const sortContactsButton = document.getElementById("sortContactsButton");
         const sortContactsIcon = document.getElementById("sortContactsIcon");
 
-        let groups = loadGroups();
+        let groups = [];
         let currentEditId = null;
         let currentDeleteId = null;
         let currentPage = 1;
@@ -195,40 +194,25 @@
             }
         }
 
-        function loadGroups() {
-            const raw = localStorage.getItem(groupsStorageKey);
-            if (!raw) {
-                return [
-                    {
-                        id: "grp-family",
-                        name: "Family",
-                        description: "Immediate family members",
-                        members: ["stpne@gmail.com"],
-                    },
-                    {
-                        id: "grp-work",
-                        name: "Work",
-                        description: "Colleagues and business contacts",
-                        members: ["marcus@gmail.com"],
-                    },
-                    {
-                        id: "grp-vip",
-                        name: "VIP",
-                        description: "High-value contacts",
-                        members: [],
-                    },
-                ];
-            }
+        async function loadGroupsFromApi() {
             try {
-                const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed : [];
+                const response = await fetch("http://api.databenki.org/api/groups");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch groups");
+                }
+                const data = await response.json();
+                if (!data || !data.success || !Array.isArray(data.groups)) {
+                    return null;
+                }
+                return data.groups.map((group) => ({
+                    id: group.id,
+                    name: group.name,
+                    description: group.description,
+                    contacts_count: group.contacts_count,
+                }));
             } catch (error) {
-                return [];
+                return null;
             }
-        }
-
-        function saveGroups() {
-            localStorage.setItem(groupsStorageKey, JSON.stringify(groups));
         }
 
         function closeModal(id) {
@@ -255,8 +239,16 @@
 
             const sortedGroups = filteredGroups.sort((a, b) => {
                 if (sortKey === "members") {
-                    const countA = Array.isArray(a.members) ? a.members.length : 0;
-                    const countB = Array.isArray(b.members) ? b.members.length : 0;
+                    const countA = typeof a.contacts_count === "number"
+                        ? a.contacts_count
+                        : Array.isArray(a.members)
+                            ? a.members.length
+                            : 0;
+                    const countB = typeof b.contacts_count === "number"
+                        ? b.contacts_count
+                        : Array.isArray(b.members)
+                            ? b.members.length
+                            : 0;
                     return sortAsc ? countA - countB : countB - countA;
                 }
                 const nameA = a.name.toLowerCase();
@@ -273,7 +265,11 @@
 
             groupsTable.innerHTML = paginatedGroups
                 .map((group) => {
-                    const memberCount = Array.isArray(group.members) ? group.members.length : 0;
+                    const memberCount = typeof group.contacts_count === "number"
+                        ? group.contacts_count
+                        : Array.isArray(group.members)
+                            ? group.members.length
+                            : 0;
                     return `
                         <tr class="border-t border-main-200">
                             <td class="py-3 font-medium">${group.name}</td>
@@ -353,7 +349,6 @@
             if (!currentDeleteId) return;
             groups = groups.filter((item) => item.id !== currentDeleteId);
             currentDeleteId = null;
-            saveGroups();
             renderGroups();
             closeModal("deleteGroupModal");
         }
@@ -413,13 +408,18 @@
                     members: [],
                 });
             }
-            saveGroups();
             renderGroups();
             closeModal("groupModal");
         });
 
-        updateSortIcons();
-        renderGroups();
+        async function initGroups() {
+            const apiGroups = await loadGroupsFromApi();
+            groups = apiGroups ?? [];
+            updateSortIcons();
+            renderGroups();
+        }
+
+        initGroups();
     </script>
 </body>
 
