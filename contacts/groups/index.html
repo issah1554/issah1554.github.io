@@ -209,7 +209,7 @@
                     return null;
                 }
                 return data.groups.map((group) => ({
-                    id: group.id,
+                    id: String(group.id),
                     name: group.name,
                     description: group.description,
                     contacts_count: group.contacts_count,
@@ -353,10 +353,37 @@
 
         function confirmDeleteGroup() {
             if (!currentDeleteId) return;
-            groups = groups.filter((item) => item.id !== currentDeleteId);
+            const groupId = currentDeleteId;
             currentDeleteId = null;
-            renderGroups();
-            closeModal("deleteGroupModal");
+            fetch(`http://api.databenki.org/api/groups/${encodeURIComponent(groupId)}`, {
+                method: "DELETE",
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to delete group");
+                    }
+                    return response.json().catch(() => ({}));
+                })
+                .then((data) => {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Group deleted",
+                        text: data.message || "The group has been removed.",
+                        confirmButtonText: "OK",
+                    });
+                    return initGroups();
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Unable to delete group",
+                        text: "Please try again.",
+                        confirmButtonText: "OK",
+                    });
+                })
+                .finally(() => {
+                    closeModal("deleteGroupModal");
+                });
         }
 
         createGroupButton.addEventListener("click", () => openGroupModal());
@@ -404,19 +431,24 @@
             groupResponseMessage.className = "text-xs text-main-500";
             createGroupButton.disabled = true;
             createGroupButton.classList.add("opacity-60");
-            fetch("http://api.databenki.org/api/groups", {
-                method: "POST",
+            const isEdit = Boolean(currentEditId);
+            const endpoint = isEdit
+                ? `http://api.databenki.org/api/groups/${encodeURIComponent(currentEditId)}`
+                : "http://api.databenki.org/api/groups";
+            const payload = isEdit
+                ? { name, description }
+                : { group_name: name, description };
+            const method = isEdit ? "PUT" : "POST";
+            fetch(endpoint, {
+                method,
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    group_name: name,
-                    description,
-                }),
+                body: JSON.stringify(payload),
             })
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error("Failed to create group");
+                        throw new Error("Failed to save group");
                     }
                     return response.json();
                 })
@@ -424,7 +456,7 @@
                     if (data && data.message) {
                         Swal.fire({
                             icon: "success",
-                            title: "Group created",
+                            title: isEdit ? "Group updated" : "Group created",
                             text: data.message,
                             confirmButtonText: "OK",
                         });
@@ -434,11 +466,12 @@
                 .then(() => {
                     closeModal("groupModal");
                     groupForm.reset();
+                    currentEditId = null;
                 })
                 .catch(() => {
                     Swal.fire({
                         icon: "error",
-                        title: "Unable to create group",
+                        title: isEdit ? "Unable to update group" : "Unable to create group",
                         text: "Please try again.",
                         confirmButtonText: "OK",
                     });
