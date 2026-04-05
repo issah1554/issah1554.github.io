@@ -855,7 +855,7 @@
             }
         }
 
-        function applyImportSelections() {
+        async function applyImportSelections() {
             const nameIndex = importNameSelect.value === "" ? null : Number(importNameSelect.value);
             const phoneIndex = importPhoneSelect.value === "" ? null : Number(importPhoneSelect.value);
             const emailIndex = importEmailSelect.value === "" ? null : Number(importEmailSelect.value);
@@ -894,11 +894,18 @@
                             extraFields[label] = value;
                         }
                     });
+                    const { firstName, lastName } = splitName(name || "");
                     return {
-                        name: name || email || phone || "Unnamed contact",
-                        phone,
-                        email,
-                        extraFields: Object.keys(extraFields).length ? extraFields : undefined,
+                        first_name: firstName || "Unknown",
+                        last_name: lastName || "Contact",
+                        primary_email: email || null,
+                        primary_phone: phone || null,
+                        location: null,
+                        groups: [],
+                        attributes: Object.entries(extraFields).map(([key, value]) => ({
+                            key,
+                            value,
+                        })),
                     };
                 })
                 .filter(Boolean);
@@ -909,10 +916,27 @@
                 return;
             }
 
-            contacts = contacts.concat(importedContacts);
-            saveContacts();
-            renderContacts();
-            closeModal("importModal");
+            try {
+                confirmImportButton.disabled = true;
+                confirmImportButton.textContent = "Importing...";
+                await createContactsBulk(importedContacts);
+                await fetchContacts();
+                closeModal("importModal");
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Import complete",
+                        text: "Contacts imported successfully.",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } catch (error) {
+                importErrorMessage.textContent = "Unable to import contacts. Please try again.";
+                importErrorMessage.classList.remove("hidden");
+            } finally {
+                confirmImportButton.disabled = false;
+                confirmImportButton.textContent = "Import";
+            }
         }
 
         function normalizeHeader(value) {
@@ -1128,6 +1152,20 @@
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(payload),
+            });
+            if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        async function createContactsBulk(payload) {
+            const response = await fetch(`${contactsApiUrl}/bulk`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ contacts: payload }),
             });
             if (!response.ok) {
                 throw new Error(`Request failed: ${response.status}`);
