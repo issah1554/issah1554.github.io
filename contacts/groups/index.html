@@ -123,6 +123,7 @@
                     <input id="groupDescription" type="text"
                         class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
                 </label>
+                <p id="groupResponseMessage" class="text-xs text-main-500"></p>
                 <div class="flex items-center justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('groupModal')"
                         class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
@@ -152,6 +153,8 @@
         </div>
     </app-modal>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <script type="module" src="../../src/elements/layout/admin-dash-0/layout.js"></script>
     <script type="module" src="../../src/elements/ui/app-modal.js"></script>
     <script>
@@ -164,6 +167,7 @@
         const groupModalTitle = document.getElementById("groupModalTitle");
         const groupNameInput = document.getElementById("groupName");
         const groupDescriptionInput = document.getElementById("groupDescription");
+        const groupResponseMessage = document.getElementById("groupResponseMessage");
         const deleteGroupMessage = document.getElementById("deleteGroupMessage");
         const groupSearchInput = document.getElementById("groupSearchInput");
         const groupsResultsSummary = document.getElementById("groupsResultsSummary");
@@ -224,6 +228,8 @@
             groupModalTitle.textContent = group ? "Edit group" : "Create group";
             groupNameInput.value = group ? group.name : "";
             groupDescriptionInput.value = group ? group.description : "";
+            groupResponseMessage.textContent = "";
+            groupResponseMessage.className = "text-xs text-main-500";
             groupModal.setAttribute("open", "");
         }
 
@@ -394,22 +400,53 @@
             const name = groupNameInput.value.trim();
             if (!name) return;
             const description = groupDescriptionInput.value.trim();
-            if (currentEditId) {
-                const group = groups.find((item) => item.id === currentEditId);
-                if (group) {
-                    group.name = name;
-                    group.description = description;
-                }
-            } else {
-                groups.push({
-                    id: `grp-${Date.now()}`,
-                    name,
+            groupResponseMessage.textContent = "";
+            groupResponseMessage.className = "text-xs text-main-500";
+            createGroupButton.disabled = true;
+            createGroupButton.classList.add("opacity-60");
+            fetch("http://api.databenki.org/api/groups", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    group_name: name,
                     description,
-                    members: [],
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to create group");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data && data.message) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Group created",
+                            text: data.message,
+                            confirmButtonText: "OK",
+                        });
+                    }
+                    return initGroups();
+                })
+                .then(() => {
+                    closeModal("groupModal");
+                    groupForm.reset();
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Unable to create group",
+                        text: "Please try again.",
+                        confirmButtonText: "OK",
+                    });
+                })
+                .finally(() => {
+                    createGroupButton.disabled = false;
+                    createGroupButton.classList.remove("opacity-60");
                 });
-            }
-            renderGroups();
-            closeModal("groupModal");
         });
 
         async function initGroups() {
