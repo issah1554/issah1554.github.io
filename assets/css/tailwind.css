@@ -626,6 +626,9 @@
   .max-h-36 {
     max-height: calc(var(--spacing) * 36);
   }
+  .max-h-40 {
+    max-height: calc(var(--spacing) * 40);
+  }
   .max-h-64 {
     max-height: calc(var(--spacing) * 64);
   }
@@ -634,6 +637,9 @@
   }
   .max-h-96 {
     max-height: calc(var(--spacing) * 96);
+  }
+  .max-h-\[70vh\] {
+    max-height: 70vh;
   }
   .min-h-screen {
     min-height: 100vh;
@@ -1416,6 +1422,9 @@
   }
   .pt-44 {
     padding-top: calc(var(--spacing) * 44);
+  }
+  .pr-1 {
+    padding-right: calc(var(--spacing) * 1);
   }
   .pr-3 {
     padding-right: calc(var(--spacing) * 3);
@@ -2232,6 +2241,11 @@
   .sm\:grid-cols-3 {
     @media (width >= 576px) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .sm\:grid-cols-\[1fr_1fr_auto\] {
+    @media (width >= 576px) {
+      grid-template-columns: 1fr 1fr auto;
     }
   }
   .sm\:flex-row {

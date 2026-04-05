@@ -202,6 +202,7 @@
                     <p class="text-xs uppercase tracking-widest text-main-400">Email</p>
                     <p id="viewEmail" class="mt-1 font-medium text-main-900"></p>
                 </div>
+                <hr class="border-main-200">
                 <div id="viewExtraFields" class="space-y-2"></div>
             </div>
         </div>
@@ -232,6 +233,12 @@
                     <input id="editEmail" type="email"
                         class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
                 </label>
+                <hr class="border-main-200">
+                <div>
+                    <div id="editExtraFields"
+                        class="mt-2 max-h-40 space-y-2 overflow-y-auto rounded-xl border border-main-200 bg-white p-3 text-sm text-main-700">
+                    </div>
+                </div>
                 <div class="flex items-center justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('editModal')"
                         class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
@@ -251,7 +258,8 @@
                 </div>
                 <button class="text-sm text-main-400" onclick="closeModal('addModal')">Close</button>
             </div>
-            <form id="addForm" class="mt-4 space-y-3">
+            <form id="addForm" class="mt-4 max-h-[70vh] space-y-3 overflow-y-auto pr-1">
+                <p id="addErrorMessage" class="hidden text-xs text-red-600"></p>
                 <label class="block text-xs uppercase tracking-widest text-main-400">
                     Name
                     <input id="addName" type="text"
@@ -267,6 +275,18 @@
                     <input id="addEmail" type="email"
                         class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
                 </label>
+                <hr class="border-main-200">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-main-400">Other information</p>
+                        <button type="button" id="addExtraFieldButton"
+                            class="flex items-center gap-2 rounded-full border border-main-200 px-3 py-1 text-xs text-main-700">
+                            <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                            Add field
+                        </button>
+                    </div>
+                    <div id="addExtraFields" class="space-y-2"></div>
+                </div>
                 <div class="flex items-center justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('addModal')"
                         class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
@@ -397,11 +417,15 @@
         const editPhone = document.getElementById("editPhone");
         const editEmail = document.getElementById("editEmail");
         const editForm = document.getElementById("editForm");
+        const editExtraFields = document.getElementById("editExtraFields");
 
         const addName = document.getElementById("addName");
         const addPhone = document.getElementById("addPhone");
         const addEmail = document.getElementById("addEmail");
         const addForm = document.getElementById("addForm");
+        const addErrorMessage = document.getElementById("addErrorMessage");
+        const addExtraFieldButton = document.getElementById("addExtraFieldButton");
+        const addExtraFields = document.getElementById("addExtraFields");
 
         const deleteMessage = document.getElementById("deleteMessage");
         const importHeaderToggle = document.getElementById("importHeaderToggle");
@@ -462,6 +486,13 @@
                         `;
                     })
                     .join("");
+                if (!entries.length) {
+                    viewExtraFields.innerHTML = `
+                        <div class="rounded-lg border border-main-200 bg-main-50 px-3 py-2 text-sm text-main-500">
+                            No other information available.
+                        </div>
+                    `;
+                }
             }
             viewModal.setAttribute("open", "");
         }
@@ -472,11 +503,37 @@
             editName.value = contact.name;
             editPhone.value = contact.phone;
             editEmail.value = contact.email;
+            editExtraFields.innerHTML = "";
+            if (contact.extraFields) {
+                const entries = Object.entries(contact.extraFields).filter(([, value]) =>
+                    String(value || "").trim()
+                );
+                editExtraFields.innerHTML = entries
+                    .map(([label, value]) => {
+                        return `
+                            <label class="block rounded-lg border border-main-200 px-3 py-2 text-xs uppercase tracking-widest text-main-400">
+                                ${label}
+                                <input type="text" data-label="${label}" value="${value}"
+                                    class="mt-1 w-full rounded-lg border border-main-200 px-2 py-1 text-sm text-main-700">
+                            </label>
+                        `;
+                    })
+                    .join("");
+            } else {
+                editExtraFields.innerHTML = `
+                    <div class="rounded-lg border border-main-200 bg-main-50 px-3 py-2 text-sm text-main-500">
+                        No extra information available.
+                    </div>
+                `;
+            }
             editModal.setAttribute("open", "");
         }
 
         function openAddModal() {
             addForm.reset();
+            addExtraFields.innerHTML = "";
+            addErrorMessage.textContent = "";
+            addErrorMessage.classList.add("hidden");
             addModal.setAttribute("open", "");
         }
 
@@ -911,10 +968,20 @@
             event.preventDefault();
             if (currentEditIndex === null) return;
 
+            const extraFields = {};
+            editExtraFields.querySelectorAll("input[data-label]").forEach((input) => {
+                const key = input.dataset.label;
+                const value = input.value.trim();
+                if (key && value) {
+                    extraFields[key] = value;
+                }
+            });
+
             contacts[currentEditIndex] = {
                 name: editName.value.trim(),
                 phone: editPhone.value.trim(),
                 email: editEmail.value.trim(),
+                extraFields: Object.keys(extraFields).length ? extraFields : undefined,
             };
 
             saveContacts();
@@ -925,12 +992,36 @@
         addForm.addEventListener("submit", (event) => {
             event.preventDefault();
             const name = addName.value.trim();
-            if (!name) return;
+            const phone = addPhone.value.trim();
+            const email = addEmail.value.trim();
+            if (!name && !phone && !email && addExtraFields.children.length === 0) {
+                addErrorMessage.textContent = "Please fill at least one field before adding a contact.";
+                addErrorMessage.classList.remove("hidden");
+                return;
+            }
+
+            const extraFields = {};
+            addExtraFields.querySelectorAll('[data-extra-field-row="true"]').forEach((row) => {
+                const keyInput = row.querySelector('[data-extra-field-key="true"]');
+                const valueInput = row.querySelector('[data-extra-field-value="true"]');
+                const key = keyInput ? keyInput.value.trim() : "";
+                const value = valueInput ? valueInput.value.trim() : "";
+                if (key && value) {
+                    extraFields[key] = value;
+                }
+            });
+
+            if (!name && !phone && !email && Object.keys(extraFields).length === 0) {
+                addErrorMessage.textContent = "Please fill at least one field before adding a contact.";
+                addErrorMessage.classList.remove("hidden");
+                return;
+            }
 
             contacts.push({
                 name,
-                phone: addPhone.value.trim(),
-                email: addEmail.value.trim(),
+                phone,
+                email,
+                extraFields: Object.keys(extraFields).length ? extraFields : undefined,
             });
 
             saveContacts();
@@ -940,6 +1031,30 @@
 
         searchInput.addEventListener("input", renderContacts);
         addContactButton.addEventListener("click", openAddModal);
+        addExtraFieldButton.addEventListener("click", () => {
+            const row = document.createElement("div");
+            row.setAttribute("data-extra-field-row", "true");
+            row.className = "grid gap-2 sm:grid-cols-[1fr_1fr_auto]";
+            row.innerHTML = `
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Field name
+                    <input type="text" data-extra-field-key="true"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Value
+                    <input type="text" data-extra-field-value="true"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <button type="button" class="mt-6 rounded-full border border-main-200 px-3 py-2 text-xs text-main-600">
+                    Remove
+                </button>
+            `;
+            row.querySelector("button").addEventListener("click", () => {
+                row.remove();
+            });
+            addExtraFields.appendChild(row);
+        });
         manageGroupsButton.addEventListener("click", () => {
             window.location.href = "/contacts/groups";
         });
