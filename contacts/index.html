@@ -295,7 +295,7 @@
                 <div class="flex items-center justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('addModal')"
                         class="rounded-full border border-main-200 px-4 py-2 text-xs text-main-700">Cancel</button>
-                    <button type="submit"
+                    <button type="submit" id="addSubmitButton"
                         class="rounded-full bg-main-900 px-4 py-2 text-xs text-main-50">Add</button>
                 </div>
             </form>
@@ -425,6 +425,7 @@
         const addEmail = document.getElementById("addEmail");
         const addForm = document.getElementById("addForm");
         const addErrorMessage = document.getElementById("addErrorMessage");
+        const addSubmitButton = document.getElementById("addSubmitButton");
         const addExtraFieldButton = document.getElementById("addExtraFieldButton");
         const addExtraFields = document.getElementById("addExtraFields");
 
@@ -468,6 +469,7 @@
                 extraFields.location = item.location;
             }
             return {
+                id: item?.id || null,
                 name: name || item?.primary_email || item?.primary_phone || "Unnamed contact",
                 phone: item?.primary_phone || "",
                 email: item?.primary_email || "",
@@ -576,14 +578,40 @@
             deleteModal.setAttribute("open", "");
         }
 
-        function confirmDelete() {
+        async function confirmDelete() {
             if (currentDeleteIndex === null) return;
-            contacts.splice(currentDeleteIndex, 1);
-            currentEditIndex = null;
-            currentDeleteIndex = null;
-            saveContacts();
-            renderContacts();
-            closeModal("deleteModal");
+            const contact = contacts[currentDeleteIndex];
+            const contactId = contact?.id;
+            try {
+                if (contactId) {
+                    await deleteContactsById([contactId]);
+                    await fetchContacts();
+                } else {
+                    contacts.splice(currentDeleteIndex, 1);
+                    renderContacts();
+                }
+                closeModal("deleteModal");
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Contact deleted",
+                        text: "The contact was removed successfully.",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } catch (error) {
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Delete failed",
+                        text: "Unable to delete this contact. Please try again.",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } finally {
+                currentEditIndex = null;
+                currentDeleteIndex = null;
+            }
         }
 
         function renderContacts() {
@@ -1034,8 +1062,23 @@
             return response.json();
         }
 
+        async function deleteContactsById(ids) {
+            const response = await fetch(contactsApiUrl, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ contacts: ids }),
+            });
+            if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+            }
+            return response.json();
+        }
+
         addForm.addEventListener("submit", async (event) => {
             event.preventDefault();
+            addErrorMessage.classList.add("hidden");
             const firstName = addFirstName.value.trim();
             const lastName = addLastName.value.trim();
             const phone = addPhone.value.trim();
@@ -1063,6 +1106,8 @@
             }));
 
             try {
+                addSubmitButton.disabled = true;
+                addSubmitButton.textContent = "Saving...";
                 const payload = {
                     first_name: firstName,
                     last_name: lastName,
@@ -1079,10 +1124,23 @@
                     await fetchContacts();
                 }
                 renderContacts();
+                addForm.reset();
+                addExtraFields.innerHTML = "";
                 closeModal("addModal");
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Contact added",
+                        text: "The contact was saved successfully.",
+                        confirmButtonText: "OK",
+                    });
+                }
             } catch (error) {
                 addErrorMessage.textContent = "Unable to save contact. Please try again.";
                 addErrorMessage.classList.remove("hidden");
+            } finally {
+                addSubmitButton.disabled = false;
+                addSubmitButton.textContent = "Add";
             }
         });
 
@@ -1214,6 +1272,7 @@
     <script type="module" src="../src/elements/layout/admin-dash-0/layout.js"></script>
     <script type="module" src="../src/elements/ui/app-modal.js"></script>
     <script type="module" src="../src/elements/ui/app-button.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
