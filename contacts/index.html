@@ -1023,9 +1023,43 @@
             URL.revokeObjectURL(url);
         }
 
-        editForm.addEventListener("submit", (event) => {
+        function splitName(fullName) {
+            const parts = String(fullName || "").trim().split(/\s+/).filter(Boolean);
+            if (parts.length === 0) return { firstName: "", lastName: "" };
+            if (parts.length === 1) return { firstName: parts[0], lastName: "" };
+            return { firstName: parts[0], lastName: parts.slice(1).join(" ") };
+        }
+
+        async function updateContact(contactId, payload) {
+            const response = await fetch(`${contactsApiUrl}/${contactId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+            if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        editForm.addEventListener("submit", async (event) => {
             event.preventDefault();
             if (currentEditIndex === null) return;
+            const currentContact = contacts[currentEditIndex];
+            const contactId = currentContact?.id;
+            if (!contactId) {
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update failed",
+                        text: "This contact cannot be updated yet. Please refresh and try again.",
+                        confirmButtonText: "OK",
+                    });
+                }
+                return;
+            }
 
             const extraFields = {};
             editExtraFields.querySelectorAll("input[data-label]").forEach((input) => {
@@ -1036,16 +1070,55 @@
                 }
             });
 
-            contacts[currentEditIndex] = {
-                name: editName.value.trim(),
-                phone: editPhone.value.trim(),
-                email: editEmail.value.trim(),
-                extraFields: Object.keys(extraFields).length ? extraFields : undefined,
-            };
+            const { firstName, lastName } = splitName(editName.value);
+            if (!firstName || !lastName) {
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Last name required",
+                        text: "Please enter both first and last name.",
+                        confirmButtonText: "OK",
+                    });
+                }
+                return;
+            }
 
-            saveContacts();
-            renderContacts();
-            closeModal("editModal");
+            const attributes = Object.entries(extraFields).map(([key, value]) => ({
+                key,
+                value,
+            }));
+
+            try {
+                const payload = {
+                    first_name: firstName,
+                    last_name: lastName,
+                    primary_email: editEmail.value.trim() || null,
+                    primary_phone: editPhone.value.trim() || null,
+                    location: null,
+                    groups: [],
+                    attributes,
+                };
+                await updateContact(contactId, payload);
+                await fetchContacts();
+                closeModal("editModal");
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Contact updated",
+                        text: "The contact was updated successfully.",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } catch (error) {
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update failed",
+                        text: "Unable to update this contact. Please try again.",
+                        confirmButtonText: "OK",
+                    });
+                }
+            }
         });
 
         async function createContact(payload) {
