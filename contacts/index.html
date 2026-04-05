@@ -261,8 +261,13 @@
             <form id="addForm" class="mt-4 max-h-[70vh] space-y-3 overflow-y-auto pr-1">
                 <p id="addErrorMessage" class="hidden text-xs text-red-600"></p>
                 <label class="block text-xs uppercase tracking-widest text-main-400">
-                    Name
-                    <input id="addName" type="text"
+                    First name
+                    <input id="addFirstName" type="text"
+                        class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
+                </label>
+                <label class="block text-xs uppercase tracking-widest text-main-400">
+                    Last name
+                    <input id="addLastName" type="text"
                         class="mt-1 w-full rounded-xl border border-main-200 px-3 py-2 text-sm text-main-700">
                 </label>
                 <label class="block text-xs uppercase tracking-widest text-main-400">
@@ -414,7 +419,8 @@
         const editForm = document.getElementById("editForm");
         const editExtraFields = document.getElementById("editExtraFields");
 
-        const addName = document.getElementById("addName");
+        const addFirstName = document.getElementById("addFirstName");
+        const addLastName = document.getElementById("addLastName");
         const addPhone = document.getElementById("addPhone");
         const addEmail = document.getElementById("addEmail");
         const addForm = document.getElementById("addForm");
@@ -1014,13 +1020,28 @@
             closeModal("editModal");
         });
 
-        addForm.addEventListener("submit", (event) => {
+        async function createContact(payload) {
+            const response = await fetch(contactsApiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+            if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        addForm.addEventListener("submit", async (event) => {
             event.preventDefault();
-            const name = addName.value.trim();
+            const firstName = addFirstName.value.trim();
+            const lastName = addLastName.value.trim();
             const phone = addPhone.value.trim();
             const email = addEmail.value.trim();
-            if (!name && !phone && !email && addExtraFields.children.length === 0) {
-                addErrorMessage.textContent = "Please fill at least one field before adding a contact.";
+            if (!firstName || !lastName) {
+                addErrorMessage.textContent = "First name and last name are required.";
                 addErrorMessage.classList.remove("hidden");
                 return;
             }
@@ -1036,22 +1057,33 @@
                 }
             });
 
-            if (!name && !phone && !email && Object.keys(extraFields).length === 0) {
-                addErrorMessage.textContent = "Please fill at least one field before adding a contact.";
+            const attributes = Object.entries(extraFields).map(([key, value]) => ({
+                key,
+                value,
+            }));
+
+            try {
+                const payload = {
+                    first_name: firstName,
+                    last_name: lastName,
+                    primary_email: email || null,
+                    primary_phone: phone || null,
+                    location: null,
+                    groups: [],
+                    attributes,
+                };
+                const result = await createContact(payload);
+                if (result?.contact) {
+                    contacts.unshift(mapApiContact(result.contact));
+                } else {
+                    await fetchContacts();
+                }
+                renderContacts();
+                closeModal("addModal");
+            } catch (error) {
+                addErrorMessage.textContent = "Unable to save contact. Please try again.";
                 addErrorMessage.classList.remove("hidden");
-                return;
             }
-
-            contacts.push({
-                name,
-                phone,
-                email,
-                extraFields: Object.keys(extraFields).length ? extraFields : undefined,
-            });
-
-            saveContacts();
-            renderContacts();
-            closeModal("addModal");
         });
 
         searchInput.addEventListener("input", renderContacts);
